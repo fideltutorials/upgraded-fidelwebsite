@@ -21,24 +21,24 @@ export default function NavbarSixth() {
   return (
     <>
       <header className="sticky top-0 z-50 w-full bg-brand-paper/90 backdrop-blur-md border-b border-brand-rule">
-        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
           
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 group">
-            <span className="w-9 h-9 rounded-lg bg-brand-primary flex items-center justify-center text-brand-secondary font-serif font-bold text-lg shadow-sm group-hover:scale-[1.03] transition-transform">
+          {/* Logo - Enlarged */}
+          <a href="/" className="flex items-center gap-3 group">
+            <span className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-brand-secondary font-serif font-bold text-xl shadow-md group-hover:scale-[1.03] transition-transform">
               ፊ
             </span>
-            <span className="font-serif font-bold text-base text-brand-ink">
+            <span className="font-serif font-bold text-lg text-brand-ink">
               Fidel Tutorial
             </span>
           </a>
 
-          {/* Clean Navigation Row */}
-          <nav className="hidden md:flex items-center gap-2 lg:gap-4">
+          {/* Clean Navigation Row - Enlarged Text & Gaps */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             
             <a
               href="/"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary transition-colors"
+              className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary transition-colors"
             >
               Home
             </a>
@@ -47,24 +47,24 @@ export default function NavbarSixth() {
             <div className="relative group py-2">
               <a
                 href="/programs"
-                className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary flex items-center gap-1 transition-colors"
+                className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary flex items-center gap-1.5 transition-colors"
               >
                 <span>Programs</span>
-                <HugeiconsIcon icon={ChevronDownIcon} size={10} className="opacity-55 transition-transform duration-200 group-hover:rotate-180" />
+                <HugeiconsIcon icon={ChevronDownIcon} size={12} className="opacity-55 transition-transform duration-200 group-hover:rotate-180" />
               </a>
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
-                <div className="bg-brand-paper/95 backdrop-blur-md border border-brand-rule p-2 rounded-xl shadow-xl w-60 flex flex-col gap-0.5">
+                <div className="bg-brand-paper/95 backdrop-blur-md border border-brand-rule p-3 rounded-xl shadow-xl w-64 flex flex-col gap-1">
                   <a href="/programs/one-on-one" className="group block p-2.5 rounded-lg hover:bg-brand-cream-warm/40 transition-colors">
-                    <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">One-on-One Tutoring</span>
-                    <span className="block text-[9.5px] text-brand-muted mt-0.5">Vetted personal matching for KG to University.</span>
+                    <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary">One-on-One Tutoring</span>
+                    <span className="block text-[11px] text-brand-muted mt-0.5">Vetted personal matching for KG to University.</span>
                   </a>
                   <a href="/programs/exam-bootcamps" className="group block p-2.5 rounded-lg hover:bg-brand-cream-warm/40 transition-colors">
-                    <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">Intensive Exam Cohorts</span>
-                    <span className="block text-[9.5px] text-brand-muted mt-0.5">Grade 6, 8, and 12 mock prep cycles.</span>
+                    <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary">Intensive Exam Cohorts</span>
+                    <span className="block text-[11px] text-brand-muted mt-0.5">Grade 6, 8, and 12 mock prep cycles.</span>
                   </a>
                   <a href="/programs/test-prep" className="group block p-2.5 rounded-lg hover:bg-brand-cream-warm/40 transition-colors">
-                    <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">SAT · TOEFL Prep</span>
-                    <span className="block text-[9.5px] text-brand-muted mt-0.5">Mock testing database and feedback.</span>
+                    <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary">SAT · TOEFL Prep</span>
+                    <span className="block text-[11px] text-brand-muted mt-0.5">Mock testing database and feedback.</span>
                   </a>
                 </div>
               </div>
@@ -74,28 +74,28 @@ export default function NavbarSixth() {
             <div className="relative group py-2">
               <a
                 href="/schools"
-                className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary flex items-center gap-1 transition-colors"
+                className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary flex items-center gap-1.5 transition-colors"
               >
                 <span>Partnerships</span>
-                <HugeiconsIcon icon={ChevronDownIcon} size={10} className="opacity-55 transition-transform duration-200 group-hover:rotate-180" />
+                <HugeiconsIcon icon={ChevronDownIcon} size={12} className="opacity-55 transition-transform duration-200 group-hover:rotate-180" />
               </a>
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
-                <div className="bg-brand-paper/95 backdrop-blur-md border border-brand-rule p-2 rounded-xl shadow-xl w-60 flex flex-col gap-0.5">
+                <div className="bg-brand-paper/95 backdrop-blur-md border border-brand-rule p-3 rounded-xl shadow-xl w-64 flex flex-col gap-1">
                   <a href="/schools/consulting" className="group block p-2.5 rounded-lg hover:bg-brand-cream-warm/40 transition-colors">
-                    <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">Institution Consulting</span>
-                    <span className="block text-[9.5px] text-brand-muted mt-0.5">Staff development audits & teacher training.</span>
+                    <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary">Institution Consulting</span>
+                    <span className="block text-[11px] text-brand-muted mt-0.5">Staff development audits & teacher training.</span>
                   </a>
                   <a href="/schools/lms-licensing" className="group block p-2.5 rounded-lg hover:bg-brand-cream-warm/40 transition-colors">
-                    <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">LMS Portal Access</span>
-                    <span className="block text-[9.5px] text-brand-muted mt-0.5">White-labeled software for private academies.</span>
+                    <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary">LMS Portal Access</span>
+                    <span className="block text-[11px] text-brand-muted mt-0.5">White-labeled software for private academies.</span>
                   </a>
                   <a href="/schools/ngo-programmes" className="group block p-2.5 rounded-lg hover:bg-brand-cream-warm/40 transition-colors">
-                    <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">NGO Programmes</span>
-                    <span className="block text-[9.5px] text-brand-muted mt-0.5">Accelerated reading clinics and non-profit aid.</span>
+                    <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary">NGO Programmes</span>
+                    <span className="block text-[11px] text-brand-muted mt-0.5">Accelerated reading clinics and non-profit aid.</span>
                   </a>
                   <a href="/diaspora" className="group block p-2.5 rounded-lg hover:bg-brand-cream-warm/40 transition-colors">
-                    <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">Diaspora Sponsoring</span>
-                    <span className="block text-[9.5px] text-brand-muted mt-0.5">Fund relatives' private packages back home in USD.</span>
+                    <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary">Diaspora Sponsoring</span>
+                    <span className="block text-[11px] text-brand-muted mt-0.5">Fund relatives' private packages back home in USD.</span>
                   </a>
                 </div>
               </div>
@@ -103,31 +103,31 @@ export default function NavbarSixth() {
 
             <a
               href="/resources"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary transition-colors"
+              className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary transition-colors"
             >
               Resources
             </a>
             <a
               href="/blog"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary transition-colors"
+              className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary transition-colors"
             >
               Blog
             </a>
             <a
               href="/tutors"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary transition-colors"
+              className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary transition-colors"
             >
               Tutors
             </a>
             <a
               href="/about"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary transition-colors"
+              className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary transition-colors"
             >
               About
             </a>
             <a
               href="/contact"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-brand-ink hover:text-brand-primary transition-colors"
+              className="px-3 py-2 rounded-lg text-[13.5px] font-semibold text-brand-ink hover:text-brand-primary transition-colors"
             >
               Contact
             </a>
@@ -140,8 +140,8 @@ export default function NavbarSixth() {
               href="/book"
               className={buttonVariants({
                 variant: "default",
-                size: "sm",
-                className: "hidden md:inline-flex rounded-full text-[11px] font-bold px-4.5 py-2 shadow-sm hover:scale-[1.02] transition-transform",
+                size: "lg",
+                className: "hidden md:inline-flex rounded-full text-xs font-bold px-5 py-3 shadow-md hover:scale-[1.02] transition-transform",
               })}
             >
               Book Free Trial
@@ -149,10 +149,10 @@ export default function NavbarSixth() {
             
             <button
               onClick={() => setMobileOpen(true)}
-              className="md:hidden w-9 h-9 rounded-lg border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors cursor-pointer"
+              className="md:hidden w-11 h-11 rounded-xl border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors cursor-pointer"
               aria-label="Open menu"
             >
-              <HugeiconsIcon icon={Menu01Icon} size={18} className="text-brand-ink" />
+              <HugeiconsIcon icon={Menu01Icon} size={20} className="text-brand-ink" />
             </button>
           </div>
 
