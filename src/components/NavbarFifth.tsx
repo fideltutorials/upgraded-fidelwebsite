@@ -18,48 +18,72 @@ export default function NavbarFifth() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-brand-rule">
-        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 w-full bg-brand-paper/90 backdrop-blur-md border-b border-brand-rule">
+        <div className="max-w-[1250px] mx-auto px-6 h-16 flex items-center justify-between">
           
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 group">
+          <a href="/" className="flex items-center gap-2.5 group mr-4">
             <span className="w-9 h-9 rounded-lg bg-brand-primary flex items-center justify-center text-brand-secondary font-serif font-bold text-lg shadow-sm group-hover:scale-[1.03] transition-transform">
               ፊ
             </span>
-            <span className="font-serif font-bold text-base text-brand-ink">
+            <span className="font-serif font-bold text-sm text-brand-ink hidden lg:inline-block">
               Fidel Tutorial
             </span>
           </a>
 
-          {/* Minimal Links */}
-          <nav className="hidden md:flex items-center gap-1.5">
+          {/* Clean Navigation Links */}
+          <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
+            <a
+              href="/"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+            >
+              Home
+            </a>
             <a
               href="/programs"
-              className="px-4 py-2 rounded-lg text-xs font-bold text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
             >
               Programs
             </a>
             <a
-              href="/tutors"
-              className="px-4 py-2 rounded-lg text-xs font-bold text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+              href="/schools"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
             >
-              Tutors
+              Partnerships
             </a>
             <a
               href="/diaspora"
-              className="px-4 py-2 rounded-lg text-xs font-bold text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
             >
               Diaspora
             </a>
             <a
               href="/resources"
-              className="px-4 py-2 rounded-lg text-xs font-bold text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
             >
               Resources
             </a>
             <a
+              href="/blog"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+            >
+              Blog
+            </a>
+            <a
+              href="/tutors"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+            >
+              Tutors
+            </a>
+            <a
+              href="/about"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+            >
+              About
+            </a>
+            <a
               href="/contact"
-              className="px-4 py-2 rounded-lg text-xs font-bold text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
+              className="px-2.5 py-1.5 rounded-lg text-[10.5px] font-bold uppercase tracking-wider text-brand-ink hover:text-brand-primary hover:bg-brand-cream-warm/40 transition-all"
             >
               Contact
             </a>
@@ -72,7 +96,7 @@ export default function NavbarFifth() {
               className={buttonVariants({
                 variant: "default",
                 size: "sm",
-                className: "hidden md:inline-flex rounded-full text-[11px] font-bold px-4 py-2 shadow-sm hover:scale-[1.02] transition-transform",
+                className: "hidden md:inline-flex rounded-full text-[10.5px] font-bold px-4 py-2 shadow-sm hover:scale-[1.02] transition-transform",
               })}
             >
               Book Free Trial
@@ -105,7 +129,7 @@ export default function NavbarFifth() {
               </button>
             </div>
 
-            <nav className="flex flex-col gap-2.5">
+            <nav className="flex flex-col gap-2">
               <a
                 href="/"
                 onClick={() => setMobileOpen(false)}
@@ -121,11 +145,11 @@ export default function NavbarFifth() {
                 Programs
               </a>
               <a
-                href="/tutors"
+                href="/schools"
                 onClick={() => setMobileOpen(false)}
                 className="px-3 py-2 rounded-lg text-xs font-bold text-brand-ink hover:bg-brand-cream-warm transition-all"
               >
-                Tutors
+                Partnerships
               </a>
               <a
                 href="/diaspora"
@@ -140,6 +164,27 @@ export default function NavbarFifth() {
                 className="px-3 py-2 rounded-lg text-xs font-bold text-brand-ink hover:bg-brand-cream-warm transition-all"
               >
                 Resources
+              </a>
+              <a
+                href="/blog"
+                onClick={() => setMobileOpen(false)}
+                className="px-3 py-2 rounded-lg text-xs font-bold text-brand-ink hover:bg-brand-cream-warm transition-all"
+              >
+                Blog
+              </a>
+              <a
+                href="/tutors"
+                onClick={() => setMobileOpen(false)}
+                className="px-3 py-2 rounded-lg text-xs font-bold text-brand-ink hover:bg-brand-cream-warm transition-all"
+              >
+                Tutors
+              </a>
+              <a
+                href="/about"
+                onClick={() => setMobileOpen(false)}
+                className="px-3 py-2 rounded-lg text-xs font-bold text-brand-ink hover:bg-brand-cream-warm transition-all"
+              >
+                About
               </a>
               <a
                 href="/contact"
