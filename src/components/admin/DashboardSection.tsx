@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import DashboardCharts from "./DashboardCharts";
 
 interface BlogPost {
   id: number;
@@ -68,11 +69,7 @@ export default function DashboardSection({ onNavigate }: DashboardSectionProps) 
   const totalBookings = bookings.length;
   const pendingBookings = bookings.filter((b) => b.status === "pending").length;
 
-  const recentBlogs = [...blogs]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .slice(0, 3);
-  const recentTutors = [...tutors].reverse().slice(0, 3);
-  const recentBookings = [...bookings].reverse().slice(0, 3);
+
 
   if (loading) {
     return (
@@ -120,120 +117,8 @@ export default function DashboardSection({ onNavigate }: DashboardSectionProps) 
         </button>
       </div>
 
-      {/* Recent activity cards */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Recent Bookings */}
-        <div className="bg-white rounded-2xl border border-brand-rule shadow-sm overflow-hidden flex flex-col">
-          <div className="p-5 border-b border-brand-rule bg-brand-cream-warm/10">
-            <h3 className="font-serif text-base font-bold text-brand-ink">Recent Bookings</h3>
-          </div>
-          <div className="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              {recentBookings.length === 0 ? (
-                <p className="text-brand-muted text-sm my-4 text-center">No bookings yet.</p>
-              ) : (
-                <ul className="divide-y divide-brand-rule/40">
-                  {recentBookings.map((b) => (
-                    <li key={b.id} className="py-3 flex items-center justify-between first:pt-0 last:pb-0">
-                      <span className="text-sm font-semibold text-brand-ink truncate max-w-[140px]">
-                        {b.parentName}
-                      </span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[11px] text-brand-muted">{b.grade}</span>
-                        <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase ${
-                          b.status === "pending"
-                            ? "bg-amber-50 text-amber-700 border border-amber-100"
-                            : b.status === "confirmed"
-                              ? "bg-blue-50 text-blue-700 border border-blue-100"
-                              : b.status === "completed"
-                                ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                                : "bg-red-50 text-red-700 border border-red-100"
-                        }`}>
-                          {b.status}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <button
-              onClick={() => onNavigate("bookings")}
-              className="mt-5 w-full text-center bg-brand-primary hover:bg-brand-primary-deep text-brand-paper py-2.5 rounded-xl text-xs font-semibold shadow-sm transition-colors cursor-pointer"
-            >
-              Manage Bookings
-            </button>
-          </div>
-        </div>
-
-        {/* Recent Blogs */}
-        <div className="bg-white rounded-2xl border border-brand-rule shadow-sm overflow-hidden flex flex-col">
-          <div className="p-5 border-b border-brand-rule bg-brand-cream-warm/10">
-            <h3 className="font-serif text-base font-bold text-brand-ink">Recent Posts</h3>
-          </div>
-          <div className="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              {recentBlogs.length === 0 ? (
-                <p className="text-brand-muted text-sm my-4 text-center">No posts yet.</p>
-              ) : (
-                <ul className="divide-y divide-brand-rule/40">
-                  {recentBlogs.map((b) => (
-                    <li key={b.id} className="py-3 flex items-center justify-between first:pt-0 last:pb-0">
-                      <span className="text-sm font-semibold text-brand-ink truncate max-w-[150px]">
-                        {b.title}
-                      </span>
-                      <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-bold ${
-                        b.published ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-amber-50 text-amber-700 border border-amber-100"
-                      }`}>
-                        {b.published ? "Published" : "Draft"}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <button
-              onClick={() => onNavigate("blogs")}
-              className="mt-5 w-full text-center bg-brand-primary hover:bg-brand-primary-deep text-brand-paper py-2.5 rounded-xl text-xs font-semibold shadow-sm transition-colors cursor-pointer"
-            >
-              Manage Blogs
-            </button>
-          </div>
-        </div>
-
-        {/* Recent Tutors */}
-        <div className="bg-white rounded-2xl border border-brand-rule shadow-sm overflow-hidden flex flex-col">
-          <div className="p-5 border-b border-brand-rule bg-brand-cream-warm/10">
-            <h3 className="font-serif text-base font-bold text-brand-ink">Recent Tutors</h3>
-          </div>
-          <div className="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              {recentTutors.length === 0 ? (
-                <p className="text-brand-muted text-sm my-4 text-center">No tutors yet.</p>
-              ) : (
-                <ul className="divide-y divide-brand-rule/40">
-                  {recentTutors.map((t) => (
-                    <li key={t.id} className="py-3 flex items-center justify-between first:pt-0 last:pb-0">
-                      <span className="text-sm font-semibold text-brand-ink truncate max-w-[150px]">
-                        {t.name}
-                      </span>
-                      <span className="text-xs text-brand-muted truncate max-w-[140px]">
-                        {t.specialties.join(", ")}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <button
-              onClick={() => onNavigate("tutors")}
-              className="mt-5 w-full text-center bg-brand-primary hover:bg-brand-primary-deep text-brand-paper py-2.5 rounded-xl text-xs font-semibold shadow-sm transition-colors cursor-pointer"
-            >
-              Manage Tutors
-            </button>
-          </div>
-        </div>
-      </div>
+      {/* Dashboard Charts */}
+      <DashboardCharts bookings={bookings} tutors={tutors} blogs={blogs} />
     </div>
   );
 }

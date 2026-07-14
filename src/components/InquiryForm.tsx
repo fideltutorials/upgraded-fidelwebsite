@@ -6,18 +6,40 @@ export default function InquiryForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    
-    // Simulate submission
-    setTimeout(() => {
+    setError("");
+
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          source: "contact",
+          honeypot,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await res.json();
+        setError(data.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
       setSubmitting(false);
-      setSubmitted(true);
-    }, 600);
+    }
   };
 
   if (submitted) {
@@ -54,11 +76,30 @@ export default function InquiryForm() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="name" className="font-semibold text-xs text-brand-ink">Full Name</label>
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl">
+          {error}
+        </div>
+      )}
+
+      {/* Honeypot field — hidden from real users, bots fill it in */}
+      <div className="absolute opacity-0 pointer-events-none h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
+        <label htmlFor="website_url">Website</label>
         <input
           type="text"
-          id="name"
+          id="website_url"
+          name="website_url"
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="inquiry-name" className="font-semibold text-xs text-brand-ink">Full Name</label>
+        <input
+          type="text"
+          id="inquiry-name"
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -68,10 +109,10 @@ export default function InquiryForm() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="email" className="font-semibold text-xs text-brand-ink">Email Address</label>
+        <label htmlFor="inquiry-email" className="font-semibold text-xs text-brand-ink">Email Address</label>
         <input
           type="email"
-          id="email"
+          id="inquiry-email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -81,9 +122,9 @@ export default function InquiryForm() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="message" className="font-semibold text-xs text-brand-ink">Message</label>
+        <label htmlFor="inquiry-message" className="font-semibold text-xs text-brand-ink">Message</label>
         <textarea
-          id="message"
+          id="inquiry-message"
           required
           rows={4}
           value={message}

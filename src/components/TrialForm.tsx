@@ -15,14 +15,49 @@ export default function TrialForm() {
     message: "",
   });
 
+  const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API Submission
-    setTimeout(() => {
+
+    // Honeypot check
+    if (honeypot) {
       setSubmitted(true);
-    }, 500);
+      return;
+    }
+
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          parentName: formData.parentName || formData.studentName,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subjects,
+          grade: formData.grade,
+          format: formData.format,
+          message: formData.message || null,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await res.json();
+        setError(data.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -36,7 +71,19 @@ export default function TrialForm() {
           Thank you for requesting a free trial. One of our educational advisors will call you at <strong className="text-brand-ink">{formData.phone}</strong> within 24 to 48 hours to confirm scheduling and matching.
         </p>
         <button
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false);
+            setFormData({
+              studentName: "",
+              parentName: "",
+              phone: "",
+              email: "",
+              grade: "Grade 9-12",
+              format: "In-Home Tutoring",
+              subjects: "",
+              message: "",
+            });
+          }}
           className="mt-2 text-xs font-bold text-brand-primary border-b border-brand-primary pb-0.5"
         >
           Submit another request
@@ -52,6 +99,25 @@ export default function TrialForm() {
         <p className="text-brand-muted text-xs leading-relaxed">
           Tell us about your student's goals. The first 1-hour assessment session is completely on us.
         </p>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl">
+          {error}
+        </div>
+      )}
+
+      {/* Honeypot field — hidden from real users */}
+      <div className="absolute opacity-0 pointer-events-none h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
+        <label htmlFor="trial_url">Website</label>
+        <input
+          type="text"
+          id="trial_url"
+          name="trial_url"
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -166,9 +232,10 @@ export default function TrialForm() {
       <Button
         type="submit"
         size="lg"
+        disabled={submitting}
         className="w-full py-6 rounded-lg font-bold mt-2"
       >
-        Submit Free Trial Request →
+        {submitting ? "Submitting..." : "Submit Free Trial Request →"}
       </Button>
     </form>
   );
