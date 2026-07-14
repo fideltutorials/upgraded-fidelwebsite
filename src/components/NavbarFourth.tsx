@@ -9,7 +9,10 @@ import {
   ArrowRight01Icon,
   Award01Icon,
   SchoolIcon,
-  GlobeIcon
+  GlobeIcon,
+  BookUserIcon,
+  UserGroupIcon,
+  Book02Icon
 } from "@hugeicons/core-free-icons";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -87,11 +90,6 @@ export default function NavbarFourth() {
               </li>
 
               <li onMouseEnter={() => setOpenMega(null)}>
-                <a href="/diaspora" className="px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors">
-                  Diaspora
-                </a>
-              </li>
-              <li onMouseEnter={() => setOpenMega(null)}>
                 <a href="/resources" className="px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors">
                   Resources
                 </a>
@@ -143,37 +141,46 @@ export default function NavbarFourth() {
             onMouseEnter={() => setOpenMega("programs")}
             onMouseLeave={() => setOpenMega(null)}
           >
-            <div className="max-w-[1200px] mx-auto px-6 py-8 grid grid-cols-3 gap-8">
+            <div className="max-w-[1200px] mx-auto px-6 py-8 grid grid-cols-3 gap-6">
 
-              <div className="flex flex-col gap-3">
-                <span className="text-brand-primary font-serif font-bold text-sm border-b border-brand-rule pb-2 flex items-center gap-1.5">
-                  <HugeiconsIcon icon={Award01Icon} size={16} /> Individual Formats
-                </span>
-                <a href="/programs/one-on-one" className="group block">
-                  <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">One-on-One Tutoring</span>
-                  <span className="block text-[10.5px] text-brand-muted mt-0.5">Vetted personal matching for KG to University.</span>
-                </a>
-              </div>
+              <a 
+                href="/programs/one-on-one" 
+                className="group block p-5 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 border border-brand-rule/60 hover:border-brand-primary/20 rounded-2xl transition-all hover:shadow-md hover:shadow-brand-primary/5"
+              >
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <span className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                    <HugeiconsIcon icon={BookUserIcon} size={15} />
+                  </span>
+                  <span className="text-xs font-bold text-brand-ink group-hover:text-brand-primary transition-colors">One-on-One Tutoring</span>
+                </div>
+                <span className="block text-[10.5px] text-brand-muted leading-relaxed">Vetted personal matching and diagnostic skills alignment for KG to University.</span>
+              </a>
 
-              <div className="flex flex-col gap-3">
-                <span className="text-brand-primary font-serif font-bold text-sm border-b border-brand-rule pb-2 flex items-center gap-1.5">
-                  <HugeiconsIcon icon={Award01Icon} size={16} /> Exam Bootcamps
-                </span>
-                <a href="/programs/exam-bootcamps" className="group block">
-                  <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">Intensive Exam Cohorts</span>
-                  <span className="block text-[10.5px] text-brand-muted mt-0.5">Grade 6, 8, and 12 mock preparation cycles.</span>
-                </a>
-              </div>
+              <a 
+                href="/programs/exam-bootcamps" 
+                className="group block p-5 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 border border-brand-rule/60 hover:border-brand-primary/20 rounded-2xl transition-all hover:shadow-md hover:shadow-brand-primary/5"
+              >
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <span className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                    <HugeiconsIcon icon={Award01Icon} size={15} />
+                  </span>
+                  <span className="text-xs font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Intensive Exam Cohorts</span>
+                </div>
+                <span className="block text-[10.5px] text-brand-muted leading-relaxed">Grade 6, 8, and 12 EHEECE national mock exam prep cycles under real timed setups.</span>
+              </a>
 
-              <div className="flex flex-col gap-3">
-                <span className="text-brand-primary font-serif font-bold text-sm border-b border-brand-rule pb-2 flex items-center gap-1.5">
-                  <HugeiconsIcon icon={Award01Icon} size={16} /> Advanced Tests
-                </span>
-                <a href="/programs/test-prep" className="group block">
-                  <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">SAT · TOEFL Preparation</span>
-                  <span className="block text-[10.5px] text-brand-muted mt-0.5">Mock testing database and live feedback sessions.</span>
-                </a>
-              </div>
+              <a 
+                href="/programs/test-prep" 
+                className="group block p-5 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 border border-brand-rule/60 hover:border-brand-primary/20 rounded-2xl transition-all hover:shadow-md hover:shadow-brand-primary/5"
+              >
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <span className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                    <HugeiconsIcon icon={Book02Icon} size={15} />
+                  </span>
+                  <span className="text-xs font-bold text-brand-ink group-hover:text-brand-primary transition-colors">SAT · TOEFL Preparation</span>
+                </div>
+                <span className="block text-[10.5px] text-brand-muted leading-relaxed">Interactive mock testing database, skills diagnostic audit, and live strategy sessions.</span>
+              </a>
 
             </div>
           </div>
@@ -185,37 +192,59 @@ export default function NavbarFourth() {
             onMouseEnter={() => setOpenMega("schools")}
             onMouseLeave={() => setOpenMega(null)}
           >
-            <div className="max-w-[1200px] mx-auto px-6 py-8 grid grid-cols-3 gap-8">
+            <div className="max-w-[1200px] mx-auto px-6 py-8 grid grid-cols-4 gap-6">
 
-              <div className="flex flex-col gap-3">
-                <span className="text-brand-primary font-serif font-bold text-sm border-b border-brand-rule pb-2 flex items-center gap-1.5">
-                  <HugeiconsIcon icon={SchoolIcon} size={16} /> Consulting
-                </span>
-                <a href="/schools/consulting" className="group block">
-                  <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">Institution Programs</span>
-                  <span className="block text-[10.5px] text-brand-muted mt-0.5">Staff development audits & teacher training cycles.</span>
-                </a>
-              </div>
+              <a 
+                href="/schools/consulting" 
+                className="group block p-5 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 border border-brand-rule/60 hover:border-brand-primary/20 rounded-2xl transition-all hover:shadow-md hover:shadow-brand-primary/5"
+              >
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <span className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                    <HugeiconsIcon icon={SchoolIcon} size={15} />
+                  </span>
+                  <span className="text-xs font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Institution Consulting</span>
+                </div>
+                <span className="block text-[10.5px] text-brand-muted leading-relaxed">Staff audits, curriculum mapping, and teacher training blocks for private schools.</span>
+              </a>
 
-              <div className="flex flex-col gap-3">
-                <span className="text-brand-primary font-serif font-bold text-sm border-b border-brand-rule pb-2 flex items-center gap-1.5">
-                  <HugeiconsIcon icon={SchoolIcon} size={16} /> Licensing
-                </span>
-                <a href="/schools/lms-licensing" className="group block">
-                  <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">LMS Portal Access</span>
-                  <span className="block text-[10.5px] text-brand-muted mt-0.5">White-labeled software for private academies.</span>
-                </a>
-              </div>
+              <a 
+                href="/schools/lms-licensing" 
+                className="group block p-5 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 border border-brand-rule/60 hover:border-brand-primary/20 rounded-2xl transition-all hover:shadow-md hover:shadow-brand-primary/5"
+              >
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <span className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                    <HugeiconsIcon icon={SchoolIcon} size={15} />
+                  </span>
+                  <span className="text-xs font-bold text-brand-ink group-hover:text-brand-primary transition-colors">LMS Portal Access</span>
+                </div>
+                <span className="block text-[10.5px] text-brand-muted leading-relaxed">White-labeled learning management software licensed to private academies.</span>
+              </a>
 
-              <div className="flex flex-col gap-3">
-                <span className="text-brand-primary font-serif font-bold text-sm border-b border-brand-rule pb-2 flex items-center gap-1.5">
-                  <HugeiconsIcon icon={GlobeIcon} size={16} /> Social Impact
-                </span>
-                <a href="/schools/ngo-programmes" className="group block">
-                  <span className="block text-xs font-bold text-brand-ink group-hover:text-brand-primary">NGO Partnerships</span>
-                  <span className="block text-[10.5px] text-brand-muted mt-0.5">Non-profit accelerated reading cycles in Addis.</span>
-                </a>
-              </div>
+              <a 
+                href="/schools/ngo-programmes" 
+                className="group block p-5 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 border border-brand-rule/60 hover:border-brand-primary/20 rounded-2xl transition-all hover:shadow-md hover:shadow-brand-primary/5"
+              >
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <span className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                    <HugeiconsIcon icon={UserGroupIcon} size={15} />
+                  </span>
+                  <span className="text-xs font-bold text-brand-ink group-hover:text-brand-primary transition-colors">NGO Programmes</span>
+                </div>
+                <span className="block text-[10.5px] text-brand-muted leading-relaxed">Non-profit accelerated reading clinics and educational aid partnerships.</span>
+              </a>
+
+              <a 
+                href="/diaspora" 
+                className="group block p-5 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 border border-brand-rule/60 hover:border-brand-primary/20 rounded-2xl transition-all hover:shadow-md hover:shadow-brand-primary/5"
+              >
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <span className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                    <HugeiconsIcon icon={GlobeIcon} size={15} />
+                  </span>
+                  <span className="text-xs font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Diaspora Sponsoring</span>
+                </div>
+                <span className="block text-[10.5px] text-brand-muted leading-relaxed">Fund and manage high-quality local packages back home securely in USD.</span>
+              </a>
 
             </div>
           </div>
@@ -316,11 +345,12 @@ export default function NavbarFourth() {
                       <span className="block text-sm font-bold text-brand-ink">NGO Partnerships</span>
                       <span className="block text-[10px] text-brand-muted mt-0.5">Non-profit accelerated reading cycles in Addis.</span>
                     </a>
+                    <a href="/diaspora" onClick={() => setMobileOpen(false)} className="block">
+                      <span className="block text-sm font-bold text-brand-ink">Diaspora Sponsoring</span>
+                      <span className="block text-[10px] text-brand-muted mt-0.5">Fund relatives' private packages back home securely in USD.</span>
+                    </a>
                   </div>
                 </div>
-              </li>
-              <li>
-                <a href="/diaspora" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink">Diaspora</a>
               </li>
               <li>
                 <a href="/resources" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink">Resources</a>
