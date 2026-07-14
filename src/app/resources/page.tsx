@@ -1,24 +1,116 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Layout from "@/layouts/Layout";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Book02Icon, BookOpenIcon, Award01Icon } from "@hugeicons/core-free-icons";
+import { Book02Icon, BookOpenIcon, Award01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import FaqAccordion from "@/components/FaqAccordion";
 
 interface Paper {
+  id?: number;
   title: string;
-  year: string;
-  grade: string;
+  year: string | null;
+  grade: string | null;
+  file: string | null;
+  isGated: boolean;
+  category: string;
 }
 
-const papers: Paper[] = [
-  { title: "Mathematics Examination Paper", year: "2025", grade: "Grade 12 / EHEECE" },
-  { title: "English Language Examination Paper", year: "2025", grade: "Grade 12 / EHEECE" },
-  { title: "General Sciences Diagnostic test", year: "2024", grade: "Grade 8" },
-  { title: "Aptitude & General Knowledge Mocks", year: "2024", grade: "Grade 6" },
+const STATIC_PAPERS: Paper[] = [
+  { id: 1, title: "Mathematics Examination Paper", year: "2025", grade: "Grade 12 / EHEECE", file: "#", isGated: true, category: "past-paper" },
+  { id: 2, title: "English Language Examination Paper", year: "2025", grade: "Grade 12 / EHEECE", file: "#", isGated: true, category: "past-paper" },
+  { id: 3, title: "General Sciences Diagnostic test", year: "2024", grade: "Grade 8", file: "#", isGated: false, category: "past-paper" },
+  { id: 4, title: "Aptitude & General Knowledge Mocks", year: "2024", grade: "Grade 6", file: "#", isGated: false, category: "past-paper" },
 ];
 
 export default function Resources() {
+  const [papers, setPapers] = useState<Paper[]>(STATIC_PAPERS);
+  const [loading, setLoading] = useState(true);
+
+  // Gate Modal State
+  const [activePaper, setActivePaper] = useState<Paper | null>(null);
+  const [gateOpen, setGateOpen] = useState(false);
+  const [leadName, setLeadName] = useState("");
+  const [leadEmail, setLeadEmail] = useState("");
+  const [leadPhone, setLeadPhone] = useState("");
+  const [submittingGate, setSubmittingGate] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
+  useEffect(() => {
+    // Check if user is already unlocked from localStorage
+    if (typeof window !== "undefined") {
+      const unlocked = localStorage.getItem("fidel_resources_unlocked");
+      if (unlocked === "true") {
+        setIsUnlocked(true);
+      }
+    }
+
+    const fetchResources = async () => {
+      try {
+        const res = await fetch("/api/resources");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            setPapers(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load resources:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchResources();
+  }, []);
+
+  const handleDownloadClick = (e: React.MouseEvent, paper: Paper) => {
+    if (paper.isGated && !isUnlocked) {
+      e.preventDefault();
+      setActivePaper(paper);
+      setGateOpen(true);
+    }
+  };
+
+  const handleGateSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadName || !leadEmail || !leadPhone || !activePaper) return;
+    setSubmittingGate(true);
+
+    try {
+      // POST the lead to our leads endpoint
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: leadName,
+          email: leadEmail,
+          phone: leadPhone,
+          message: `Unlocked gated resource: ${activePaper.title}`,
+          source: `resource_gate`,
+        }),
+      });
+
+      // Mark as unlocked in state and localStorage
+      setIsUnlocked(true);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("fidel_resources_unlocked", "true");
+      }
+
+      setGateOpen(false);
+
+      // Trigger the download of the file
+      if (activePaper.file && activePaper.file !== "#") {
+        window.open(activePaper.file, "_blank");
+      } else {
+        alert("Thank you! Since this is a sample placeholder resource, the file is not yet uploaded.");
+      }
+    } catch (err) {
+      console.error("Failed to submit download gate form:", err);
+    } finally {
+      setSubmittingGate(false);
+    }
+  };
+
   return (
     <Layout
       title="Free Learning Resources — Fidel Tutorial"
@@ -54,20 +146,52 @@ export default function Resources() {
               <p className="text-brand-muted text-sm leading-relaxed mb-6">
                 Get official past exam papers to understand question structure and common test patterns. Available for Grade 6, 8, and 12 levels.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {papers.map((paper, idx) => (
-                  <div key={idx} className="p-5 border border-brand-rule rounded-xl bg-brand-paper/50 flex flex-col justify-between hover:border-brand-primary transition-colors">
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-brand-secondary block mb-1">{paper.grade}</span>
-                      <h4 className="font-serif text-base font-bold text-brand-ink">{paper.title}</h4>
+
+              {loading && papers === STATIC_PAPERS ? (
+                <div className="text-center py-10">
+                  <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {papers.map((paper) => (
+                    <div key={paper.id} className="p-5 border border-brand-rule rounded-xl bg-brand-paper/50 flex flex-col justify-between hover:border-brand-primary transition-colors">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <span className="text-[10px] uppercase font-bold text-brand-secondary block">{paper.grade || "General"}</span>
+                          {paper.isGated && !isUnlocked && (
+                            <span className="bg-amber-50 text-amber-700 border border-amber-100 text-[9px] font-bold px-1.5 py-0.5 rounded-full flex items-center gap-1">
+                              🔒 Gated
+                            </span>
+                          )}
+                        </div>
+                        <h4 className="font-serif text-base font-bold text-brand-ink">{paper.title}</h4>
+                      </div>
+                      <div className="flex justify-between items-center mt-4 pt-3 border-t border-brand-rule/65 text-xs text-brand-muted">
+                        <span>Year: {paper.year || "N/A"}</span>
+                        {paper.file && paper.file !== "#" ? (
+                          <a
+                            href={paper.file}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => handleDownloadClick(e, paper)}
+                            className="font-bold text-brand-primary hover:text-brand-primary-deep"
+                          >
+                            Download PDF →
+                          </a>
+                        ) : (
+                          <a
+                            href="#"
+                            onClick={(e) => handleDownloadClick(e, paper)}
+                            className="font-bold text-brand-primary hover:text-brand-primary-deep"
+                          >
+                            Download PDF →
+                          </a>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center mt-4 pt-3 border-t border-brand-rule/65 text-xs text-brand-muted">
-                      <span>Year: {paper.year}</span>
-                      <a href="#" className="font-bold text-brand-primary hover:text-brand-primary-deep">Download PDF →</a>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Mock Exams */}
@@ -127,9 +251,7 @@ export default function Resources() {
                 Log in to your whiteboard dashboard to access homework, scheduled online sessions links, mock testing results reports, and review recordings.
               </p>
               <a 
-                href="https://lms.fideltutorial.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+                href="https://academy.fideltutorial.com" 
                 className="w-full text-center bg-brand-secondary hover:bg-brand-secondary-soft text-brand-ink py-3 rounded-lg font-bold text-xs inline-block transition-colors shadow-md"
               >
                 Access LMS Account Login
@@ -149,6 +271,73 @@ export default function Resources() {
           <FaqAccordion />
         </div>
       </section>
+
+      {/* Gated Resource Download Modal */}
+      {gateOpen && activePaper && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="relative w-full max-w-md bg-white border border-brand-rule p-8 rounded-2xl shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <button
+              onClick={() => setGateOpen(false)}
+              className="absolute top-4 right-4 text-brand-muted hover:text-brand-ink cursor-pointer"
+            >
+              <HugeiconsIcon icon={Cancel01Icon} size={18} />
+            </button>
+            <div className="mb-6">
+              <span className="text-[10px] uppercase font-bold text-brand-secondary block mb-1">Download Gate</span>
+              <h3 className="font-serif text-xl font-bold text-brand-ink leading-tight">Unlock {activePaper.title}</h3>
+              <p className="text-brand-muted text-xs mt-1.5 leading-relaxed">
+                Enter your details to unlock free instant access to all past papers and mock practice booklets.
+              </p>
+            </div>
+
+            <form onSubmit={handleGateSubmit} className="flex flex-col gap-4 text-xs">
+              <div className="flex flex-col gap-1">
+                <label htmlFor="gate-name" className="font-semibold text-brand-ink">Full Name</label>
+                <input
+                  type="text"
+                  id="gate-name"
+                  required
+                  placeholder="e.g. Samuel Ayele"
+                  value={leadName}
+                  onChange={(e) => setLeadName(e.target.value)}
+                  className="px-3.5 py-2.5 rounded-xl border border-brand-rule focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="gate-email" className="font-semibold text-brand-ink">Email Address</label>
+                <input
+                  type="email"
+                  id="gate-email"
+                  required
+                  placeholder="name@example.com"
+                  value={leadEmail}
+                  onChange={(e) => setLeadEmail(e.target.value)}
+                  className="px-3.5 py-2.5 rounded-xl border border-brand-rule focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="gate-phone" className="font-semibold text-brand-ink">Phone Number</label>
+                <input
+                  type="tel"
+                  id="gate-phone"
+                  required
+                  placeholder="e.g. +251 912 345..."
+                  value={leadPhone}
+                  onChange={(e) => setLeadPhone(e.target.value)}
+                  className="px-3.5 py-2.5 rounded-xl border border-brand-rule focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={submittingGate}
+                className="mt-2 w-full bg-brand-primary text-brand-paper hover:bg-brand-primary-deep py-3.5 rounded-xl font-bold transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                {submittingGate ? "Unlocking..." : "Unlock & Download PDF"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 }
