@@ -1,57 +1,64 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "@/layouts/Layout";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Award01Icon, UserGroupIcon, GlobeIcon, StarIcon } from "@hugeicons/core-free-icons";
 
 interface Testimonial {
-  quote: string;
-  author: string;
+  id: number;
+  authorName: string;
   role: string;
-  category: "all" | "parents" | "diaspora" | "bootcamps";
+  quote: string;
+  category: string;
   initials: string;
 }
 
-const testimonials: Testimonial[] = [
+const FALLBACK_TESTIMONIALS: Testimonial[] = [
   {
+    id: 1,
     quote: "The change was not just in the marks — it was in how she sat down to study. The tutor didn't just teach the subject, she taught my daughter how to learn it.",
-    author: "Meron T.",
+    authorName: "Meron T.",
     role: "Parent of a Grade-9 student · Bole",
     category: "parents",
     initials: "MT",
   },
   {
+    id: 2,
     quote: "We are in Washington and our nephew is in Addis. Fidel made it simple — we pay here, he learns there, and we get a monthly progress note. It just works.",
-    author: "Tewodros A.",
+    authorName: "Tewodros A.",
     role: "Diaspora sponsor · Washington, DC",
     category: "diaspora",
     initials: "TA",
   },
   {
+    id: 3,
     quote: "The Grade-12 bootcamp was the most organised support my son received in his exam year. Weekly mocks made the real exam feel ordinary.",
-    author: "Rahel B.",
+    authorName: "Rahel B.",
     role: "Parent of an EHEECE candidate · Lebu",
     category: "bootcamps",
     initials: "RB",
   },
   {
+    id: 4,
     quote: "Finding a tutor back home used to be a hassle of trust. Fidel's monthly feedback logs and Stripe USD payment portal makes sponsoring my siblings' education entirely hands-off.",
-    author: "Saron W.",
+    authorName: "Saron W.",
     role: "Diaspora Sponsor · London, UK",
     category: "diaspora",
     initials: "SW",
   },
   {
+    id: 5,
     quote: "My math diagnostic went from 45% in October to 88% on the final EHEECE national exam. The Saturday mocks taught me exactly how to manage my time.",
-    author: "Kaleb D.",
+    authorName: "Kaleb D.",
     role: "Grade 12 Student · Addis Ababa",
     category: "bootcamps",
     initials: "KD",
   },
   {
+    id: 6,
     quote: "Fidel matches tutors based on personality, not just availability. Our physics tutor is a role model who got my son excited about engineering.",
-    author: "Dr. Elias H.",
+    authorName: "Dr. Elias H.",
     role: "Parent of Grade 10 student · Old Airport",
     category: "parents",
     initials: "EH",
@@ -66,7 +73,28 @@ const stats = [
 ];
 
 export default function TestimonialsPage() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(FALLBACK_TESTIMONIALS);
   const [filter, setFilter] = useState<"all" | "parents" | "diaspora" | "bootcamps">("all");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const res = await fetch("/api/testimonials");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            setTestimonials(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load testimonials:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTestimonials();
+  }, []);
 
   const filteredTestimonials = filter === "all" 
     ? testimonials 
@@ -124,7 +152,7 @@ export default function TestimonialsPage() {
             ].map((btn) => (
               <button
                 key={btn.id}
-                onClick={() => setFilter(btn.id as any)}
+                onClick={() => setFilter(btn.id as "all" | "parents" | "diaspora" | "bootcamps")}
                 className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide border transition-all cursor-pointer ${
                   filter === btn.id
                     ? "bg-brand-primary border-brand-primary text-brand-paper shadow-sm"
@@ -136,15 +164,22 @@ export default function TestimonialsPage() {
             ))}
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {filteredTestimonials.map((testimonial, idx) => (
-              <div
-                key={idx}
-                className="bg-brand-paper rounded-2xl p-8 border border-brand-rule flex flex-col gap-6 shadow-sm hover:shadow-md transition-shadow"
-              >
+          {/* Loading */}
+          {loading ? (
+            <div className="text-center py-20">
+              <div className="w-12 h-12 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-brand-muted text-sm">Loading testimonials...</p>
+            </div>
+          ) : (
+            /* Grid */
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {filteredTestimonials.map((testimonial) => (
+                <div
+                  key={testimonial.id}
+                  className="bg-brand-paper rounded-2xl p-8 border border-brand-rule flex flex-col gap-6 shadow-sm hover:shadow-md transition-shadow"
+                >
                 <span className="font-serif text-5xl text-brand-secondary leading-none h-4">
-                  "
+                  &quot;
                 </span>
                 <blockquote className="font-serif text-base md:text-lg leading-relaxed text-brand-ink">
                   {testimonial.quote}
@@ -156,7 +191,7 @@ export default function TestimonialsPage() {
                   </span>
                   <div>
                     <span className="block font-bold text-sm text-brand-ink">
-                      {testimonial.author}
+                      {testimonial.authorName}
                     </span>
                     <span className="block text-[11px] text-brand-muted">
                       {testimonial.role}
@@ -164,8 +199,9 @@ export default function TestimonialsPage() {
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
