@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "@/db/db";
 import { tutors } from "@/db/schema";
 import { getAdminSession } from "@/lib/auth";
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     }
 
     const now = new Date().toISOString();
-    const result = await db
+    const [insertResult] = await db
       .insert(tutors)
       .values({
         name,
@@ -63,13 +63,16 @@ export async function POST(request: Request) {
         bio,
         createdAt: now,
         updatedAt: now,
-      })
-      .returning();
+      });
+
+    const insertId = insertResult.insertId;
+    const results = await db.select().from(tutors).where(eq(tutors.id, insertId));
+    const createdTutor = results[0];
 
     return NextResponse.json({
-      ...result[0],
-      specialties: JSON.parse(result[0].specialties || "[]"),
-      grades: JSON.parse(result[0].grades || "[]"),
+      ...createdTutor,
+      specialties: JSON.parse(createdTutor.specialties || "[]"),
+      grades: JSON.parse(createdTutor.grades || "[]"),
     }, { status: 201 });
   } catch (error) {
     console.error("Create tutor error:", error);

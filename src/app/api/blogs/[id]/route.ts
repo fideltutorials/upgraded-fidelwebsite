@@ -52,7 +52,7 @@ export async function PUT(
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
 
-    const result = await db
+    await db
       .update(blogs)
       .set({
         ...(title !== undefined && { title }),
@@ -64,10 +64,12 @@ export async function PUT(
         ...(published !== undefined && { published }),
         updatedAt: new Date().toISOString(),
       })
-      .where(eq(blogs.id, id))
-      .returning();
+      .where(eq(blogs.id, id));
 
-    return NextResponse.json(result[0]);
+    const updatedResults = await db.select().from(blogs).where(eq(blogs.id, id));
+    const updatedBlog = updatedResults[0];
+
+    return NextResponse.json(updatedBlog);
   } catch (error) {
     console.error("Update blog error:", error);
     return NextResponse.json({ error: "Failed to update blog" }, { status: 500 });

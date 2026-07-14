@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     }
 
     const now = new Date().toISOString();
-    const result = await db
+    const [insertResult] = await db
       .insert(blogs)
       .values({
         title,
@@ -70,10 +70,13 @@ export async function POST(request: Request) {
         published: published ?? false,
         createdAt: now,
         updatedAt: now,
-      })
-      .returning();
+      });
 
-    return NextResponse.json(result[0], { status: 201 });
+    const insertId = insertResult.insertId;
+    const results = await db.select().from(blogs).where(eq(blogs.id, insertId));
+    const createdBlog = results[0];
+
+    return NextResponse.json(createdBlog, { status: 201 });
   } catch (error) {
     console.error("Create blog error:", error);
     return NextResponse.json({ error: "Failed to create blog" }, { status: 500 });

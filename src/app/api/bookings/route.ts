@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "@/db/db";
 import { bookings } from "@/db/schema";
 import { getAdminSession } from "@/lib/auth";
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     }
 
     const now = new Date().toISOString();
-    const result = await db
+    const [insertResult] = await db
       .insert(bookings)
       .values({
         parentName,
@@ -41,10 +41,13 @@ export async function POST(request: Request) {
         message: message || null,
         status: "pending",
         createdAt: now,
-      })
-      .returning();
+      });
 
-    return NextResponse.json(result[0], { status: 201 });
+    const insertId = insertResult.insertId;
+    const results = await db.select().from(bookings).where(eq(bookings.id, insertId));
+    const createdBooking = results[0];
+
+    return NextResponse.json(createdBooking, { status: 201 });
   } catch (error) {
     console.error("Create booking error:", error);
     return NextResponse.json({ error: "Failed to create booking" }, { status: 500 });

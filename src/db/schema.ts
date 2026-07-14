@@ -1,59 +1,59 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { mysqlTable, int, text, varchar, boolean } from "drizzle-orm/mysql-core";
 
-export const blogs = sqliteTable("blogs", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  title: text("title").notNull(),
-  slug: text("slug").notNull().unique(),
-  excerpt: text("excerpt").notNull().default(""),
-  body: text("body").notNull().default(""),
-  coverImage: text("cover_image"),
-  author: text("author").notNull().default("Fidel Tutorial"),
-  published: integer("published", { mode: "boolean" }).notNull().default(false),
-  createdAt: text("created_at")
+export const blogs = mysqlTable("blogs", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  excerpt: text("excerpt").notNull(),
+  body: text("body").notNull(),
+  coverImage: varchar("cover_image", { length: 512 }),
+  author: varchar("author", { length: 255 }).notNull().default("Fidel Tutorial"),
+  published: boolean("published").notNull().default(false),
+  createdAt: varchar("created_at", { length: 50 })
     .notNull()
     .$defaultFn(() => new Date().toISOString()),
-  updatedAt: text("updated_at")
-    .notNull()
-    .$defaultFn(() => new Date().toISOString()),
-});
-
-export const admins = sqliteTable("admins", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  username: text("username").notNull().unique(),
-  passwordHash: text("password_hash").notNull(),
-  createdAt: text("created_at")
+  updatedAt: varchar("updated_at", { length: 50 })
     .notNull()
     .$defaultFn(() => new Date().toISOString()),
 });
 
-export const tutors = sqliteTable("tutors", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  name: text("name").notNull(),
-  initials: text("initials").notNull(),
-  image: text("image"),
+export const admins = mysqlTable("admins", {
+  id: int("id").autoincrement().primaryKey(),
+  username: varchar("username", { length: 255 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  createdAt: varchar("created_at", { length: 50 })
+    .notNull()
+    .$defaultFn(() => new Date().toISOString()),
+});
+
+export const tutors = mysqlTable("tutors", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  initials: varchar("initials", { length: 50 }).notNull(),
+  image: varchar("image", { length: 512 }),
   specialties: text("specialties").notNull(),
   grades: text("grades").notNull(),
   bio: text("bio").notNull(),
-  createdAt: text("created_at")
+  createdAt: varchar("created_at", { length: 50 })
     .notNull()
     .$defaultFn(() => new Date().toISOString()),
-  updatedAt: text("updated_at")
+  updatedAt: varchar("updated_at", { length: 50 })
     .notNull()
     .$defaultFn(() => new Date().toISOString()),
 });
 
-export const bookings = sqliteTable("bookings", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  parentName: text("parent_name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone").notNull(),
-  tutorId: integer("tutor_id"),
-  subject: text("subject").notNull(),
-  grade: text("grade").notNull(),
-  format: text("format").notNull(),
+export const bookings = mysqlTable("bookings", {
+  id: int("id").autoincrement().primaryKey(),
+  parentName: varchar("parent_name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 50 }).notNull(),
+  tutorId: int("tutor_id"),
+  subject: varchar("subject", { length: 255 }).notNull(),
+  grade: varchar("grade", { length: 50 }).notNull(),
+  format: varchar("format", { length: 50 }).notNull(),
   message: text("message"),
-  status: text("status").notNull().default("pending"),
-  createdAt: text("created_at")
+  status: varchar("status", { length: 50 }).notNull().default("pending"),
+  createdAt: varchar("created_at", { length: 50 })
     .notNull()
     .$defaultFn(() => new Date().toISOString()),
 });

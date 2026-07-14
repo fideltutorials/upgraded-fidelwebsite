@@ -56,7 +56,7 @@ export async function PUT(
       return NextResponse.json({ error: "Tutor not found" }, { status: 404 });
     }
 
-    const result = await db
+    await db
       .update(tutors)
       .set({
         ...(name !== undefined && { name }),
@@ -67,13 +67,15 @@ export async function PUT(
         ...(bio !== undefined && { bio }),
         updatedAt: new Date().toISOString(),
       })
-      .where(eq(tutors.id, id))
-      .returning();
+      .where(eq(tutors.id, id));
+
+    const updatedResults = await db.select().from(tutors).where(eq(tutors.id, id));
+    const updatedTutor = updatedResults[0];
 
     return NextResponse.json({
-      ...result[0],
-      specialties: JSON.parse(result[0].specialties || "[]"),
-      grades: JSON.parse(result[0].grades || "[]"),
+      ...updatedTutor,
+      specialties: JSON.parse(updatedTutor.specialties || "[]"),
+      grades: JSON.parse(updatedTutor.grades || "[]"),
     });
   } catch (error) {
     console.error("Update tutor error:", error);
