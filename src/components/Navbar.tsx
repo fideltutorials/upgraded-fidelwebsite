@@ -295,7 +295,7 @@ function MobileMenuDetails({ item, onClose }: { item: NavItem; onClose: () => vo
           <a
             href={parentHref}
             onClick={onClose}
-            className="group flex flex-col p-3 rounded-xl border border-transparent hover:border-brand-primary/20 hover:bg-brand-cream-warm/40 transition-all bg-brand-paper/50"
+            className="group flex flex-col p-3 rounded-xl border border-dashed border-brand-rule/60 bg-brand-cream-warm/15 hover:bg-brand-cream-warm/30 transition-all"
           >
             <span className="text-[13px] font-bold text-brand-primary">Explore All {item.label}</span>
             <span className="text-[11px] text-brand-muted mt-0.5">Overview of {item.label.toLowerCase()} page.</span>
@@ -306,7 +306,7 @@ function MobileMenuDetails({ item, onClose }: { item: NavItem; onClose: () => vo
               key={sIdx}
               href={sub.href}
               onClick={onClose}
-              className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+              className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
             >
               <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">
                 {sub.label}

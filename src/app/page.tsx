@@ -27,7 +27,7 @@ export default function Home() {
 
         <HeroSeven />
 
-        <div className="relative z-20 -mt-10 max-w-[1100px] mx-auto">
+        <div className="relative z-20 -mt-10 max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="border border-brand-rule rounded-2xl shadow-xl shadow-brand-primary-deep/5 overflow-hidden">
             <Trust />
           </div>

@@ -176,7 +176,7 @@ export default function NavbarSecond() {
                             key={sIdx} 
                             href={sub.href} 
                             onClick={() => setMobileMenuOpen(false)} 
-                            className="group block p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                            className="group block p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                           >
                             <span className="block text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">{sub.label}</span>
                             <span className="block text-[10px] text-brand-muted mt-0.5">{sub.desc}</span>

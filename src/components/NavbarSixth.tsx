@@ -199,7 +199,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/programs" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border border-transparent hover:border-brand-primary/20 hover:bg-brand-cream-warm/40 transition-all bg-brand-paper/50"
+                      className="group flex flex-col p-3 rounded-xl border border-dashed border-brand-rule/60 bg-brand-cream-warm/15 hover:bg-brand-cream-warm/30 transition-all"
                     >
                       <span className="text-[13px] font-bold text-brand-primary">Explore All Programs</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Overview of tutoring packages & structure.</span>
@@ -208,7 +208,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/programs/one-on-one" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                     >
                       <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">One-on-One Tutoring</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Vetted personal matching for KG to University.</span>
@@ -216,7 +216,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/programs/exam-bootcamps" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                     >
                       <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Intensive Exam Cohorts</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Grade 6, 8, and 12 mock prep cycles.</span>
@@ -224,7 +224,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/programs/test-prep" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                     >
                       <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">SAT · TOEFL Prep</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Mock testing database and feedback.</span>
@@ -243,7 +243,7 @@ export default function NavbarSixth() {
                   <HugeiconsIcon 
                     icon={ChevronDownIcon} 
                     size={14} 
-                    className={`transition-transform duration-250 opacity-70 ${mobileSchoolsOpen ? "rotate-180 text-brand-primary" : ""}`} 
+                    className={`transition-transform duration-255 opacity-70 ${mobileSchoolsOpen ? "rotate-180 text-brand-primary" : ""}`} 
                   />
                 </button>
                 {mobileSchoolsOpen && (
@@ -251,7 +251,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/schools" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border border-transparent hover:border-brand-primary/20 hover:bg-brand-cream-warm/40 transition-all bg-brand-paper/50"
+                      className="group flex flex-col p-3 rounded-xl border border-dashed border-brand-rule/60 bg-brand-cream-warm/15 hover:bg-brand-cream-warm/30 transition-all"
                     >
                       <span className="text-[13px] font-bold text-brand-primary">Explore Partnerships</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Custom services for schools & organizations.</span>
@@ -260,7 +260,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/schools/consulting" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                     >
                       <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Institution Consulting</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Staff development audits & teacher training.</span>
@@ -268,7 +268,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/schools/lms-licensing" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                     >
                       <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">LMS Portal Access</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">White-labeled software for private academies.</span>
@@ -276,7 +276,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/schools/ngo-programmes" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                     >
                       <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">NGO Programmes</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Accelerated reading clinics and non-profit aid.</span>
@@ -284,7 +284,7 @@ export default function NavbarSixth() {
                     <a 
                       href="/diaspora" 
                       onClick={() => setMobileOpen(false)}
-                      className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      className="group flex flex-col p-3 rounded-xl border border-brand-rule/45 bg-brand-paper hover:bg-brand-cream-warm/25 hover:border-brand-rule transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                     >
                       <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Diaspora Sponsoring</span>
                       <span className="text-[11px] text-brand-muted mt-0.5">Fund relatives' private packages back home in USD.</span>

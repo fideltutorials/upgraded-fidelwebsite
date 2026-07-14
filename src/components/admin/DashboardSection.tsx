@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DashboardCharts from "./DashboardCharts";
 
 interface BlogPost {
   id: number;
@@ -116,9 +115,6 @@ export default function DashboardSection({ onNavigate }: DashboardSectionProps) 
           <div className="text-[10px] text-brand-muted">Across {uniqueSubjects} subjects</div>
         </button>
       </div>
-
-      {/* Dashboard Charts */}
-      <DashboardCharts bookings={bookings} tutors={tutors} blogs={blogs} />
     </div>
   );
 }
