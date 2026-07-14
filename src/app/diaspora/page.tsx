@@ -1,5 +1,3 @@
-"use client";
-
 import Layout from "@/layouts/Layout";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { 
@@ -8,13 +6,16 @@ import {
   Book02Icon,
   UserGroupIcon
 } from "@hugeicons/core-free-icons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "For the Diaspora — Fidel Tutorial",
+  description: "Support your relatives' education in Ethiopia with secure USD payments, or enroll children in online heritage Amharic language lessons and college admissions prep.",
+};
 
 export default function Diaspora() {
   return (
-    <Layout
-      title="For the Diaspora — Fidel Tutorial"
-      description="Support your relatives' education in Ethiopia with secure USD payments, or enroll children in online heritage Amharic language lessons and college admissions prep."
-    >
+    <Layout>
       {/* Intro Hero Header */}
       <section className="py-20 lg:py-28 bg-gradient-to-br from-brand-primary to-brand-primary-deep text-brand-paper relative overflow-hidden">
         <div className="absolute inset-0 bg-radial from-brand-secondary/15 to-transparent pointer-events-none" />

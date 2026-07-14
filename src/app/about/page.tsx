@@ -1,16 +1,17 @@
-"use client";
-
 import Layout from "@/layouts/Layout";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Award01Icon, BookUserIcon, GraduationCapIcon } from "@hugeicons/core-free-icons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us & Tutors — Fidel Tutorial",
+  description: "Read our five-year story in Addis Ababa and get to know our vetted, trained, and results-driven tutor network.",
+};
 
 export default function About() {
 
   return (
-    <Layout
-      title="About Us & Tutors — Fidel Tutorial"
-      description="Read our five-year story in Addis Ababa and get to know our vetted, trained, and results-driven tutor network."
-    >
+    <Layout>
       {/* Intro / Our Story */}
       <section className="py-16 md:py-24 bg-brand-cream-warm/40 border-b border-brand-rule" id="story">
         <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

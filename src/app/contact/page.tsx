@@ -1,5 +1,3 @@
-"use client";
-
 import Layout from "@/layouts/Layout";
 import InquiryForm from "@/components/InquiryForm";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -11,13 +9,16 @@ import {
   Clock01Icon,
   TelegramIcon
 } from "@hugeicons/core-free-icons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us — Fidel Tutorial",
+  description: "Get in touch with Fidel Tutorial. Send an inquiry, call our office direct lines, or chat with our team on Telegram.",
+};
 
 export default function Contact() {
   return (
-    <Layout
-      title="Contact Us — Fidel Tutorial"
-      description="Get in touch with Fidel Tutorial. Send an inquiry, call our office direct lines, or chat with our team on Telegram."
-    >
+    <Layout>
       {/* Header */}
       <section className="py-16 bg-brand-cream-warm/40 border-b border-brand-rule">
         <div className="max-w-[1200px] mx-auto px-6 text-center">

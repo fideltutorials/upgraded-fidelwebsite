@@ -1,5 +1,3 @@
-"use client";
-
 import Layout from "@/layouts/Layout";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { 
@@ -9,13 +7,16 @@ import {
   Award01Icon,
   GraduationCapIcon
 } from "@hugeicons/core-free-icons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "For Schools & Institutions — Fidel Tutorial",
+  description: "Partner with Fidel Tutorial to implement accelerated learning programs, LMS licensing, digital content development, teacher training, and educational consulting.",
+};
 
 export default function Schools() {
   return (
-    <Layout
-      title="For Schools & Institutions — Fidel Tutorial"
-      description="Partner with Fidel Tutorial to implement accelerated learning programs, LMS licensing, digital content development, teacher training, and educational consulting."
-    >
+    <Layout>
       {/* Header */}
       <section className="py-16 md:py-24 bg-brand-primary-deep text-brand-paper text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-radial from-brand-secondary/10 to-transparent pointer-events-none" />

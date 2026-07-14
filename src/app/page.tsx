@@ -1,5 +1,3 @@
-"use client";
-
 import Layout from "@/layouts/Layout";
 import HeroSeven from "@/components/home/HeroSeven";
 import Trust from "@/components/home/Trust";
@@ -7,6 +5,12 @@ import WhoWeServe from "@/components/home/WhoWeServe";
 import WhyFidel from "@/components/home/WhyFidel";
 import Testimonials from "@/components/home/Testimonials";
 import FinalCTA from "@/components/home/FinalCTA";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Fidel Tutorial — Tutoring built for the moments that count",
+  description: "Fidel Tutorial pairs students across Ethiopia and the diaspora with vetted tutors and a track record of results. KG through university, SAT, TOEFL, IELTS, exam bootcamps, summer camps. Online and in-home. Addis Ababa.",
+};
 
 export default function Home() {
   return (

@@ -1,14 +1,15 @@
-"use client";
-
 import Layout from "@/layouts/Layout";
 import FaqAccordion from "@/components/FaqAccordion";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Frequently Asked Questions — Fidel Tutorial",
+  description: "Got questions about tutoring packages, matching, vetting, payments, or online formats? Find quick answers in our FAQ page.",
+};
 
 export default function FaqPage() {
   return (
-    <Layout
-      title="Frequently Asked Questions — Fidel Tutorial"
-      description="Got questions about tutoring packages, matching, vetting, payments, or online formats? Find quick answers in our FAQ page."
-    >
+    <Layout>
       <section className="py-16 md:py-24 bg-brand-cream-warm/40 border-b border-brand-rule">
         <div className="max-w-[800px] mx-auto px-6 text-center">
           <span className="text-xs font-bold tracking-widest text-brand-secondary uppercase block mb-3 font-semibold">Help Center</span>

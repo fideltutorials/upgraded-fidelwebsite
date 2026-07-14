@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 
 interface Testimonial {
   id: number;
@@ -36,6 +37,19 @@ const FALLBACK: Testimonial[] = [
 
 export default function Testimonials() {
   const [items, setItems] = useState<Testimonial[]>(FALLBACK);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    loop: true,
+    slidesToScroll: 1,
+  });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -44,8 +58,7 @@ export default function Testimonials() {
         if (res.ok) {
           const data = await res.json();
           if (data && data.length > 0) {
-            // Show only the first 3 on the home page
-            setItems(data.slice(0, 3));
+            setItems(data);
           }
         }
       } catch (err) {
@@ -56,42 +69,76 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="py-20 bg-brand-cream-warm" id="testimonials">
+    <section className="py-20 bg-brand-cream-warm overflow-hidden" id="testimonials">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="mb-12">
-          <span className="text-xs font-bold tracking-widest text-brand-secondary uppercase block mb-2">
-            In their words
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-ink tracking-tight">
-            What families say.
-          </h2>
+        
+        {/* Header with Navigation controls */}
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <span className="text-xs font-bold tracking-widest text-brand-secondary uppercase block mb-2">
+              In their words
+            </span>
+            <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-ink tracking-tight">
+              What families say.
+            </h2>
+          </div>
+          
+          <div className="flex gap-2">
+            <button
+              onClick={scrollPrev}
+              aria-label="Previous testimonials"
+              className="w-10 h-10 rounded-full border border-brand-rule bg-white flex items-center justify-center text-brand-ink hover:bg-brand-primary hover:text-brand-paper hover:border-brand-primary transition-all duration-300 shadow-sm cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={scrollNext}
+              aria-label="Next testimonials"
+              className="w-10 h-10 rounded-full border border-brand-rule bg-white flex items-center justify-center text-brand-ink hover:bg-brand-primary hover:text-brand-paper hover:border-brand-primary transition-all duration-300 shadow-sm cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {items.map((t) => (
-            <div key={t.id} className="bg-brand-paper rounded-xl p-8 border border-brand-rule flex flex-col gap-6 shadow-sm">
-              <span className="font-serif text-5xl text-brand-secondary leading-none h-4">
-                &quot;
-              </span>
-              <blockquote className="font-serif text-lg leading-relaxed text-brand-ink">
-                {t.quote}
-              </blockquote>
-              <div className="pt-5 border-t border-brand-rule flex items-center gap-3 mt-auto">
-                <span className="w-10 h-10 rounded-full bg-brand-primary text-brand-secondary flex items-center justify-center font-serif font-bold text-base">
-                  {t.initials}
-                </span>
-                <div>
-                  <span className="block font-bold text-sm text-brand-ink">
-                    {t.authorName}
+        {/* Embla Carousel Viewport */}
+        <div className="embla overflow-hidden" ref={emblaRef}>
+          <div className="embla__container flex gap-6">
+            {items.map((t) => (
+              <div 
+                key={t.id} 
+                className="embla__slide flex-[0_0_100%] sm:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0"
+              >
+                <div className="bg-brand-paper rounded-xl p-8 border border-brand-rule flex flex-col gap-6 shadow-sm hover:shadow-md hover:border-brand-primary/20 transition-all duration-300 h-full">
+                  <span className="font-serif text-5xl text-brand-secondary leading-none h-4">
+                    &quot;
                   </span>
-                  <span className="block text-xs text-brand-muted">
-                    {t.role}
-                  </span>
+                  <blockquote className="font-serif text-lg leading-relaxed text-brand-ink flex-1">
+                    {t.quote}
+                  </blockquote>
+                  <div className="pt-5 border-t border-brand-rule flex items-center gap-3 mt-auto">
+                    <span className="w-10 h-10 rounded-full bg-brand-primary text-brand-secondary flex items-center justify-center font-serif font-bold text-base shadow-sm">
+                      {t.initials}
+                    </span>
+                    <div>
+                      <span className="block font-bold text-sm text-brand-ink">
+                        {t.authorName}
+                      </span>
+                      <span className="block text-xs text-brand-muted line-clamp-1">
+                        {t.role}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );
