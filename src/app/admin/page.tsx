@@ -7,6 +7,7 @@ import BookingsSection from "@/components/admin/BookingsSection";
 import BlogsSection from "@/components/admin/BlogsSection";
 import TutorsSection from "@/components/admin/TutorsSection";
 import TestimonialsSection from "@/components/admin/TestimonialsSection";
+import FaqSection from "@/components/admin/FaqSection";
 
 export default function AdminDashboard() {
   const [expanded, setExpanded] = useState({
@@ -14,6 +15,7 @@ export default function AdminDashboard() {
     blogs: true,
     tutors: true,
     testimonials: false,
+    faq: false,
   });
 
   const handleNavigate = (section: string) => {
@@ -198,6 +200,44 @@ export default function AdminDashboard() {
           {expanded.testimonials && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <TestimonialsSection />
+            </div>
+          )}
+        </section>
+
+        {/* ─── FAQ Section (Collapsible) ─── */}
+        <section
+          id="faq"
+          className="bg-white rounded-2xl border border-brand-rule shadow-sm overflow-hidden transition-all duration-300 hover:border-brand-primary/20"
+        >
+          <button
+            onClick={() => toggleSection("faq")}
+            className="w-full flex items-center justify-between p-5 bg-brand-cream-warm/5 hover:bg-brand-cream-warm/15 transition-colors cursor-pointer text-left border-none outline-none"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-brand-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </span>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">FAQ Items</h2>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-muted font-medium">
+                {expanded.faq ? "Collapse" : "Expand"}
+              </span>
+              <span className={`transform transition-transform duration-300 ${expanded.faq ? 'rotate-180' : ''} text-brand-muted`}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </div>
+          </button>
+          
+          {expanded.faq && (
+            <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
+              <FaqSection />
             </div>
           )}
         </section>

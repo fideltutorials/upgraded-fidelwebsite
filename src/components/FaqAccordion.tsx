@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ChevronDownIcon } from "@hugeicons/core-free-icons";
 
 interface FaqItem {
+  id?: number;
   question: string;
   answer: string;
 }
 
-const faqItems: FaqItem[] = [
+const STATIC_FAQS: FaqItem[] = [
   {
     question: "What grades and subjects do you cover?",
     answer: "KG through Grade 12 across every core subject — mathematics, English, Amharic, sciences, social studies, ICT and coding — plus university-level support in selected subjects. Test prep includes EHEECE, SAT, TOEFL and IELTS.",
@@ -38,13 +39,38 @@ const faqItems: FaqItem[] = [
 
 export default function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [faqs, setFaqs] = useState<FaqItem[]>(STATIC_FAQS);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const res = await fetch("/api/faq");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            setFaqs(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load FAQs:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFaqs();
+  }, []);
+
+  if (loading && faqs === STATIC_FAQS) {
+    // Just a fast render fallback, not blocking layout
+  }
 
   return (
     <div className="border-t border-brand-rule">
-      {faqItems.map((item, idx) => {
+      {faqs.map((item, idx) => {
         const isOpen = openIndex === idx;
         return (
-          <div key={idx} className="border-b border-brand-rule">
+          <div key={item.id || idx} className="border-b border-brand-rule">
             <button
               onClick={() => setOpenIndex(isOpen ? null : idx)}
               className="w-full flex items-center justify-between gap-6 py-5 font-serif font-semibold text-lg md:text-xl text-brand-ink text-left hover:text-brand-primary transition-colors focus:outline-none"
