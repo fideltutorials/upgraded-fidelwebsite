@@ -9,6 +9,7 @@ import {
   ArrowRight01Icon
 } from "@hugeicons/core-free-icons";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   label: string;
@@ -188,6 +189,17 @@ export default function Navbar() {
 
           {/* Desktop CTA / Mobile Trigger */}
           <div className="flex items-center gap-3">
+            <a
+              href="/contact"
+              className={cn(buttonVariants({ variant: "default", size: "sm" }), "hidden lg:inline-flex items-center gap-2 rounded-full font-semibold shadow-md transition-all hover:-translate-y-0.5 group")}
+            >
+              Book a Free Trial
+              <HugeiconsIcon
+                icon={ArrowRight01Icon}
+                size={14}
+                className="transform transition-transform group-hover:translate-x-1"
+              />
+            </a>
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="lg:hidden w-11 h-11 flex flex-col justify-center items-center gap-1.5 rounded-xl border border-brand-rule hover:bg-brand-cream-warm transition-colors"

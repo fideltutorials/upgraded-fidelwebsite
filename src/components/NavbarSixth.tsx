@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Menu01Icon, Cancel01Icon, ChevronDownIcon } from "@hugeicons/core-free-icons";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function NavbarSixth() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -136,6 +137,16 @@ export default function NavbarSixth() {
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-3">
+            <a
+              href="/book"
+              className={cn(buttonVariants({
+                variant: "default",
+                size: "lg",
+              }), "hidden md:inline-flex rounded-full text-xs font-bold px-5 py-3 shadow-md hover:scale-[1.02] transition-transform")}
+            >
+              Book Free Trial
+            </a>
+            
             <button
               onClick={() => setMobileOpen(true)}
               className="md:hidden w-11 h-11 rounded-xl border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors cursor-pointer"

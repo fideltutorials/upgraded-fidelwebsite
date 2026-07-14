@@ -230,29 +230,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-brand-paper/60">
+        <div className="pt-8 text-center text-xs text-brand-paper/60">
           <div>
             © {currentYear} Fidel Tutorial · ፊደል · All rights reserved.
-          </div>
-          <div className="flex gap-2 items-center flex-wrap">
-            <span className="uppercase tracking-widest text-[10px] mr-2 text-brand-paper/50 font-semibold">
-              Accepted
-            </span>
-            <span className="px-2.5 py-1 border border-brand-secondary/20 rounded-md text-brand-secondary font-medium">
-              Telebirr
-            </span>
-            <span className="px-2.5 py-1 border border-brand-secondary/20 rounded-md text-brand-secondary font-medium">
-              CBE Birr
-            </span>
-            <span className="px-2.5 py-1 border border-brand-secondary/20 rounded-md text-brand-secondary font-medium">
-              Visa
-            </span>
-            <span className="px-2.5 py-1 border border-brand-secondary/20 rounded-md text-brand-secondary font-medium">
-              Mastercard
-            </span>
-            <span className="px-2.5 py-1 border border-brand-secondary/20 rounded-md text-brand-secondary font-medium">
-              USD
-            </span>
           </div>
         </div>
       </div>

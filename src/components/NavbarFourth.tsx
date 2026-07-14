@@ -15,6 +15,7 @@ import {
   Book02Icon
 } from "@hugeicons/core-free-icons";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function NavbarFourth() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -119,6 +120,12 @@ export default function NavbarFourth() {
 
           {/* Desktop Right CTA / Mobile Toggle */}
           <div onMouseEnter={() => setOpenMega(null)} className="flex items-center gap-3">
+            <a
+              href="/book"
+              className={cn(buttonVariants({ variant: "default", size: "lg" }), "hidden lg:inline-flex rounded-full text-xs font-bold px-5 py-3 shadow-md")}
+            >
+              Book a Free Trial
+            </a>
             <button
               onClick={() => setMobileOpen(true)}
               className="lg:hidden w-11 h-11 rounded-xl border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors"
