@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <Layout
-      navVersion="minimal"
+      navVersion="mega"
       title="Fidel Tutorial — Tutoring built for the moments that count"
     >
       {/* Global Canvas Wrapper with Background Glow Layers */}
