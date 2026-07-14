@@ -188,17 +188,6 @@ export default function Navbar() {
 
           {/* Desktop CTA / Mobile Trigger */}
           <div className="flex items-center gap-3">
-            <a
-              href="/contact"
-              className={buttonVariants({ variant: "default", size: "sm", className: "hidden lg:inline-flex items-center gap-2 rounded-full font-semibold shadow-md transition-all hover:-translate-y-0.5 group" })}
-            >
-              Book a Free Trial
-              <HugeiconsIcon
-                icon={ArrowRight01Icon}
-                size={14}
-                className="transform transition-transform group-hover:translate-x-1"
-              />
-            </a>
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="lg:hidden w-11 h-11 flex flex-col justify-center items-center gap-1.5 rounded-xl border border-brand-rule hover:bg-brand-cream-warm transition-colors"
@@ -217,12 +206,12 @@ export default function Navbar() {
         onClick={() => setMobileMenuOpen(false)}
       >
         <div
-          className={`absolute top-0 right-0 bottom-0 w-[82vw] max-w-[310px] bg-brand-paper shadow-2xl p-6 overflow-y-auto flex flex-col transition-transform duration-300 ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          className={`absolute top-0 right-0 bottom-0 w-[85vw] max-w-[340px] bg-brand-paper shadow-2xl flex flex-col overflow-hidden transition-transform duration-300 ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Mobile Header */}
-          <div className="flex items-center justify-between pb-6 border-b border-brand-rule">
+          <div className="p-5 flex items-center justify-between border-b border-brand-rule bg-brand-paper">
             <div className="flex items-center gap-3">
               <span className="w-9 h-9 rounded-lg bg-brand-primary flex items-center justify-center text-brand-secondary-soft font-serif font-bold text-lg">
                 ፊ
@@ -233,23 +222,23 @@ export default function Navbar() {
             </div>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="w-9 h-9 rounded-lg border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors"
+              className="w-9 h-9 rounded-xl border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors"
               aria-label="Close menu"
             >
               <HugeiconsIcon icon={Cancel01Icon} size={16} className="text-brand-ink" />
             </button>
           </div>
 
-          {/* Mobile Nav Links */}
-          <nav className="flex-1 py-6">
-            <ul className="flex flex-col gap-1">
+          {/* Mobile Nav Links (Scrollable) */}
+          <nav className="flex-1 overflow-y-auto p-5 scrollbar-none">
+            <ul className="flex flex-col gap-4">
               {navItems.map((item, idx) => (
-                <li key={idx} className="border-b border-brand-rule/50">
+                <li key={idx}>
                   {item.href ? (
                     <a
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex py-3.5 text-lg font-serif font-medium text-brand-ink hover:text-brand-primary transition-colors"
+                      className="flex px-3 py-2 rounded-xl text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm/40 transition-colors"
                     >
                       {item.label}
                     </a>
@@ -261,16 +250,16 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          {/* Mobile CTA */}
-          <div className="pt-6 border-t border-brand-rule flex flex-col gap-4">
+          {/* Mobile CTA (Sticky Footer) */}
+          <div className="p-5 border-t border-brand-rule bg-brand-paper shadow-[0_-8px_20px_-8px_rgba(0,0,0,0.05)] flex flex-col gap-3">
             <a
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className={buttonVariants({ variant: "default", size: "lg", className: "w-full text-center py-3.5 rounded-xl font-semibold shadow-md" })}
+              className={buttonVariants({ variant: "default", size: "lg", className: "w-full text-center py-3.5 rounded-full font-bold shadow-md justify-center" })}
             >
               Book a Free Trial
             </a>
-            <div className="text-center text-xs text-brand-muted">
+            <div className="text-center text-[10px] text-brand-muted">
               Call us at: <a href="tel:+251979795154" className="font-semibold text-brand-ink">+251 979 795 154</a>
             </div>
           </div>
@@ -287,50 +276,48 @@ function MobileMenuDetails({ item, onClose }: { item: NavItem; onClose: () => vo
   const parentHref = item.href || (item.label === "Programs" ? "/programs" : item.label === "Partnerships" ? "/schools" : item.label === "Resources" ? "/resources" : "/about");
 
   return (
-    <div className="py-2 flex flex-col">
-      <div className="w-full flex items-center justify-between py-1.5">
-        <a
-          href={parentHref}
-          onClick={onClose}
-          className="text-lg font-serif font-medium text-brand-ink hover:text-brand-primary transition-colors flex-1"
-        >
-          {item.label}
-        </a>
-        <button
-          onClick={() => setOpen(!open)}
-          className="w-10 h-10 rounded-xl flex items-center justify-center border border-brand-rule/60 hover:bg-brand-cream-warm focus:outline-none transition-colors"
-          aria-expanded={open}
-          aria-label={`Toggle ${item.label} submenu`}
-        >
-          <HugeiconsIcon
-            icon={ChevronDownIcon}
-            size={16}
-            className={`transition-transform duration-200 opacity-60 ${open ? "transform rotate-180" : ""}`}
-          />
-        </button>
-      </div>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[500px] opacity-100 mt-2 mb-4" : "max-h-0 opacity-0"
-          }`}
+    <div className="border border-brand-rule/60 rounded-2xl overflow-hidden bg-brand-paper flex flex-col">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-4 py-3 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 transition-colors text-sm font-bold text-brand-ink cursor-pointer"
+        aria-expanded={open}
+        aria-label={`Toggle ${item.label} submenu`}
       >
-        <div className="flex flex-col gap-3 pl-3 border-l-2 border-brand-secondary/35">
+        <span>{item.label}</span>
+        <HugeiconsIcon
+          icon={ChevronDownIcon}
+          size={14}
+          className={`transition-transform duration-250 opacity-70 ${open ? "rotate-180 text-brand-primary" : ""}`}
+        />
+      </button>
+      {open && (
+        <div className="p-3 bg-brand-cream-warm/5 border-t border-brand-rule/40 flex flex-col gap-2.5 animate-in slide-in-from-top-2 duration-200">
+          <a
+            href={parentHref}
+            onClick={onClose}
+            className="group flex flex-col p-3 rounded-xl border border-transparent hover:border-brand-primary/20 hover:bg-brand-cream-warm/40 transition-all bg-brand-paper/50"
+          >
+            <span className="text-[13px] font-bold text-brand-primary">Explore All {item.label}</span>
+            <span className="text-[11px] text-brand-muted mt-0.5">Overview of {item.label.toLowerCase()} page.</span>
+          </a>
+
           {item.submenu?.map((sub, sIdx) => (
             <a
               key={sIdx}
               href={sub.href}
               onClick={onClose}
-              className="flex flex-col py-1 group"
+              className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
             >
-              <span className="text-[15px] font-medium text-brand-ink group-hover:text-brand-primary transition-colors">
+              <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">
                 {sub.label}
               </span>
-              <span className="text-[11.5px] text-brand-muted mt-0.5 leading-normal">
+              <span className="text-[11px] text-brand-muted mt-0.5 leading-normal">
                 {sub.desc}
               </span>
             </a>
           ))}
         </div>
-      </div>
+      )}
     </div>
   );
 }

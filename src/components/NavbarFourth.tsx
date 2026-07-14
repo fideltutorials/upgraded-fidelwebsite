@@ -119,12 +119,6 @@ export default function NavbarFourth() {
 
           {/* Desktop Right CTA / Mobile Toggle */}
           <div onMouseEnter={() => setOpenMega(null)} className="flex items-center gap-3">
-            <a
-              href="/book"
-              className={buttonVariants({ variant: "default", size: "lg", className: "hidden lg:inline-flex rounded-full text-xs font-bold px-5 py-3 shadow-md" })}
-            >
-              Book a Free Trial
-            </a>
             <button
               onClick={() => setMobileOpen(true)}
               className="lg:hidden w-11 h-11 rounded-xl border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors"
@@ -259,121 +253,185 @@ export default function NavbarFourth() {
         onClick={() => setMobileOpen(false)}
       >
         <div
-          className={`absolute top-0 right-0 bottom-0 w-[82vw] max-w-[310px] bg-brand-paper shadow-2xl p-6 overflow-y-auto flex flex-col transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "translate-x-full"
+          className={`absolute top-0 right-0 bottom-0 w-[85vw] max-w-[340px] bg-brand-paper shadow-2xl flex flex-col overflow-hidden transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "translate-x-full"
             }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between pb-6 border-b border-brand-rule">
-            <span className="font-serif font-bold text-lg text-brand-ink">Fidel Tutorial</span>
+          {/* Mobile Header */}
+          <div className="p-5 flex items-center justify-between border-b border-brand-rule bg-brand-paper">
+            <span className="font-serif font-bold text-sm text-brand-ink tracking-tight flex items-center gap-2">
+              <span className="w-6 h-6 rounded bg-brand-primary flex items-center justify-center text-brand-secondary font-serif font-bold text-xs">
+                ፊ
+              </span>
+              Fidel Navigation
+            </span>
             <button
               onClick={() => setMobileOpen(false)}
-              className="w-9 h-9 rounded-lg border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm"
+              className="w-9 h-9 rounded-xl border border-brand-rule flex items-center justify-center hover:bg-brand-cream-warm transition-colors cursor-pointer"
+              aria-label="Close menu"
             >
               <HugeiconsIcon icon={Cancel01Icon} size={16} className="text-brand-ink" />
             </button>
           </div>
 
-          <nav className="flex-1 py-6">
+          {/* Scrollable Body */}
+          <nav className="flex-1 overflow-y-auto p-5 space-y-4 scrollbar-none">
             <ul className="flex flex-col gap-4">
               <li>
-                <a href="/" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink">Home</a>
+                <a 
+                  href="/" 
+                  onClick={() => setMobileOpen(false)} 
+                  className="flex px-3 py-2 rounded-xl text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm/40 transition-colors"
+                >
+                  Home
+                </a>
               </li>
+
+              {/* Programs Dropdown */}
               <li>
-                <div className="flex items-center justify-between py-1.5">
-                  <a href="/programs" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink flex-1">
-                    Programs
-                  </a>
+                <div className="border border-brand-rule/60 rounded-2xl overflow-hidden bg-brand-paper">
                   <button
                     onClick={() => setMobileProgramsOpen(!mobileProgramsOpen)}
-                    className="w-9 h-9 rounded-xl flex items-center justify-center border border-brand-rule/60 hover:bg-brand-cream-warm focus:outline-none transition-colors"
-                    aria-label="Toggle programs submenu"
-                    aria-expanded={mobileProgramsOpen}
+                    className="w-full flex items-center justify-between px-4 py-3 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 transition-colors text-sm font-bold text-brand-ink cursor-pointer"
                   >
-                    <HugeiconsIcon
-                      icon={ChevronDownIcon}
-                      size={14}
-                      className={`transition-transform duration-200 opacity-60 ${mobileProgramsOpen ? "transform rotate-180" : ""}`}
+                    <span>Programs</span>
+                    <HugeiconsIcon 
+                      icon={ChevronDownIcon} 
+                      size={14} 
+                      className={`transition-transform duration-255 opacity-70 ${mobileProgramsOpen ? "rotate-180 text-brand-primary" : ""}`} 
                     />
                   </button>
-                </div>
-                <div className={`overflow-hidden transition-all duration-300 ${mobileProgramsOpen ? "max-h-[300px] opacity-100 mt-2 mb-3" : "max-h-0 opacity-0 pointer-events-none"}`}>
-                  <div className="flex flex-col gap-3 pl-3 border-l-2 border-brand-secondary/35">
-                    <a href="/programs/one-on-one" onClick={() => setMobileOpen(false)} className="block">
-                      <span className="block text-sm font-bold text-brand-ink">One-on-One Tutoring</span>
-                      <span className="block text-[10px] text-brand-muted mt-0.5">Vetted personal matching for KG to University.</span>
-                    </a>
-                    <a href="/programs/exam-bootcamps" onClick={() => setMobileOpen(false)} className="block">
-                      <span className="block text-sm font-bold text-brand-ink">Intensive Exam Cohorts</span>
-                      <span className="block text-[10px] text-brand-muted mt-0.5">Grade 6, 8, and 12 mock preparation cycles.</span>
-                    </a>
-                    <a href="/programs/test-prep" onClick={() => setMobileOpen(false)} className="block">
-                      <span className="block text-sm font-bold text-brand-ink">SAT · TOEFL Preparation</span>
-                      <span className="block text-[10px] text-brand-muted mt-0.5">Mock testing database and live feedback sessions.</span>
-                    </a>
-                  </div>
+                  {mobileProgramsOpen && (
+                    <div className="p-3 bg-brand-cream-warm/5 border-t border-brand-rule/40 flex flex-col gap-2.5 animate-in slide-in-from-top-2 duration-200">
+                      <a 
+                        href="/programs" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border border-transparent hover:border-brand-primary/20 hover:bg-brand-cream-warm/40 transition-all bg-brand-paper/50"
+                      >
+                        <span className="text-[13px] font-bold text-brand-primary">Explore All Programs</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Overview of tutoring packages & structure.</span>
+                      </a>
+                      
+                      <a 
+                        href="/programs/one-on-one" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      >
+                        <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">One-on-One Tutoring</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Vetted personal matching for KG to University.</span>
+                      </a>
+                      <a 
+                        href="/programs/exam-bootcamps" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      >
+                        <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Intensive Exam Cohorts</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Grade 6, 8, and 12 mock preparation cycles.</span>
+                      </a>
+                      <a 
+                        href="/programs/test-prep" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      >
+                        <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">SAT · TOEFL Preparation</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Mock testing database and live feedback sessions.</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </li>
+
+              {/* Partnerships Dropdown */}
               <li>
-                <div className="flex items-center justify-between py-1.5">
-                  <a href="/schools" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink flex-1">
-                    Partnerships
-                  </a>
+                <div className="border border-brand-rule/60 rounded-2xl overflow-hidden bg-brand-paper">
                   <button
                     onClick={() => setMobileSchoolsOpen(!mobileSchoolsOpen)}
-                    className="w-9 h-9 rounded-xl flex items-center justify-center border border-brand-rule/60 hover:bg-brand-cream-warm focus:outline-none transition-colors"
-                    aria-label="Toggle partnerships submenu"
-                    aria-expanded={mobileSchoolsOpen}
+                    className="w-full flex items-center justify-between px-4 py-3 bg-brand-cream-warm/10 hover:bg-brand-cream-warm/30 transition-colors text-sm font-bold text-brand-ink cursor-pointer"
                   >
-                    <HugeiconsIcon
-                      icon={ChevronDownIcon}
-                      size={14}
-                      className={`transition-transform duration-200 opacity-60 ${mobileSchoolsOpen ? "transform rotate-180" : ""}`}
+                    <span>Partnerships</span>
+                    <HugeiconsIcon 
+                      icon={ChevronDownIcon} 
+                      size={14} 
+                      className={`transition-transform duration-255 opacity-70 ${mobileSchoolsOpen ? "rotate-180 text-brand-primary" : ""}`} 
                     />
                   </button>
+                  {mobileSchoolsOpen && (
+                    <div className="p-3 bg-brand-cream-warm/5 border-t border-brand-rule/40 flex flex-col gap-2.5 animate-in slide-in-from-top-2 duration-200">
+                      <a 
+                        href="/schools" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border border-transparent hover:border-brand-primary/20 hover:bg-brand-cream-warm/40 transition-all bg-brand-paper/50"
+                      >
+                        <span className="text-[13px] font-bold text-brand-primary">Explore Partnerships</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Custom services for schools & organizations.</span>
+                      </a>
+
+                      <a 
+                        href="/schools/consulting" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      >
+                        <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Institution Programs</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Staff development audits & teacher training cycles.</span>
+                      </a>
+                      <a 
+                        href="/schools/lms-licensing" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      >
+                        <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">LMS Portal Access</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">White-labeled software for private academies.</span>
+                      </a>
+                      <a 
+                        href="/schools/ngo-programmes" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      >
+                        <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">NGO Partnerships</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Non-profit accelerated reading cycles in Addis.</span>
+                      </a>
+                      <a 
+                        href="/diaspora" 
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex flex-col p-3 rounded-xl border-l-4 border-l-brand-primary bg-brand-cream-warm/20 hover:bg-brand-cream-warm/35 transition-all"
+                      >
+                        <span className="text-[13px] font-bold text-brand-ink group-hover:text-brand-primary transition-colors">Diaspora Sponsoring</span>
+                        <span className="text-[11px] text-brand-muted mt-0.5">Fund relatives' private packages back home securely in USD.</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
-                <div className={`overflow-hidden transition-all duration-300 ${mobileSchoolsOpen ? "max-h-[300px] opacity-100 mt-2 mb-3" : "max-h-0 opacity-0 pointer-events-none"}`}>
-                  <div className="flex flex-col gap-3 pl-3 border-l-2 border-brand-secondary/35">
-                    <a href="/schools/consulting" onClick={() => setMobileOpen(false)} className="block">
-                      <span className="block text-sm font-bold text-brand-ink">Institution Programs</span>
-                      <span className="block text-[10px] text-brand-muted mt-0.5">Staff development audits & teacher training cycles.</span>
-                    </a>
-                    <a href="/schools/lms-licensing" onClick={() => setMobileOpen(false)} className="block">
-                      <span className="block text-sm font-bold text-brand-ink">LMS Portal Access</span>
-                      <span className="block text-[10px] text-brand-muted mt-0.5">White-labeled software for private academies.</span>
-                    </a>
-                    <a href="/schools/ngo-programmes" onClick={() => setMobileOpen(false)} className="block">
-                      <span className="block text-sm font-bold text-brand-ink">NGO Partnerships</span>
-                      <span className="block text-[10px] text-brand-muted mt-0.5">Non-profit accelerated reading cycles in Addis.</span>
-                    </a>
-                    <a href="/diaspora" onClick={() => setMobileOpen(false)} className="block">
-                      <span className="block text-sm font-bold text-brand-ink">Diaspora Sponsoring</span>
-                      <span className="block text-[10px] text-brand-muted mt-0.5">Fund relatives' private packages back home securely in USD.</span>
-                    </a>
-                  </div>
-                </div>
+              </li>
+
+              {/* Other Links */}
+              <li>
+                <a href="/resources" onClick={() => setMobileOpen(false)} className="flex px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm/40 transition-colors">Resources</a>
               </li>
               <li>
-                <a href="/resources" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink">Resources</a>
+                <a href="/blog" onClick={() => setMobileOpen(false)} className="flex px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm/40 transition-colors">Blog</a>
               </li>
               <li>
-                <a href="/blog" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink">Blog</a>
+                <a href="/tutors" onClick={() => setMobileOpen(false)} className="flex px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm/40 transition-colors">Tutors</a>
               </li>
               <li>
-                <a href="/tutors" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink">Tutors</a>
+                <a href="/about" onClick={() => setMobileOpen(false)} className="flex px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm/40 transition-colors">About</a>
               </li>
               <li>
-                <a href="/about" onClick={() => setMobileOpen(false)} className="block text-base font-semibold text-brand-ink">About</a>
+                <a href="/contact" onClick={() => setMobileOpen(false)} className="flex px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm/40 transition-colors">Contact</a>
               </li>
             </ul>
           </nav>
 
-          <a
-            href="/book"
-            onClick={() => setMobileOpen(false)}
-            className="w-full text-center bg-brand-primary text-brand-paper py-3 rounded-lg font-bold text-sm shadow-md"
-          >
-            Book Free Trial
-          </a>
+          {/* Sticky Footer CTA */}
+          <div className="p-5 border-t border-brand-rule bg-brand-paper shadow-[0_-8px_20px_-8px_rgba(0,0,0,0.05)]">
+            <a
+              href="/book"
+              onClick={() => setMobileOpen(false)}
+              className="w-full text-center block bg-brand-primary text-brand-paper py-3.5 rounded-full font-bold text-sm shadow-md"
+            >
+              Book Free Trial
+            </a>
+          </div>
         </div>
       </div>
     </>
