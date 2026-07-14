@@ -35,7 +35,7 @@ export default function Layout({
   }, [title, description]);
 
   return (
-    <div className="bg-brand-paper text-brand-ink selection:bg-brand-primary/10 selection:text-brand-primary min-h-screen flex flex-col font-sans antialiased overflow-x-hidden">
+    <div className="bg-brand-paper text-brand-ink selection:bg-brand-primary/20 min-h-screen flex flex-col font-sans antialiased overflow-x-hidden">
       {navVersion === "pill" && <NavbarSecond />}
       {navVersion === "mega" && <NavbarFourth />}
       {navVersion === "default" && <Navbar />}
