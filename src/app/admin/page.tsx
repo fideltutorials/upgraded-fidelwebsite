@@ -8,6 +8,7 @@ import BlogsSection from "@/components/admin/BlogsSection";
 import TutorsSection from "@/components/admin/TutorsSection";
 import TestimonialsSection from "@/components/admin/TestimonialsSection";
 import FaqSection from "@/components/admin/FaqSection";
+import LeadsSection from "@/components/admin/LeadsSection";
 
 export default function AdminDashboard() {
   const [expanded, setExpanded] = useState({
@@ -16,6 +17,7 @@ export default function AdminDashboard() {
     tutors: true,
     testimonials: false,
     faq: false,
+    leads: false,
   });
 
   const handleNavigate = (section: string) => {
@@ -238,6 +240,46 @@ export default function AdminDashboard() {
           {expanded.faq && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <FaqSection />
+            </div>
+          )}
+        </section>
+
+        {/* ─── Leads Section (Collapsible) ─── */}
+        <section
+          id="leads"
+          className="bg-white rounded-2xl border border-brand-rule shadow-sm overflow-hidden transition-all duration-300 hover:border-brand-primary/20"
+        >
+          <button
+            onClick={() => toggleSection("leads")}
+            className="w-full flex items-center justify-between p-5 bg-brand-cream-warm/5 hover:bg-brand-cream-warm/15 transition-colors cursor-pointer text-left border-none outline-none"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-brand-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </span>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">Captured Leads & Inquiries</h2>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-muted font-medium">
+                {expanded.leads ? "Collapse" : "Expand"}
+              </span>
+              <span className={`transform transition-transform duration-300 ${expanded.leads ? 'rotate-180' : ''} text-brand-muted`}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </div>
+          </button>
+          
+          {expanded.leads && (
+            <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
+              <LeadsSection />
             </div>
           )}
         </section>
