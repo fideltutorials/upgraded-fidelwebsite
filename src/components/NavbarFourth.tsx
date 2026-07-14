@@ -12,8 +12,10 @@ import {
   GlobeIcon
 } from "@hugeicons/core-free-icons";
 import { buttonVariants } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function NavbarFourth() {
+  const { lang, setLang, t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMega, setOpenMega] = useState<"programs" | "schools" | null>(null);
   const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
@@ -66,7 +68,7 @@ export default function NavbarFourth() {
                   className={`px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors flex items-center gap-1.5 ${openMega === "programs" ? "bg-brand-cream-warm text-brand-primary" : ""
                     }`}
                 >
-                  Programs
+                  {t("nav.programs")}
                   <HugeiconsIcon icon={ChevronDownIcon} size={12} className="opacity-55" />
                 </a>
               </li>
@@ -81,19 +83,19 @@ export default function NavbarFourth() {
                   className={`px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors flex items-center gap-1.5 ${openMega === "schools" ? "bg-brand-cream-warm text-brand-primary" : ""
                     }`}
                 >
-                  Partnerships
+                  {t("nav.schools")}
                   <HugeiconsIcon icon={ChevronDownIcon} size={12} className="opacity-55" />
                 </a>
               </li>
 
               <li onMouseEnter={() => setOpenMega(null)}>
                 <a href="/diaspora" className="px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors">
-                  Diaspora
+                  {t("nav.diaspora")}
                 </a>
               </li>
               <li onMouseEnter={() => setOpenMega(null)}>
                 <a href="/resources" className="px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors">
-                  Resources
+                  {t("nav.resources")}
                 </a>
               </li>
               <li onMouseEnter={() => setOpenMega(null)}>
@@ -103,12 +105,17 @@ export default function NavbarFourth() {
               </li>
               <li onMouseEnter={() => setOpenMega(null)}>
                 <a href="/tutors" className="px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors">
-                  Tutors
+                  {t("nav.tutors")}
                 </a>
               </li>
               <li onMouseEnter={() => setOpenMega(null)}>
                 <a href="/about" className="px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors">
-                  About
+                  {t("nav.about")}
+                </a>
+              </li>
+              <li onMouseEnter={() => setOpenMega(null)}>
+                <a href="/contact" className="px-4 py-2 rounded-lg text-sm font-semibold text-brand-ink hover:bg-brand-cream-warm transition-colors">
+                  {t("nav.contact")}
                 </a>
               </li>
             </ul>
@@ -116,11 +123,17 @@ export default function NavbarFourth() {
 
           {/* Desktop Right CTA / Mobile Toggle */}
           <div onMouseEnter={() => setOpenMega(null)} className="flex items-center gap-3">
+            <button
+              onClick={() => setLang(lang === "en" ? "am" : "en")}
+              className="px-3 py-1.5 rounded-lg border border-brand-rule text-xs font-bold text-brand-ink hover:bg-brand-cream-warm transition-colors cursor-pointer select-none"
+            >
+              {lang === "en" ? "አማ" : "EN"}
+            </button>
             <a
               href="/book"
               className={buttonVariants({ variant: "default", size: "lg", className: "hidden lg:inline-flex rounded-full text-xs font-bold px-5 py-3 shadow-md" })}
             >
-              Book a Free Trial
+              {t("nav.bookTrial")}
             </a>
             <button
               onClick={() => setMobileOpen(true)}
