@@ -4,19 +4,20 @@ import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import NavbarSecond from "@/components/NavbarSecond";
 import NavbarFourth from "@/components/NavbarFourth";
+import NavbarFifth from "@/components/NavbarFifth";
 import Footer from "@/components/Footer";
 
 interface LayoutProps {
   title?: string;
   description?: string;
-  navVersion?: "default" | "pill" | "mega";
+  navVersion?: "default" | "pill" | "mega" | "minimal";
   children: React.ReactNode;
 }
 
 export default function Layout({
   title = "Fidel Tutorial — Tutoring built for the moments that count",
   description = "Fidel Tutorial pairs students across Ethiopia and the diaspora with vetted tutors and a track record of results. KG through university, SAT, TOEFL, IELTS, exam bootcamps, summer camps. Online and in-home. Addis Ababa.",
-  navVersion = "mega",
+  navVersion = "minimal",
   children,
 }: LayoutProps) {
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function Layout({
       {navVersion === "pill" && <NavbarSecond />}
       {navVersion === "mega" && <NavbarFourth />}
       {navVersion === "default" && <Navbar />}
+      {navVersion === "minimal" && <NavbarFifth />}
 
       <main className={`flex-1 w-full ${navVersion === "pill" ? "pt-16" : ""}`}>
         {children}
