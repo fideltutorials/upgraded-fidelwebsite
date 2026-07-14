@@ -33,8 +33,8 @@ export default function NavbarSixth() {
             </span>
           </a>
 
-          {/* Clean Navigation Row - Enlarged Text & Gaps */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          {/* Clean Navigation Row - Enlarged Text & Tight Gaps */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             
             <a
               href="/"
