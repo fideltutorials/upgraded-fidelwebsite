@@ -44,7 +44,7 @@ export default function Testimonials() {
   const [items, setItems] = useState<Testimonial[]>(FALLBACK);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
-    loop: true,
+    loop: false,
     slidesToScroll: 1,
   });
 

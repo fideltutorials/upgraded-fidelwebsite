@@ -4,8 +4,11 @@ import {
   Mail01Icon,
   Location01Icon,
   Clock01Icon,
+  ArrowRight02Icon,
+  TelegramIcon,
 } from "@hugeicons/core-free-icons";
 import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function FinalCTA() {
   return (
@@ -16,7 +19,10 @@ export default function FinalCTA() {
       <div className="absolute inset-0 bg-radial from-brand-secondary/10 to-transparent pointer-events-none" />
       <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         <div className="lg:col-span-7 flex flex-col items-start text-left">
-          <p className="font-serif italic text-brand-secondary text-lg mb-2">
+          <p
+            className="font-bold text-brand-secondary text-lg mb-2"
+            style={{ fontFamily: "Google Serif" }}
+          >
             ለመጀመር ዝግጁ ነዎት?
           </p>
           <h2 className="font-serif text-3xl md:text-5xl font-medium text-brand-paper leading-tight mb-6">
@@ -31,29 +37,28 @@ export default function FinalCTA() {
             within 48 hours — and the first session is on us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <a
+            <Link
               href="/contact"
               className={buttonVariants({
                 variant: "secondary",
                 size: "lg",
-                className: "rounded-full font-bold text-base px-8 py-6 h-auto shadow-md",
+                className: "rounded-full font-bold shadow-md py-6 px-6",
               })}
             >
-              Request Your Free Trial →
-            </a>
-            <a
-              href="https://t.me/fideltutorial"
-              target="_blank"
-              rel="noopener noreferrer"
+              Request Your Free Trial
+              <HugeiconsIcon icon={ArrowRight02Icon} />
+            </Link>
+            <Link
+              href="/contact"
               className={buttonVariants({
-                variant: "outline",
+                variant: "secondary",
                 size: "lg",
-                className:
-                  "rounded-full border-brand-secondary/40 bg-white/5 hover:bg-white/10 text-brand-paper font-bold text-base px-8 py-6 h-auto",
+                className: "rounded-full font-bold shadow-md py-6 px-6",
               })}
             >
               Chat on Telegram
-            </a>
+              <HugeiconsIcon icon={TelegramIcon} />
+            </Link>
           </div>
         </div>
 
