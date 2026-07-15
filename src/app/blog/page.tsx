@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Layout from "@/layouts/Layout";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  ArrowRight,
+  ArrowRight01Icon,
+  ArrowRight02Icon,
+  PencilEdit02Icon,
+  RightAngleIcon,
+} from "@hugeicons/core-free-icons";
 
 interface BlogPost {
   id: number;
@@ -45,7 +53,9 @@ export default function Blog() {
       {/* Hero */}
       <section className="py-16 md:py-24 bg-brand-cream-warm/40 border-b border-brand-rule">
         <div className="max-w-[1200px] mx-auto px-6">
-          <span className="text-xs font-bold tracking-widest text-brand-secondary uppercase block mb-3 font-semibold">Blog</span>
+          <span className="text-xs font-bold tracking-widest text-brand-secondary uppercase block mb-3 font-semibold">
+            Blog
+          </span>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-brand-ink tracking-tight mb-4">
             Insights & Updates
           </h1>
@@ -67,12 +77,11 @@ export default function Blog() {
           ) : posts.length === 0 ? (
             <div className="text-center py-20">
               <div className="w-20 h-20 rounded-2xl bg-brand-cream flex items-center justify-center mx-auto mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-muted">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                </svg>
+                <HugeiconsIcon icon={PencilEdit02Icon} size={45} />
               </div>
-              <h3 className="font-serif text-xl font-semibold text-brand-ink mb-2">Coming Soon</h3>
+              <h3 className="font-serif text-xl font-semibold text-brand-ink mb-2">
+                Coming Soon
+              </h3>
               <p className="text-brand-muted text-base max-w-md mx-auto">
                 We're working on new articles. Check back soon for study tips,
                 exam preparation strategies, and updates from Fidel Tutorial.
@@ -106,7 +115,9 @@ export default function Blog() {
                   <div className="p-6">
                     {/* Meta */}
                     <div className="flex items-center gap-2 text-xs text-brand-muted mb-3">
-                      <span className="font-medium text-brand-primary">{blog.author}</span>
+                      <span className="font-medium text-brand-primary">
+                        {blog.author}
+                      </span>
                       <span className="opacity-40">·</span>
                       <time dateTime={blog.createdAt}>
                         {new Date(blog.createdAt).toLocaleDateString("en-US", {
@@ -132,10 +143,7 @@ export default function Blog() {
                     {/* Read More */}
                     <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">
                       Read Article
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
+                      <HugeiconsIcon icon={ArrowRight02Icon} />
                     </div>
                   </div>
                 </a>

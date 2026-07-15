@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowLeft, ArrowRight } from "@hugeicons/core-free-icons";
 
 interface Testimonial {
   id: number;
@@ -14,21 +16,24 @@ interface Testimonial {
 const FALLBACK: Testimonial[] = [
   {
     id: 1,
-    quote: "The change was not just in the marks — it was in how she sat down to study. The tutor didn't just teach the subject, she taught my daughter how to learn it.",
+    quote:
+      "The change was not just in the marks — it was in how she sat down to study. The tutor didn't just teach the subject, she taught my daughter how to learn it.",
     authorName: "Meron T.",
     role: "Parent of a Grade-9 student · Bole",
     initials: "MT",
   },
   {
     id: 2,
-    quote: "We are in Washington and our nephew is in Addis. Fidel made it simple — we pay here, he learns there, and we get a monthly progress note. It just works.",
+    quote:
+      "We are in Washington and our nephew is in Addis. Fidel made it simple — we pay here, he learns there, and we get a monthly progress note. It just works.",
     authorName: "Tewodros A.",
     role: "Diaspora sponsor · Washington, DC",
     initials: "TA",
   },
   {
     id: 3,
-    quote: "The Grade-12 bootcamp was the most organised support my son received in his exam year. Weekly mocks made the real exam feel ordinary.",
+    quote:
+      "The Grade-12 bootcamp was the most organised support my son received in his exam year. Weekly mocks made the real exam feel ordinary.",
     authorName: "Rahel B.",
     role: "Parent of an EHEECE candidate · Lebu",
     initials: "RB",
@@ -69,9 +74,11 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="py-20 bg-brand-cream-warm overflow-hidden" id="testimonials">
+    <section
+      className="py-20 bg-brand-cream-warm overflow-hidden"
+      id="testimonials"
+    >
       <div className="max-w-[1200px] mx-auto px-6">
-        
         {/* Header with Navigation controls */}
         <div className="flex items-end justify-between mb-12">
           <div>
@@ -82,25 +89,21 @@ export default function Testimonials() {
               What families say.
             </h2>
           </div>
-          
+
           <div className="flex gap-2">
             <button
               onClick={scrollPrev}
               aria-label="Previous testimonials"
               className="w-10 h-10 rounded-full border border-brand-rule bg-white flex items-center justify-center text-brand-ink hover:bg-brand-primary hover:text-brand-paper hover:border-brand-primary transition-all duration-300 shadow-sm cursor-pointer"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
+              <HugeiconsIcon icon={ArrowLeft} />
             </button>
             <button
               onClick={scrollNext}
               aria-label="Next testimonials"
               className="w-10 h-10 rounded-full border border-brand-rule bg-white flex items-center justify-center text-brand-ink hover:bg-brand-primary hover:text-brand-paper hover:border-brand-primary transition-all duration-300 shadow-sm cursor-pointer"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
+              <HugeiconsIcon icon={ArrowRight} />
             </button>
           </div>
         </div>
@@ -109,8 +112,8 @@ export default function Testimonials() {
         <div className="embla overflow-hidden" ref={emblaRef}>
           <div className="embla__container flex gap-6">
             {items.map((t) => (
-              <div 
-                key={t.id} 
+              <div
+                key={t.id}
                 className="embla__slide flex-[0_0_100%] sm:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0"
               >
                 <div className="bg-brand-paper rounded-xl p-8 border border-brand-rule flex flex-col gap-6 shadow-sm hover:shadow-md hover:border-brand-primary/20 transition-all duration-300 h-full">
@@ -138,7 +141,6 @@ export default function Testimonials() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

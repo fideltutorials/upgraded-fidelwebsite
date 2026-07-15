@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Layout from "@/layouts/Layout";
+import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowLeft02Icon, ArrowRight02Icon } from "@hugeicons/core-free-icons";
 
 interface BlogPostData {
   id: number;
@@ -69,9 +72,12 @@ export default function BlogPost() {
     return (
       <Layout title="Post Not Found — Fidel Tutorial Blog">
         <div className="text-center py-32 max-w-md mx-auto px-6">
-          <h2 className="font-serif text-2xl font-semibold text-brand-ink mb-2">Article Not Found</h2>
+          <h2 className="font-serif text-2xl font-semibold text-brand-ink mb-2">
+            Article Not Found
+          </h2>
           <p className="text-brand-muted text-sm mb-6">
-            The article you are looking for does not exist or may have been unpublished.
+            The article you are looking for does not exist or may have been
+            unpublished.
           </p>
           <a
             href="/blog"
@@ -87,26 +93,27 @@ export default function BlogPost() {
   return (
     <Layout
       title={`${blog.title} — Fidel Tutorial Blog`}
-      description={blog.excerpt || `Read "${blog.title}" on the Fidel Tutorial blog.`}
+      description={
+        blog.excerpt || `Read "${blog.title}" on the Fidel Tutorial blog.`
+      }
     >
       <article className="py-12 md:py-20">
         <div className="max-w-[800px] mx-auto px-6">
           {/* Back link */}
-          <a
+          <Link
             href="/blog"
             className="inline-flex items-center gap-1.5 text-sm text-brand-muted hover:text-brand-primary transition-colors mb-8"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
+            <HugeiconsIcon icon={ArrowLeft02Icon} />
             Back to Blog
-          </a>
+          </Link>
 
           {/* Header */}
           <header className="mb-10">
             <div className="flex items-center gap-2 text-sm text-brand-muted mb-4">
-              <span className="font-medium text-brand-primary">{blog.author}</span>
+              <span className="font-medium text-brand-primary">
+                {blog.author}
+              </span>
               <span className="opacity-40">·</span>
               <time dateTime={blog.createdAt}>
                 {new Date(blog.createdAt).toLocaleDateString("en-US", {
@@ -140,31 +147,21 @@ export default function BlogPost() {
           )}
 
           {/* Content */}
-          <div className="prose-fidel" dangerouslySetInnerHTML={{ __html: blog.body }} />
+          <div
+            className="prose-fidel"
+            dangerouslySetInnerHTML={{ __html: blog.body }}
+          />
 
           {/* Footer */}
           <footer className="mt-16 pt-8 border-t border-brand-rule">
             <div className="flex items-center justify-between">
-              <a
+              <Link
                 href="/blog"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-primary hover:text-brand-primary-deep transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="19" y1="12" x2="5" y2="12"></line>
-                  <polyline points="12 19 5 12 12 5"></polyline>
-                </svg>
                 More Articles
-              </a>
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-primary hover:text-brand-primary-deep transition-colors"
-              >
-                Book a Free Trial
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
+                <HugeiconsIcon icon={ArrowRight02Icon} />
+              </Link>
             </div>
           </footer>
         </div>
