@@ -1,11 +1,6 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  ArrowRight,
-  ArrowRight01Icon,
-  Award01Icon,
-  CallIcon,
-} from "@hugeicons/core-free-icons";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { ArrowRight, Award01Icon, CallIcon } from "@hugeicons/core-free-icons";
+import { buttonVariants } from "@/components/ui/button";
 import heroImage from "@/assets/images/hero-image.jpg";
 import Link from "next/link";
 
@@ -82,15 +77,15 @@ export default function Hero() {
               />
             </div>
 
-            <div className="absolute -right-8 bottom-12 bg-brand-cream-warm border border-brand-rule rounded-2xl p-4 shadow-xl flex items-center gap-3 max-w-[170px] transform rotate-[3deg]">
-              <span className="w-9 h-9 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary flex-shrink-0">
-                <HugeiconsIcon icon={Award01Icon} size={18} />
+            <div className="absolute -right-8 bottom-12 bg-brand-cream-warm border border-brand-rule rounded-2xl p-4 shadow-xl flex items-center gap-3 max-w-53 transform rotate-3">
+              <span className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
+                <HugeiconsIcon icon={Award01Icon} size={25} />
               </span>
               <div>
-                <span className="block text-xs font-bold text-brand-ink">
+                <span className="block font-bold text-brand-ink">
                   KG - University
                 </span>
-                <span className="block text-[9px] text-brand-muted mt-0.5 leading-tight">
+                <span className="block text-xs text-brand-muted mt-0.5 leading-tight">
                   Vetted tutor match
                 </span>
               </div>

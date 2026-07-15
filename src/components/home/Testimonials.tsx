@@ -78,11 +78,11 @@ export default function Testimonials() {
       className="py-20 bg-brand-cream-warm overflow-hidden"
       id="testimonials"
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-300 mx-auto px-6">
         {/* Header with Navigation controls */}
         <div className="flex items-end justify-between mb-12">
           <div>
-            <span className="text-xs font-bold tracking-widest text-brand-secondary uppercase block mb-2">
+            <span className="text-xs font-bold tracking-widest text-primary uppercase block mb-2">
               In their words
             </span>
             <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-ink tracking-tight">

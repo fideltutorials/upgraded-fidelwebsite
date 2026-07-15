@@ -1,7 +1,7 @@
 export default function WhyFidel() {
   return (
     <section className="py-20 border-t border-brand-rule" id="about">
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-300 mx-auto px-6">
         <div className="max-w-2xl mb-12">
           <span className="text-xs font-bold tracking-widest text-brand-secondary uppercase block mb-2">
             Why Fidel
@@ -10,8 +10,8 @@ export default function WhyFidel() {
             The quiet things that make a real difference.
           </h2>
           <p className="text-brand-muted text-base leading-relaxed mt-4">
-            There are cheaper tutors in this market. Fidel is built for families
-            who would rather pay for the result.
+            Fidel is built for families who want to see real changes and results
+            for the effort they put in.
           </p>
         </div>
 
