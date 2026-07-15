@@ -1,9 +1,15 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowRight01Icon, Award01Icon } from "@hugeicons/core-free-icons";
-import { buttonVariants } from "@/components/ui/button";
+import {
+  ArrowRight,
+  ArrowRight01Icon,
+  Award01Icon,
+  CallIcon,
+} from "@hugeicons/core-free-icons";
+import { Button, buttonVariants } from "@/components/ui/button";
 import heroImage from "@/assets/images/hero-image.jpg";
+import Link from "next/link";
 
-export default function HeroSeven() {
+export default function Hero() {
   return (
     <section className="relative bg-brand-paper py-20 lg:py-32 overflow-hidden border-b border-brand-rule">
       <div className="absolute -top-36 right-0 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -31,33 +37,36 @@ export default function HeroSeven() {
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <a
+            <Link
               href="/contact"
               className={buttonVariants({
                 variant: "default",
                 size: "lg",
                 className:
-                  "rounded-full shadow-md text-sm sm:text-base px-8 py-5 h-auto font-bold group inline-flex items-center justify-center bg-brand-primary text-brand-paper hover:bg-brand-primary-deep",
+                  "rounded-full sm:text-lg px-9 py-7 font-bold inline-flex items-center justify-center",
               })}
             >
               Request Free Trial
               <HugeiconsIcon
-                icon={ArrowRight01Icon}
-                size={16}
+                icon={CallIcon}
                 className="inline ml-2 transform transition-transform group-hover:translate-x-1"
               />
-            </a>
-            <a
+            </Link>
+            <Link
               href="/programs"
               className={buttonVariants({
-                variant: "outline",
+                variant: "secondary",
                 size: "lg",
                 className:
-                  "rounded-full border-brand-rule bg-transparent text-brand-ink hover:bg-brand-cream-warm text-sm sm:text-base px-8 py-5 h-auto font-bold inline-flex items-center justify-center",
+                  "rounded-full sm:text-lg py-7 px-9 font-bold group inline-flex items-center justify-center",
               })}
             >
               View Programs
-            </a>
+              <HugeiconsIcon
+                icon={ArrowRight}
+                className="inline ml-2 transform transition-transform group-hover:translate-x-1"
+              />
+            </Link>
           </div>
         </div>
 
