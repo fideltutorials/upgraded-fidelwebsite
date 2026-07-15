@@ -11,6 +11,29 @@ import FaqSection from "@/components/admin/FaqSection";
 import LeadsSection from "@/components/admin/LeadsSection";
 import ResourcesSection from "@/components/admin/ResourcesSection";
 import ProgramsSection from "@/components/admin/ProgramsSection";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  ArrowDown,
+  BubbleChatAddFreeIcons,
+  BubbleChatIcon,
+  Calendar,
+  Document,
+  Download,
+  Download01FreeIcons,
+  FileStackFreeIcons,
+  FileStackIcon,
+  GraduateMaleFreeIcons,
+  GraduationCapFreeIcons,
+  Message01Icon,
+  Paperclip,
+  Pencil,
+  PencilEdit01FreeIcons,
+  PencilEdit01Icon,
+  PencilEdit02FreeIcons,
+  Question,
+  SquareStackIcon,
+  Users,
+} from "@hugeicons/core-free-icons";
 
 export default function AdminDashboard() {
   const [expanded, setExpanded] = useState({
@@ -53,7 +76,6 @@ export default function AdminDashboard() {
   return (
     <AdminLayout title="Admin Dashboard — Fidel Tutorial">
       <div className="max-w-[1200px] mx-auto px-4 py-8 lg:py-12 flex flex-col gap-8">
-        
         {/* ─── Dashboard Overview (Always Visible) ─── */}
         <section className="bg-white rounded-2xl border border-brand-rule shadow-sm p-6 lg:p-8">
           <DashboardSection onNavigate={handleNavigate} />
@@ -70,27 +92,24 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                  <line x1="16" y1="2" x2="16" y2="6" />
-                  <line x1="8" y1="2" x2="8" y2="6" />
-                  <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
+                <HugeiconsIcon icon={Calendar} />
               </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">Trial Bookings</h2>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                Trial Bookings
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-brand-muted font-medium">
                 {expanded.bookings ? "Collapse" : "Expand"}
               </span>
-              <span className={`transform transition-transform duration-300 ${expanded.bookings ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.bookings ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
               </span>
             </div>
           </button>
-          
+
           {expanded.bookings && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <BookingsSection />
@@ -109,25 +128,24 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                </svg>
+                <HugeiconsIcon icon={PencilEdit02FreeIcons} />
               </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">Blog Posts</h2>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                Blog Posts
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-brand-muted font-medium">
                 {expanded.blogs ? "Collapse" : "Expand"}
               </span>
-              <span className={`transform transition-transform duration-300 ${expanded.blogs ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.blogs ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
               </span>
             </div>
           </button>
-          
+
           {expanded.blogs && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <BlogsSection />
@@ -146,30 +164,63 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
+                <HugeiconsIcon icon={GraduationCapFreeIcons} />
               </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">Tutors</h2>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                Tutors
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-brand-muted font-medium">
                 {expanded.tutors ? "Collapse" : "Expand"}
               </span>
-              <span className={`transform transition-transform duration-300 ${expanded.tutors ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.tutors ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
               </span>
             </div>
           </button>
-          
+
           {expanded.tutors && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <TutorsSection />
+            </div>
+          )}
+        </section>
+
+        {/* ─── Leads Section (Collapsible) ─── */}
+        <section
+          id="leads"
+          className="bg-white rounded-2xl border border-brand-rule shadow-sm overflow-hidden transition-all duration-300 hover:border-brand-primary/20"
+        >
+          <button
+            onClick={() => toggleSection("leads")}
+            className="w-full flex items-center justify-between p-5 bg-brand-cream-warm/5 hover:bg-brand-cream-warm/15 transition-colors cursor-pointer text-left border-none outline-none"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-brand-primary">
+                <HugeiconsIcon icon={Document} />
+              </span>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                Captured Leads & Inquiries
+              </h2>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-muted font-medium">
+                {expanded.leads ? "Collapse" : "Expand"}
+              </span>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.leads ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
+              </span>
+            </div>
+          </button>
+
+          {expanded.leads && (
+            <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
+              <LeadsSection />
             </div>
           )}
         </section>
@@ -185,24 +236,24 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
+                <HugeiconsIcon icon={Message01Icon} />
               </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">Testimonials</h2>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                Testimonials
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-brand-muted font-medium">
                 {expanded.testimonials ? "Collapse" : "Expand"}
               </span>
-              <span className={`transform transition-transform duration-300 ${expanded.testimonials ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.testimonials ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
               </span>
             </div>
           </button>
-          
+
           {expanded.testimonials && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <TestimonialsSection />
@@ -221,69 +272,27 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
+                <HugeiconsIcon icon={Question} />
               </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">FAQ Items</h2>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                FAQ Items
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-brand-muted font-medium">
                 {expanded.faq ? "Collapse" : "Expand"}
               </span>
-              <span className={`transform transition-transform duration-300 ${expanded.faq ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.faq ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
               </span>
             </div>
           </button>
-          
+
           {expanded.faq && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <FaqSection />
-            </div>
-          )}
-        </section>
-
-        {/* ─── Leads Section (Collapsible) ─── */}
-        <section
-          id="leads"
-          className="bg-white rounded-2xl border border-brand-rule shadow-sm overflow-hidden transition-all duration-300 hover:border-brand-primary/20"
-        >
-          <button
-            onClick={() => toggleSection("leads")}
-            className="w-full flex items-center justify-between p-5 bg-brand-cream-warm/5 hover:bg-brand-cream-warm/15 transition-colors cursor-pointer text-left border-none outline-none"
-          >
-            <div className="flex items-center gap-3">
-              <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-              </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">Captured Leads & Inquiries</h2>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-brand-muted font-medium">
-                {expanded.leads ? "Collapse" : "Expand"}
-              </span>
-              <span className={`transform transition-transform duration-300 ${expanded.leads ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </div>
-          </button>
-          
-          {expanded.leads && (
-            <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
-              <LeadsSection />
             </div>
           )}
         </section>
@@ -299,26 +308,24 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
+                <HugeiconsIcon icon={Download01FreeIcons} />
               </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">Downloadable Study Resources</h2>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                Downloadable Study Resources
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-brand-muted font-medium">
                 {expanded.resources ? "Collapse" : "Expand"}
               </span>
-              <span className={`transform transition-transform duration-300 ${expanded.resources ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.resources ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
               </span>
             </div>
           </button>
-          
+
           {expanded.resources && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <ResourcesSection />
@@ -337,32 +344,30 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2"></rect>
-                </svg>
+                <HugeiconsIcon icon={SquareStackIcon} />
               </span>
-              <h2 className="font-serif text-lg font-bold text-brand-ink">Academic Programs</h2>
+              <h2 className="font-serif text-lg font-bold text-brand-ink">
+                Academic Programs
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-brand-muted font-medium">
                 {expanded.programs ? "Collapse" : "Expand"}
               </span>
-              <span className={`transform transition-transform duration-300 ${expanded.programs ? 'rotate-180' : ''} text-brand-muted`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+              <span
+                className={`transform transition-transform duration-300 ${expanded.programs ? "rotate-180" : ""} text-brand-muted`}
+              >
+                <HugeiconsIcon icon={ArrowDown} size={20} />
               </span>
             </div>
           </button>
-          
+
           {expanded.programs && (
             <div className="border-t border-brand-rule p-6 lg:p-8 bg-white">
               <ProgramsSection />
             </div>
           )}
         </section>
-        
       </div>
     </AdminLayout>
   );

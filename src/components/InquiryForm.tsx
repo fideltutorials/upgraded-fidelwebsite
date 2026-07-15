@@ -5,6 +5,7 @@ import React, { useState } from "react";
 export default function InquiryForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -23,6 +24,7 @@ export default function InquiryForm() {
         body: JSON.stringify({
           name,
           email,
+          phone,
           message,
           source: "contact",
           honeypot,
@@ -104,6 +106,19 @@ export default function InquiryForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. Hanna Kebede"
+          className="w-full px-4 py-3 rounded-xl border border-brand-rule bg-brand-cream-warm/15 text-brand-ink placeholder:text-brand-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="inquiry-phone" className="font-semibold text-xs text-brand-ink">Phone Number</label>
+        <input
+          type="tel"
+          id="inquiry-phone"
+          required
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="+251 979 795 154"
           className="w-full px-4 py-3 rounded-xl border border-brand-rule bg-brand-cream-warm/15 text-brand-ink placeholder:text-brand-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all"
         />
       </div>
