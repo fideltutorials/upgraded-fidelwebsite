@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add, GraduationCapIcon } from "@hugeicons/core-free-icons";
 
 const AVAILABLE_GRADES = [
   "All",
@@ -13,7 +15,7 @@ const AVAILABLE_GRADES = [
   "University",
   "SAT",
   "TOEFL",
-  "IELTS"
+  "IELTS",
 ];
 
 interface Tutor {
@@ -211,22 +213,26 @@ export default function TutorsSection() {
     }
   };
 
-  const inputClass = "w-full px-4 py-3 rounded-xl border border-brand-rule bg-brand-cream-warm/30 text-brand-ink text-sm placeholder:text-brand-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all";
+  const inputClass =
+    "w-full px-4 py-3 rounded-xl border border-brand-rule bg-brand-cream-warm/30 text-brand-ink text-sm placeholder:text-brand-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all";
 
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-serif text-2xl font-semibold text-brand-ink">Tutors</h1>
+          <h1 className="font-serif text-2xl font-semibold text-brand-ink">
+            Tutors
+          </h1>
           <p className="text-brand-muted text-sm mt-1">
-            Manage your tutoring network · {tutors.length} tutor{tutors.length !== 1 ? "s" : ""}
+            Manage your tutoring network · {tutors.length} tutor
+            {tutors.length !== 1 ? "s" : ""}
           </p>
         </div>
         <button
           onClick={openNewForm}
           className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 cursor-pointer"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <HugeiconsIcon icon={Add} size={18} />
           New Tutor
         </button>
       </div>
@@ -239,10 +245,14 @@ export default function TutorsSection() {
       ) : tutors.length === 0 ? (
         <div className="text-center py-20 bg-brand-cream-warm/40 rounded-2xl border border-brand-rule">
           <div className="w-16 h-16 rounded-2xl bg-brand-cream flex items-center justify-center mx-auto mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-muted"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <HugeiconsIcon icon={GraduationCapIcon} />
           </div>
-          <h3 className="font-serif text-lg font-semibold text-brand-ink mb-1">No tutors yet</h3>
-          <p className="text-brand-muted text-sm mb-6">Add your first tutor to get started.</p>
+          <h3 className="font-serif text-lg font-semibold text-brand-ink mb-1">
+            No tutors yet
+          </h3>
+          <p className="text-brand-muted text-sm mb-6">
+            Add your first tutor to get started.
+          </p>
           <button
             onClick={openNewForm}
             className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors cursor-pointer"
@@ -256,16 +266,29 @@ export default function TutorsSection() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-brand-cream-warm/60 border-b border-brand-rule">
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider w-16">Photo</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Name</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Specialties & Grades</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden md:table-cell">Bio</th>
-                  <th className="text-right px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Actions</th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider w-16">
+                    Photo
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Specialties & Grades
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden md:table-cell">
+                    Bio
+                  </th>
+                  <th className="text-right px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-rule/50">
                 {tutors.map((tutor) => (
-                  <tr key={tutor.id} className="hover:bg-brand-cream-warm/30 transition-colors group">
+                  <tr
+                    key={tutor.id}
+                    className="hover:bg-brand-cream-warm/30 transition-colors group"
+                  >
                     <td className="px-5 py-4">
                       {tutor.image ? (
                         <img
@@ -320,7 +343,10 @@ export default function TutorsSection() {
       {/* Tutor Form Slide-Over */}
       <SlideOver
         open={formOpen}
-        onClose={() => { setFormOpen(false); resetForm(); }}
+        onClose={() => {
+          setFormOpen(false);
+          resetForm();
+        }}
         title={editingId ? "Edit Tutor" : "Add New Tutor"}
         wide
       >
@@ -333,26 +359,55 @@ export default function TutorsSection() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Name */}
             <div>
-              <label htmlFor="tutor-name" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="tutor-name"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Name <span className="text-red-500">*</span>
               </label>
-              <input type="text" id="tutor-name" required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="e.g. Hanna G." />
+              <input
+                type="text"
+                id="tutor-name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={inputClass}
+                placeholder="e.g. Hanna G."
+              />
             </div>
 
             {/* Initials */}
             <div>
-              <label htmlFor="tutor-initials" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="tutor-initials"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Initials
-                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">(optional, auto-generated if empty)</span>
+                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">
+                  (optional, auto-generated if empty)
+                </span>
               </label>
-              <input type="text" id="tutor-initials" value={initials} onChange={(e) => setInitials(e.target.value)} maxLength={3} className={inputClass} placeholder="e.g. HG" />
+              <input
+                type="text"
+                id="tutor-initials"
+                value={initials}
+                onChange={(e) => setInitials(e.target.value)}
+                maxLength={3}
+                className={inputClass}
+                placeholder="e.g. HG"
+              />
             </div>
 
             {/* Picture */}
             <div>
-              <label htmlFor="tutor-image" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="tutor-image"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Profile Photo
-                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">(optional)</span>
+                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">
+                  (optional)
+                </span>
               </label>
               <div className="flex gap-4 items-center">
                 <input
@@ -378,9 +433,17 @@ export default function TutorsSection() {
                 {image && (
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden border border-brand-rule flex-shrink-0 bg-brand-cream-warm flex items-center justify-center">
-                      <img src={image} alt="Preview" className="w-full h-full object-cover" />
+                      <img
+                        src={image}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <button type="button" onClick={() => setImage("")} className="text-xs text-red-600 hover:text-red-800 font-semibold cursor-pointer">
+                    <button
+                      type="button"
+                      onClick={() => setImage("")}
+                      className="text-xs text-red-600 hover:text-red-800 font-semibold cursor-pointer"
+                    >
                       Remove
                     </button>
                   </div>
@@ -390,9 +453,14 @@ export default function TutorsSection() {
 
             {/* Specialties (Tag Input) */}
             <div>
-              <label htmlFor="tutor-specialties" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="tutor-specialties"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Specialties <span className="text-red-500">*</span>
-                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">(press Enter to add)</span>
+                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">
+                  (press Enter to add)
+                </span>
               </label>
               <div className="flex gap-2">
                 <input
@@ -465,7 +533,10 @@ export default function TutorsSection() {
 
             {/* Bio */}
             <div>
-              <label htmlFor="tutor-bio" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="tutor-bio"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Biography / Details <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -493,11 +564,20 @@ export default function TutorsSection() {
                 disabled={submitting}
                 className="bg-brand-primary text-brand-paper px-6 py-3 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 disabled:opacity-50 cursor-pointer"
               >
-                {submitting ? (editingId ? "Saving..." : "Adding...") : (editingId ? "Save Changes" : "Add Tutor")}
+                {submitting
+                  ? editingId
+                    ? "Saving..."
+                    : "Adding..."
+                  : editingId
+                    ? "Save Changes"
+                    : "Add Tutor"}
               </button>
               <button
                 type="button"
-                onClick={() => { setFormOpen(false); resetForm(); }}
+                onClick={() => {
+                  setFormOpen(false);
+                  resetForm();
+                }}
                 className="px-6 py-3 rounded-xl font-semibold text-sm text-brand-muted border border-brand-rule hover:bg-brand-cream-warm transition-colors cursor-pointer"
               >
                 Cancel

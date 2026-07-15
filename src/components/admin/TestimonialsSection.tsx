@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add } from "@hugeicons/core-free-icons";
 
 interface Testimonial {
   id: number;
@@ -81,7 +83,9 @@ export default function TestimonialsSection() {
         });
         if (res.ok) {
           const updated = await res.json();
-          setTestimonials(testimonials.map((t) => (t.id === updated.id ? updated : t)));
+          setTestimonials(
+            testimonials.map((t) => (t.id === updated.id ? updated : t)),
+          );
         }
       } else {
         const res = await fetch("/api/testimonials", {
@@ -111,7 +115,9 @@ export default function TestimonialsSection() {
       });
       if (res.ok) {
         const updated = await res.json();
-        setTestimonials(testimonials.map((item) => (item.id === updated.id ? updated : item)));
+        setTestimonials(
+          testimonials.map((item) => (item.id === updated.id ? updated : item)),
+        );
       }
     } catch (err) {
       console.error("Toggle publish error:", err);
@@ -144,21 +150,29 @@ export default function TestimonialsSection() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="font-serif text-lg font-bold text-brand-ink">Testimonials</h2>
-          <p className="text-brand-muted text-xs">{testimonials.length} testimonial{testimonials.length !== 1 ? "s" : ""} total</p>
+          <h2 className="font-serif text-lg font-bold text-brand-ink">
+            Testimonials
+          </h2>
+          <p className="text-brand-muted text-xs">
+            {testimonials.length} testimonial
+            {testimonials.length !== 1 ? "s" : ""} total
+          </p>
         </div>
         <button
           onClick={openCreate}
-          className="bg-brand-primary text-brand-paper hover:bg-brand-primary-deep px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 cursor-pointer"
         >
-          + Add Testimonial
+          <HugeiconsIcon icon={Add} size={18} />
+          Add FAQ Item
         </button>
       </div>
 
       {/* List */}
       {testimonials.length === 0 ? (
         <div className="text-center py-12 bg-brand-cream-warm/20 rounded-xl border border-brand-rule border-dashed">
-          <p className="text-brand-muted text-sm">No testimonials yet. Add your first one.</p>
+          <p className="text-brand-muted text-sm">
+            No testimonials yet. Add your first one.
+          </p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -173,20 +187,28 @@ export default function TestimonialsSection() {
                 </span>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-sm text-brand-ink">{t.authorName}</span>
-                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
-                      t.isPublished
-                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                        : "bg-amber-50 text-amber-700 border border-amber-100"
-                    }`}>
+                    <span className="font-semibold text-sm text-brand-ink">
+                      {t.authorName}
+                    </span>
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
+                        t.isPublished
+                          ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                          : "bg-amber-50 text-amber-700 border border-amber-100"
+                      }`}
+                    >
                       {t.isPublished ? "Published" : "Draft"}
                     </span>
                     <span className="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-brand-cream-warm text-brand-muted border border-brand-rule">
                       {t.category}
                     </span>
                   </div>
-                  <p className="text-xs text-brand-muted truncate max-w-md">{t.role}</p>
-                  <p className="text-xs text-brand-ink mt-1 line-clamp-2 italic">&quot;{t.quote}&quot;</p>
+                  <p className="text-xs text-brand-muted truncate max-w-md">
+                    {t.role}
+                  </p>
+                  <p className="text-xs text-brand-ink mt-1 line-clamp-2 italic">
+                    &quot;{t.quote}&quot;
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
@@ -215,10 +237,16 @@ export default function TestimonialsSection() {
       )}
 
       {/* Create / Edit Slide-over */}
-      <SlideOver open={editOpen} onClose={() => setEditOpen(false)} title={editing ? "Edit Testimonial" : "New Testimonial"}>
+      <SlideOver
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        title={editing ? "Edit Testimonial" : "New Testimonial"}
+      >
         <div className="flex flex-col gap-4 p-6">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Author Name *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Author Name *
+            </label>
             <input
               type="text"
               value={authorName}
@@ -228,7 +256,9 @@ export default function TestimonialsSection() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Role / Description *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Role / Description *
+            </label>
             <input
               type="text"
               value={role}
@@ -238,7 +268,9 @@ export default function TestimonialsSection() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Quote *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Quote *
+            </label>
             <textarea
               value={quote}
               onChange={(e) => setQuote(e.target.value)}
@@ -249,7 +281,9 @@ export default function TestimonialsSection() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Category</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Category
+              </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -261,7 +295,9 @@ export default function TestimonialsSection() {
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Initials</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Initials
+              </label>
               <input
                 type="text"
                 value={initials}
@@ -277,7 +313,11 @@ export default function TestimonialsSection() {
             disabled={saving || !authorName || !role || !quote}
             className="mt-2 bg-brand-primary text-brand-paper hover:bg-brand-primary-deep py-3 rounded-xl text-xs font-semibold transition-colors disabled:opacity-50 cursor-pointer"
           >
-            {saving ? "Saving..." : editing ? "Update Testimonial" : "Create Testimonial"}
+            {saving
+              ? "Saving..."
+              : editing
+                ? "Update Testimonial"
+                : "Create Testimonial"}
           </button>
         </div>
       </SlideOver>
