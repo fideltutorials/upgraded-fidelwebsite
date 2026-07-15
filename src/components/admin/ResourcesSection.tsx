@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add } from "@hugeicons/core-free-icons";
 
 interface Resource {
   id: number;
@@ -185,14 +187,19 @@ export default function ResourcesSection() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="font-serif text-lg font-bold text-brand-ink">Downloadable Resources</h2>
-          <p className="text-brand-muted text-xs">{items.length} resource{items.length !== 1 ? "s" : ""} total</p>
+          <h2 className="font-serif text-lg font-bold text-brand-ink">
+            Downloadable Resources
+          </h2>
+          <p className="text-brand-muted text-xs">
+            {items.length} resource{items.length !== 1 ? "s" : ""} total
+          </p>
         </div>
         <button
           onClick={openCreate}
-          className="bg-brand-primary text-brand-paper hover:bg-brand-primary-deep px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 cursor-pointer"
         >
-          + Add Resource
+          <HugeiconsIcon icon={Add} size={18} />
+          Add FAQ Item
         </button>
       </div>
 
@@ -223,11 +230,13 @@ export default function ResourcesSection() {
                       {item.year}
                     </span>
                   )}
-                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
-                    item.isPublished
-                      ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                      : "bg-amber-50 text-amber-700 border border-amber-100"
-                  }`}>
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
+                      item.isPublished
+                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                        : "bg-amber-50 text-amber-700 border border-amber-100"
+                    }`}
+                  >
                     {item.isPublished ? "Published" : "Draft"}
                   </span>
                   {item.isGated && (
@@ -236,7 +245,9 @@ export default function ResourcesSection() {
                     </span>
                   )}
                 </div>
-                <h4 className="font-serif font-bold text-sm text-brand-ink mb-1">{item.title}</h4>
+                <h4 className="font-serif font-bold text-sm text-brand-ink mb-1">
+                  {item.title}
+                </h4>
                 {item.file && (
                   <a
                     href={item.file}
@@ -274,10 +285,16 @@ export default function ResourcesSection() {
       )}
 
       {/* Create / Edit Slide-over */}
-      <SlideOver open={editOpen} onClose={() => setEditOpen(false)} title={editing ? "Edit Resource" : "New Resource"}>
+      <SlideOver
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        title={editing ? "Edit Resource" : "New Resource"}
+      >
         <div className="flex flex-col gap-4 p-6">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Resource Title *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Resource Title *
+            </label>
             <input
               type="text"
               value={title}
@@ -288,7 +305,9 @@ export default function ResourcesSection() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Upload File / PDF *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Upload File / PDF *
+            </label>
             <div className="flex items-center gap-2">
               <input
                 type="text"
@@ -312,7 +331,9 @@ export default function ResourcesSection() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Grade Level</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Grade Level
+              </label>
               <input
                 type="text"
                 value={grade}
@@ -322,7 +343,9 @@ export default function ResourcesSection() {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Year</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Year
+              </label>
               <input
                 type="text"
                 value={year}
@@ -334,7 +357,9 @@ export default function ResourcesSection() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Category</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Category
+            </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -355,7 +380,10 @@ export default function ResourcesSection() {
               onChange={(e) => setIsGated(e.target.checked)}
               className="w-4 h-4 text-brand-primary accent-brand-primary cursor-pointer"
             />
-            <label htmlFor="gated-checkbox" className="text-xs font-semibold text-brand-ink cursor-pointer">
+            <label
+              htmlFor="gated-checkbox"
+              className="text-xs font-semibold text-brand-ink cursor-pointer"
+            >
               Gated Download (Require name, email, and phone capture)
             </label>
           </div>
@@ -365,7 +393,11 @@ export default function ResourcesSection() {
             disabled={saving || uploading || !title || !fileUrl}
             className="mt-2 bg-brand-primary text-brand-paper hover:bg-brand-primary-deep py-3 rounded-xl text-xs font-semibold transition-colors disabled:opacity-50 cursor-pointer"
           >
-            {saving ? "Saving..." : editing ? "Update Resource" : "Create Resource"}
+            {saving
+              ? "Saving..."
+              : editing
+                ? "Update Resource"
+                : "Create Resource"}
           </button>
         </div>
       </SlideOver>

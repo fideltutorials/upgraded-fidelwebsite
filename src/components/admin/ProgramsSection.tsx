@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add } from "@hugeicons/core-free-icons";
 
 interface Program {
   id: number;
@@ -110,7 +112,7 @@ export default function ProgramsSection() {
         val
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "")
+          .replace(/(^-|-$)/g, ""),
       );
     }
   };
@@ -177,7 +179,9 @@ export default function ProgramsSection() {
       });
       if (res.ok) {
         const updated = await res.json();
-        setPrograms(programs.map((item) => (item.id === updated.id ? updated : item)));
+        setPrograms(
+          programs.map((item) => (item.id === updated.id ? updated : item)),
+        );
       }
     } catch (err) {
       console.error("Toggle publish error:", err);
@@ -210,21 +214,28 @@ export default function ProgramsSection() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="font-serif text-lg font-bold text-brand-ink">Academic Programs</h2>
-          <p className="text-brand-muted text-xs">{programs.length} program{programs.length !== 1 ? "s" : ""} total</p>
+          <h2 className="font-serif text-lg font-bold text-brand-ink">
+            Academic Programs
+          </h2>
+          <p className="text-brand-muted text-xs">
+            {programs.length} program{programs.length !== 1 ? "s" : ""} total
+          </p>
         </div>
         <button
           onClick={openCreate}
-          className="bg-brand-primary text-brand-paper hover:bg-brand-primary-deep px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 cursor-pointer"
         >
-          + Add Program
+          <HugeiconsIcon icon={Add} size={18} />
+          Add Program
         </button>
       </div>
 
       {/* List */}
       {programs.length === 0 ? (
         <div className="text-center py-12 bg-brand-cream-warm/20 rounded-xl border border-brand-rule border-dashed">
-          <p className="text-brand-muted text-sm">No programs configured. Add your first one.</p>
+          <p className="text-brand-muted text-sm">
+            No programs configured. Add your first one.
+          </p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -241,17 +252,25 @@ export default function ProgramsSection() {
                   <span className="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-brand-cream-warm text-brand-ink border border-brand-rule">
                     Icon: {p.icon}
                   </span>
-                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
-                    p.isPublished
-                      ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                      : "bg-amber-50 text-amber-700 border border-amber-100"
-                  }`}>
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
+                      p.isPublished
+                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                        : "bg-amber-50 text-amber-700 border border-amber-100"
+                    }`}
+                  >
                     {p.isPublished ? "Published" : "Draft"}
                   </span>
                 </div>
-                <h4 className="font-serif font-bold text-sm text-brand-ink mb-0.5">{p.name}</h4>
-                <p className="text-[10px] text-brand-primary font-bold">Slug: /programs/{p.slug}</p>
-                <p className="text-xs text-brand-muted mt-1 italic">{p.tagline}</p>
+                <h4 className="font-serif font-bold text-sm text-brand-ink mb-0.5">
+                  {p.name}
+                </h4>
+                <p className="text-[10px] text-brand-primary font-bold">
+                  Slug: /programs/{p.slug}
+                </p>
+                <p className="text-xs text-brand-muted mt-1 italic">
+                  {p.tagline}
+                </p>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
                 <button
@@ -279,10 +298,16 @@ export default function ProgramsSection() {
       )}
 
       {/* Create / Edit Slide-over */}
-      <SlideOver open={editOpen} onClose={() => setEditOpen(false)} title={editing ? "Edit Program" : "New Program"}>
+      <SlideOver
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        title={editing ? "Edit Program" : "New Program"}
+      >
         <div className="flex flex-col gap-4 p-6 overflow-y-auto max-h-[85vh]">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Program Name *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Program Name *
+            </label>
             <input
               type="text"
               value={name}
@@ -293,7 +318,9 @@ export default function ProgramsSection() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">URL Slug *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              URL Slug *
+            </label>
             <input
               type="text"
               value={slug}
@@ -305,7 +332,9 @@ export default function ProgramsSection() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Tagline</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Tagline
+              </label>
               <input
                 type="text"
                 value={tagline}
@@ -315,7 +344,9 @@ export default function ProgramsSection() {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Subtitle</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Subtitle
+              </label>
               <input
                 type="text"
                 value={subtitle}
@@ -327,7 +358,9 @@ export default function ProgramsSection() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Short Description *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Short Description *
+            </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -338,7 +371,9 @@ export default function ProgramsSection() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Overview Details</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Overview Details
+            </label>
             <textarea
               value={details}
               onChange={(e) => setDetails(e.target.value)}
@@ -350,7 +385,9 @@ export default function ProgramsSection() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Category</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Category
+              </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -364,7 +401,9 @@ export default function ProgramsSection() {
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Icon Glyph</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Icon Glyph
+              </label>
               <select
                 value={icon}
                 onChange={(e) => setIcon(e.target.value)}
@@ -381,7 +420,9 @@ export default function ProgramsSection() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Program Benefits / Included Items (one per line)</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Program Benefits / Included Items (one per line)
+            </label>
             <textarea
               value={benefitsText}
               onChange={(e) => setBenefitsText(e.target.value)}
@@ -393,7 +434,9 @@ export default function ProgramsSection() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Pricing Rate</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Pricing Rate
+              </label>
               <input
                 type="text"
                 value={pricing}
@@ -403,7 +446,9 @@ export default function ProgramsSection() {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-brand-ink">Schedule Info</label>
+              <label className="text-xs font-semibold text-brand-ink">
+                Schedule Info
+              </label>
               <input
                 type="text"
                 value={schedule}
@@ -419,7 +464,11 @@ export default function ProgramsSection() {
             disabled={saving || !name || !slug || !description}
             className="mt-2 bg-brand-primary text-brand-paper hover:bg-brand-primary-deep py-3.5 rounded-xl text-xs font-semibold transition-colors disabled:opacity-50 cursor-pointer"
           >
-            {saving ? "Saving..." : editing ? "Update Program" : "Create Program"}
+            {saving
+              ? "Saving..."
+              : editing
+                ? "Update Program"
+                : "Create Program"}
           </button>
         </div>
       </SlideOver>

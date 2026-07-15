@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add } from "@hugeicons/core-free-icons";
 
 interface FaqItem {
   id: number;
@@ -72,7 +74,11 @@ export default function FaqSection() {
         });
         if (res.ok) {
           const updated = await res.json();
-          setFaqs(faqs.map((f) => (f.id === updated.id ? updated : f)).sort((a, b) => a.sortOrder - b.sortOrder));
+          setFaqs(
+            faqs
+              .map((f) => (f.id === updated.id ? updated : f))
+              .sort((a, b) => a.sortOrder - b.sortOrder),
+          );
         }
       } else {
         const res = await fetch("/api/faq", {
@@ -102,7 +108,11 @@ export default function FaqSection() {
       });
       if (res.ok) {
         const updated = await res.json();
-        setFaqs(faqs.map((f) => (f.id === updated.id ? updated : f)).sort((a, b) => a.sortOrder - b.sortOrder));
+        setFaqs(
+          faqs
+            .map((f) => (f.id === updated.id ? updated : f))
+            .sort((a, b) => a.sortOrder - b.sortOrder),
+        );
       }
     } catch (err) {
       console.error("Toggle publish error:", err);
@@ -135,21 +145,28 @@ export default function FaqSection() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="font-serif text-lg font-bold text-brand-ink">Frequently Asked Questions</h2>
-          <p className="text-brand-muted text-xs">{faqs.length} FAQ{faqs.length !== 1 ? "s" : ""} total</p>
+          <h2 className="font-serif text-lg font-bold text-brand-ink">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-brand-muted text-xs">
+            {faqs.length} FAQ{faqs.length !== 1 ? "s" : ""} total
+          </p>
         </div>
         <button
           onClick={openCreate}
-          className="bg-brand-primary text-brand-paper hover:bg-brand-primary-deep px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 cursor-pointer"
         >
-          + Add FAQ Item
+          <HugeiconsIcon icon={Add} size={18} />
+          Add FAQ Item
         </button>
       </div>
 
       {/* List */}
       {faqs.length === 0 ? (
         <div className="text-center py-12 bg-brand-cream-warm/20 rounded-xl border border-brand-rule border-dashed">
-          <p className="text-brand-muted text-sm">No FAQ items yet. Add your first one.</p>
+          <p className="text-brand-muted text-sm">
+            No FAQ items yet. Add your first one.
+          </p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -163,16 +180,22 @@ export default function FaqSection() {
                   <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-brand-cream text-brand-muted border border-brand-rule">
                     Order: {f.sortOrder}
                   </span>
-                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
-                    f.isPublished
-                      ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                      : "bg-amber-50 text-amber-700 border border-amber-100"
-                  }`}>
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${
+                      f.isPublished
+                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                        : "bg-amber-50 text-amber-700 border border-amber-100"
+                    }`}
+                  >
                     {f.isPublished ? "Published" : "Draft"}
                   </span>
                 </div>
-                <h4 className="font-serif font-bold text-sm text-brand-ink mb-1">{f.question}</h4>
-                <p className="text-xs text-brand-muted line-clamp-2">{f.answer}</p>
+                <h4 className="font-serif font-bold text-sm text-brand-ink mb-1">
+                  {f.question}
+                </h4>
+                <p className="text-xs text-brand-muted line-clamp-2">
+                  {f.answer}
+                </p>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
                 <button
@@ -200,10 +223,16 @@ export default function FaqSection() {
       )}
 
       {/* Create / Edit Slide-over */}
-      <SlideOver open={editOpen} onClose={() => setEditOpen(false)} title={editing ? "Edit FAQ Item" : "New FAQ Item"}>
+      <SlideOver
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        title={editing ? "Edit FAQ Item" : "New FAQ Item"}
+      >
         <div className="flex flex-col gap-4 p-6">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Question *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Question *
+            </label>
             <input
               type="text"
               value={question}
@@ -213,7 +242,9 @@ export default function FaqSection() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Answer *</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Answer *
+            </label>
             <textarea
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
@@ -223,7 +254,9 @@ export default function FaqSection() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-brand-ink">Sort Order</label>
+            <label className="text-xs font-semibold text-brand-ink">
+              Sort Order
+            </label>
             <input
               type="number"
               value={sortOrder}

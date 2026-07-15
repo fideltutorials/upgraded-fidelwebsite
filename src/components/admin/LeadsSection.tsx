@@ -51,7 +51,7 @@ export default function LeadsSection() {
           l.name.toLowerCase().includes(q) ||
           l.email.toLowerCase().includes(q) ||
           (l.phone && l.phone.toLowerCase().includes(q)) ||
-          (l.message && l.message.toLowerCase().includes(q))
+          (l.message && l.message.toLowerCase().includes(q)),
       );
     }
 
@@ -98,7 +98,16 @@ export default function LeadsSection() {
   const handleExportCSV = () => {
     if (filteredLeads.length === 0) return;
 
-    const headers = ["ID", "Name", "Email", "Phone", "Message", "Source", "Status", "Created At"];
+    const headers = [
+      "ID",
+      "Name",
+      "Email",
+      "Phone",
+      "Message",
+      "Source",
+      "Status",
+      "Created At",
+    ];
     const rows = filteredLeads.map((l) => [
       l.id,
       `"${l.name.replace(/"/g, '""')}"`,
@@ -117,7 +126,10 @@ export default function LeadsSection() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `fidel_leads_export_${new Date().toISOString().split("T")[0]}.csv`);
+    link.setAttribute(
+      "download",
+      `fidel_leads_export_${new Date().toISOString().split("T")[0]}.csv`,
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -137,9 +149,12 @@ export default function LeadsSection() {
       {/* Header Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h2 className="font-serif text-lg font-bold text-brand-ink">Inquiries & Leads</h2>
+          <h2 className="font-serif text-lg font-bold text-brand-ink">
+            Inquiries & Leads
+          </h2>
           <p className="text-brand-muted text-xs">
-            Showing {filteredLeads.length} of {leads.length} total lead{leads.length !== 1 ? "s" : ""}
+            Showing {filteredLeads.length} of {leads.length} total lead
+            {leads.length !== 1 ? "s" : ""}
           </p>
         </div>
         <button
@@ -163,7 +178,9 @@ export default function LeadsSection() {
 
         <div className="flex flex-wrap gap-4 items-center w-full md:w-auto justify-end">
           <div className="flex items-center gap-1.5">
-            <span className="text-[10px] font-semibold text-brand-muted uppercase tracking-wide">Source:</span>
+            <span className="text-[10px] font-semibold text-brand-muted uppercase tracking-wide">
+              Source:
+            </span>
             <select
               value={sourceFilter}
               onChange={(e) => setSourceFilter(e.target.value)}
@@ -176,7 +193,9 @@ export default function LeadsSection() {
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-[10px] font-semibold text-brand-muted uppercase tracking-wide">Status:</span>
+            <span className="text-[10px] font-semibold text-brand-muted uppercase tracking-wide">
+              Status:
+            </span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -194,7 +213,9 @@ export default function LeadsSection() {
       {/* Leads list */}
       {filteredLeads.length === 0 ? (
         <div className="text-center py-12 bg-brand-cream-warm/10 rounded-xl border border-brand-rule border-dashed">
-          <p className="text-brand-muted text-sm">No leads match the current filters.</p>
+          <p className="text-brand-muted text-sm">
+            No leads match the current filters.
+          </p>
         </div>
       ) : (
         <div className="overflow-x-auto border border-brand-rule rounded-xl shadow-sm">
@@ -215,20 +236,32 @@ export default function LeadsSection() {
                   <td className="p-3.5 font-semibold align-top">{l.name}</td>
                   <td className="p-3.5 align-top space-y-1">
                     <div className="font-medium">{l.email}</div>
-                    {l.phone && <div className="text-brand-muted">{l.phone}</div>}
+                    {l.phone && (
+                      <div className="text-brand-muted">{l.phone}</div>
+                    )}
                     <div className="text-[10px] text-brand-muted">
-                      {new Date(l.createdAt).toLocaleDateString()} {new Date(l.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      {new Date(l.createdAt).toLocaleDateString()}{" "}
+                      {new Date(l.createdAt).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </div>
                   </td>
                   <td className="p-3.5 align-top max-w-xs break-words whitespace-pre-wrap text-brand-muted">
-                    {l.message || <span className="italic opacity-60">No message provided</span>}
+                    {l.message || (
+                      <span className="italic opacity-60">
+                        No message provided
+                      </span>
+                    )}
                   </td>
                   <td className="p-3.5 align-top">
-                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider ${
-                      l.source === "contact"
-                        ? "bg-purple-50 text-purple-700 border border-purple-100"
-                        : "bg-blue-50 text-blue-700 border border-blue-100"
-                    }`}>
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider ${
+                        l.source === "contact"
+                          ? "bg-purple-50 text-purple-700 border border-purple-100"
+                          : "bg-blue-50 text-blue-700 border border-blue-100"
+                      }`}
+                    >
                       {l.source}
                     </span>
                   </td>

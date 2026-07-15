@@ -28,7 +28,9 @@ interface DashboardSectionProps {
   onNavigate: (section: string) => void;
 }
 
-export default function DashboardSection({ onNavigate }: DashboardSectionProps) {
+export default function DashboardSection({
+  onNavigate,
+}: DashboardSectionProps) {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [tutors, setTutors] = useState<Tutor[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -68,8 +70,6 @@ export default function DashboardSection({ onNavigate }: DashboardSectionProps) 
   const totalBookings = bookings.length;
   const pendingBookings = bookings.filter((b) => b.status === "pending").length;
 
-
-
   if (loading) {
     return (
       <div className="text-center py-20">
@@ -82,7 +82,9 @@ export default function DashboardSection({ onNavigate }: DashboardSectionProps) 
   return (
     <div>
       <div className="mb-8">
-        <h1 className="font-serif text-2xl font-semibold text-brand-ink">Dashboard</h1>
+        <h1 className="font-serif text-2xl font-semibold text-brand-ink">
+          Dashboard
+        </h1>
         <p className="text-brand-muted text-sm mt-1">
           Welcome to the central command hub for Fidel Tutorial.
         </p>
@@ -94,25 +96,43 @@ export default function DashboardSection({ onNavigate }: DashboardSectionProps) 
           onClick={() => onNavigate("bookings")}
           className="bg-white rounded-2xl border border-brand-rule p-5 shadow-sm text-left hover:border-brand-primary/40 hover:shadow-md transition-all cursor-pointer group"
         >
-          <div className="text-3xl font-bold text-brand-primary group-hover:scale-105 transition-transform origin-left">{totalBookings}</div>
-          <div className="text-xs font-semibold text-brand-ink mt-1">Trial Bookings</div>
-          <div className="text-[10px] text-brand-muted">{pendingBookings} pending review</div>
+          <div className="text-3xl font-bold text-brand-primary group-hover:scale-105 transition-transform origin-left">
+            {totalBookings}
+          </div>
+          <div className="text-xs font-semibold text-brand-ink mt-1">
+            Trial Bookings
+          </div>
+          <div className="text-[10px] text-brand-muted">
+            {pendingBookings} pending review
+          </div>
         </button>
         <button
           onClick={() => onNavigate("blogs")}
           className="bg-white rounded-2xl border border-brand-rule p-5 shadow-sm text-left hover:border-brand-primary/40 hover:shadow-md transition-all cursor-pointer group"
         >
-          <div className="text-3xl font-bold text-brand-primary group-hover:scale-105 transition-transform origin-left">{totalBlogs}</div>
-          <div className="text-xs font-semibold text-brand-ink mt-1">Blog Posts</div>
-          <div className="text-[10px] text-brand-muted">{publishedBlogs} published · {draftBlogs} drafts</div>
+          <div className="text-3xl font-bold text-brand-primary group-hover:scale-105 transition-transform origin-left">
+            {totalBlogs}
+          </div>
+          <div className="text-xs font-semibold text-brand-ink mt-1">
+            Blog Posts
+          </div>
+          <div className="text-[10px] text-brand-muted">
+            {publishedBlogs} published · {draftBlogs} drafts
+          </div>
         </button>
         <button
           onClick={() => onNavigate("tutors")}
           className="bg-white rounded-2xl border border-brand-rule p-5 shadow-sm text-left hover:border-brand-primary/40 hover:shadow-md transition-all cursor-pointer group"
         >
-          <div className="text-3xl font-bold text-brand-primary group-hover:scale-105 transition-transform origin-left">{totalTutors}</div>
-          <div className="text-xs font-semibold text-brand-ink mt-1">Tutors</div>
-          <div className="text-[10px] text-brand-muted">Across {uniqueSubjects} subjects</div>
+          <div className="text-3xl font-bold text-brand-primary group-hover:scale-105 transition-transform origin-left">
+            {totalTutors}
+          </div>
+          <div className="text-xs font-semibold text-brand-ink mt-1">
+            Tutors
+          </div>
+          <div className="text-[10px] text-brand-muted">
+            Across {uniqueSubjects} subjects
+          </div>
         </button>
       </div>
     </div>
