@@ -14,25 +14,14 @@ import ProgramsSection from "@/components/admin/ProgramsSection";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowDown,
-  BubbleChatAddFreeIcons,
-  BubbleChatIcon,
   Calendar,
   Document,
-  Download,
-  Download01FreeIcons,
-  FileStackFreeIcons,
-  FileStackIcon,
-  GraduateMaleFreeIcons,
-  GraduationCapFreeIcons,
+  Download01Icon,
+  GraduationCapIcon,
   Message01Icon,
-  Paperclip,
-  Pencil,
-  PencilEdit01FreeIcons,
-  PencilEdit01Icon,
-  PencilEdit02FreeIcons,
+  PencilEdit02Icon,
   Question,
   SquareStackIcon,
-  Users,
 } from "@hugeicons/core-free-icons";
 
 export default function AdminDashboard() {
@@ -128,7 +117,7 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <HugeiconsIcon icon={PencilEdit02FreeIcons} />
+                <HugeiconsIcon icon={PencilEdit02Icon} />
               </span>
               <h2 className="font-serif text-lg font-bold text-brand-ink">
                 Blog Posts
@@ -164,7 +153,7 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <HugeiconsIcon icon={GraduationCapFreeIcons} />
+                <HugeiconsIcon icon={GraduationCapIcon} />
               </span>
               <h2 className="font-serif text-lg font-bold text-brand-ink">
                 Tutors
@@ -308,7 +297,7 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center gap-3">
               <span className="text-brand-primary">
-                <HugeiconsIcon icon={Download01FreeIcons} />
+                <HugeiconsIcon icon={Download01Icon} />
               </span>
               <h2 className="font-serif text-lg font-bold text-brand-ink">
                 Downloadable Study Resources

@@ -2,6 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Add,
+  PencilEdit02Icon,
+  PencilEditIcon,
+} from "@hugeicons/core-free-icons";
 
 interface BlogPost {
   id: number;
@@ -170,7 +176,11 @@ export default function BlogsSection() {
         body: JSON.stringify({ published: !currentPublished }),
       });
       if (res.ok) {
-        setBlogs(blogs.map((b) => (b.id === id ? { ...b, published: !currentPublished } : b)));
+        setBlogs(
+          blogs.map((b) =>
+            b.id === id ? { ...b, published: !currentPublished } : b,
+          ),
+        );
       }
     } catch (err) {
       console.error("Failed to toggle publish status:", err);
@@ -190,22 +200,26 @@ export default function BlogsSection() {
     }
   };
 
-  const inputClass = "w-full px-4 py-3 rounded-xl border border-brand-rule bg-brand-cream-warm/30 text-brand-ink text-sm placeholder:text-brand-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all";
+  const inputClass =
+    "w-full px-4 py-3 rounded-xl border border-brand-rule bg-brand-cream-warm/30 text-brand-ink text-sm placeholder:text-brand-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all";
 
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-serif text-2xl font-semibold text-brand-ink">Blog Posts</h1>
+          <h1 className="font-serif text-2xl font-semibold text-brand-ink">
+            Blog Posts
+          </h1>
           <p className="text-brand-muted text-sm mt-1">
-            Manage your blog content · {blogs.length} post{blogs.length !== 1 ? "s" : ""}
+            Manage your blog content · {blogs.length} post
+            {blogs.length !== 1 ? "s" : ""}
           </p>
         </div>
         <button
           onClick={openNewForm}
           className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 cursor-pointer"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <HugeiconsIcon icon={Add} size={18} />
           New Post
         </button>
       </div>
@@ -218,10 +232,14 @@ export default function BlogsSection() {
       ) : blogs.length === 0 ? (
         <div className="text-center py-20 bg-brand-cream-warm/40 rounded-2xl border border-brand-rule">
           <div className="w-16 h-16 rounded-2xl bg-brand-cream flex items-center justify-center mx-auto mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-muted"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            <HugeiconsIcon icon={PencilEdit02Icon} />
           </div>
-          <h3 className="font-serif text-lg font-semibold text-brand-ink mb-1">No posts yet</h3>
-          <p className="text-brand-muted text-sm mb-6">Create your first blog post to get started.</p>
+          <h3 className="font-serif text-lg font-semibold text-brand-ink mb-1">
+            No posts yet
+          </h3>
+          <p className="text-brand-muted text-sm mb-6">
+            Create your first blog post to get started.
+          </p>
           <button
             onClick={openNewForm}
             className="inline-flex items-center gap-2 bg-brand-primary text-brand-paper px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors cursor-pointer"
@@ -235,23 +253,46 @@ export default function BlogsSection() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-brand-cream-warm/60 border-b border-brand-rule">
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Title</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden md:table-cell">Author</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden lg:table-cell">Date</th>
-                  <th className="text-center px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Status</th>
-                  <th className="text-right px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Actions</th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Title
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden md:table-cell">
+                    Author
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden lg:table-cell">
+                    Date
+                  </th>
+                  <th className="text-center px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="text-right px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-rule/50">
                 {blogs.map((blog) => (
-                  <tr key={blog.id} className="hover:bg-brand-cream-warm/30 transition-colors group">
+                  <tr
+                    key={blog.id}
+                    className="hover:bg-brand-cream-warm/30 transition-colors group"
+                  >
                     <td className="px-5 py-4">
-                      <div className="font-medium text-brand-ink group-hover:text-brand-primary transition-colors">{blog.title}</div>
-                      <div className="text-xs text-brand-muted mt-0.5">/{blog.slug}</div>
+                      <div className="font-medium text-brand-ink group-hover:text-brand-primary transition-colors">
+                        {blog.title}
+                      </div>
+                      <div className="text-xs text-brand-muted mt-0.5">
+                        /{blog.slug}
+                      </div>
                     </td>
-                    <td className="px-5 py-4 text-brand-muted hidden md:table-cell">{blog.author}</td>
+                    <td className="px-5 py-4 text-brand-muted hidden md:table-cell">
+                      {blog.author}
+                    </td>
                     <td className="px-5 py-4 text-brand-muted text-xs hidden lg:table-cell">
-                      {new Date(blog.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                      {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
                     </td>
                     <td className="px-5 py-4 text-center">
                       <span
@@ -261,14 +302,18 @@ export default function BlogsSection() {
                             : "bg-amber-50 text-amber-700 border border-amber-200"
                         }`}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full ${blog.published ? "bg-emerald-500" : "bg-amber-500"}`}></span>
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${blog.published ? "bg-emerald-500" : "bg-amber-500"}`}
+                        ></span>
                         {blog.published ? "Published" : "Draft"}
                       </span>
                     </td>
                     <td className="px-5 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button
-                          onClick={() => handleTogglePublish(blog.id, blog.published)}
+                          onClick={() =>
+                            handleTogglePublish(blog.id, blog.published)
+                          }
                           className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
                             blog.published
                               ? "text-amber-700 border-amber-200 hover:bg-amber-50"
@@ -302,7 +347,10 @@ export default function BlogsSection() {
       {/* Blog Form Slide-Over */}
       <SlideOver
         open={formOpen}
-        onClose={() => { setFormOpen(false); resetForm(); }}
+        onClose={() => {
+          setFormOpen(false);
+          resetForm();
+        }}
         title={editingId ? "Edit Post" : "Create New Post"}
         wide
       >
@@ -315,49 +363,120 @@ export default function BlogsSection() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Title */}
             <div>
-              <label htmlFor="blog-title" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="blog-title"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Title <span className="text-red-500">*</span>
               </label>
-              <input type="text" id="blog-title" required value={title} onChange={handleTitleChange} className={inputClass} placeholder="Enter post title" />
+              <input
+                type="text"
+                id="blog-title"
+                required
+                value={title}
+                onChange={handleTitleChange}
+                className={inputClass}
+                placeholder="Enter post title"
+              />
             </div>
 
             {/* Slug */}
             <div>
-              <label htmlFor="blog-slug" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="blog-slug"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Slug
-                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">(auto-generated from title if empty)</span>
+                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">
+                  (auto-generated from title if empty)
+                </span>
               </label>
-              <input type="text" id="blog-slug" value={slug} onChange={handleSlugChange} className={inputClass} placeholder="my-blog-post" />
+              <input
+                type="text"
+                id="blog-slug"
+                value={slug}
+                onChange={handleSlugChange}
+                className={inputClass}
+                placeholder="my-blog-post"
+              />
             </div>
 
             {/* Author */}
             <div>
-              <label htmlFor="blog-author" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">Author</label>
-              <input type="text" id="blog-author" value={author} onChange={(e) => setAuthor(e.target.value)} className={inputClass} placeholder="Author name" />
+              <label
+                htmlFor="blog-author"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
+                Author
+              </label>
+              <input
+                type="text"
+                id="blog-author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                className={inputClass}
+                placeholder="Author name"
+              />
             </div>
 
             {/* Cover Image URL */}
             <div>
-              <label htmlFor="blog-cover" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="blog-cover"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Cover Image URL
-                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">(optional)</span>
+                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">
+                  (optional)
+                </span>
               </label>
-              <input type="url" id="blog-cover" value={coverImage} onChange={(e) => setCoverImage(e.target.value)} className={inputClass} placeholder="https://example.com/image.jpg" />
+              <input
+                type="url"
+                id="blog-cover"
+                value={coverImage}
+                onChange={(e) => setCoverImage(e.target.value)}
+                className={inputClass}
+                placeholder="https://example.com/image.jpg"
+              />
             </div>
 
             {/* Excerpt */}
             <div>
-              <label htmlFor="blog-excerpt" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">Excerpt</label>
-              <textarea id="blog-excerpt" rows={2} value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className={`${inputClass} resize-y`} placeholder="A brief summary of the post..." />
+              <label
+                htmlFor="blog-excerpt"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
+                Excerpt
+              </label>
+              <textarea
+                id="blog-excerpt"
+                rows={2}
+                value={excerpt}
+                onChange={(e) => setExcerpt(e.target.value)}
+                className={`${inputClass} resize-y`}
+                placeholder="A brief summary of the post..."
+              />
             </div>
 
             {/* Body */}
             <div>
-              <label htmlFor="blog-body" className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="blog-body"
+                className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
+              >
                 Content
-                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">(HTML supported)</span>
+                <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">
+                  (HTML supported)
+                </span>
               </label>
-              <textarea id="blog-body" rows={10} value={body} onChange={(e) => setBody(e.target.value)} className={`${inputClass} resize-y font-mono`} placeholder="Write your blog post content here... HTML tags are supported." />
+              <textarea
+                id="blog-body"
+                rows={10}
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                className={`${inputClass} resize-y font-mono`}
+                placeholder="Write your blog post content here... HTML tags are supported."
+              />
             </div>
 
             {/* Published */}
@@ -369,7 +488,10 @@ export default function BlogsSection() {
                 onChange={(e) => setPublished(e.target.checked)}
                 className="w-4 h-4 rounded border-brand-rule text-brand-primary focus:ring-brand-primary/30"
               />
-              <label htmlFor="blog-published" className="text-sm font-medium text-brand-ink">
+              <label
+                htmlFor="blog-published"
+                className="text-sm font-medium text-brand-ink"
+              >
                 {editingId ? "Published" : "Publish immediately"}
               </label>
             </div>
@@ -388,11 +510,20 @@ export default function BlogsSection() {
                 disabled={submitting}
                 className="bg-brand-primary text-brand-paper px-6 py-3 rounded-xl font-semibold text-sm hover:bg-brand-primary-deep transition-colors shadow-md shadow-brand-primary/15 disabled:opacity-50 cursor-pointer"
               >
-                {submitting ? (editingId ? "Saving..." : "Creating...") : (editingId ? "Save Changes" : "Create Post")}
+                {submitting
+                  ? editingId
+                    ? "Saving..."
+                    : "Creating..."
+                  : editingId
+                    ? "Save Changes"
+                    : "Create Post"}
               </button>
               <button
                 type="button"
-                onClick={() => { setFormOpen(false); resetForm(); }}
+                onClick={() => {
+                  setFormOpen(false);
+                  resetForm();
+                }}
                 className="px-6 py-3 rounded-xl font-semibold text-sm text-brand-muted border border-brand-rule hover:bg-brand-cream-warm transition-colors cursor-pointer"
               >
                 Cancel

@@ -90,10 +90,17 @@ export default function BookingsSection() {
 
   const handleDelete = async () => {
     if (!selectedBooking) return;
-    if (!confirm("Are you sure you want to delete this booking request permanently?")) return;
+    if (
+      !confirm(
+        "Are you sure you want to delete this booking request permanently?",
+      )
+    )
+      return;
 
     try {
-      const res = await fetch(`/api/bookings/${selectedBooking.id}`, { method: "DELETE" });
+      const res = await fetch(`/api/bookings/${selectedBooking.id}`, {
+        method: "DELETE",
+      });
       if (res.ok) {
         setBookings(bookings.filter((b) => b.id !== selectedBooking.id));
         setDetailOpen(false);
@@ -109,9 +116,13 @@ export default function BookingsSection() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="font-serif text-2xl font-semibold text-brand-ink">Trial Bookings</h1>
+        <h1 className="font-serif text-2xl font-semibold text-brand-ink">
+          Trial Bookings
+        </h1>
         <p className="text-brand-muted text-sm mt-1">
-          Manage family requests, tutoring level matching, and trial session scheduling · {bookings.length} request{bookings.length !== 1 ? "s" : ""}
+          Manage family requests, tutoring level matching, and trial session
+          scheduling · {bookings.length} request
+          {bookings.length !== 1 ? "s" : ""}
         </p>
       </div>
 
@@ -123,10 +134,30 @@ export default function BookingsSection() {
       ) : bookings.length === 0 ? (
         <div className="text-center py-20 bg-brand-cream-warm/40 rounded-2xl border border-brand-rule">
           <div className="w-16 h-16 rounded-2xl bg-brand-cream flex items-center justify-center mx-auto mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-muted"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-brand-muted"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
           </div>
-          <h3 className="font-serif text-lg font-semibold text-brand-ink mb-1">No bookings request</h3>
-          <p className="text-brand-muted text-sm">New tutor bookings requested on the public portal will appear here.</p>
+          <h3 className="font-serif text-lg font-semibold text-brand-ink mb-1">
+            No bookings request
+          </h3>
+          <p className="text-brand-muted text-sm">
+            New tutor bookings requested on the public portal will appear here.
+          </p>
         </div>
       ) : (
         <div className="bg-white rounded-2xl border border-brand-rule overflow-hidden shadow-sm">
@@ -134,30 +165,57 @@ export default function BookingsSection() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-brand-cream-warm/60 border-b border-brand-rule">
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Parent / Student</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden md:table-cell">Details</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden lg:table-cell">Tutor</th>
-                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden lg:table-cell">Date</th>
-                  <th className="text-center px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Status</th>
-                  <th className="text-right px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">Actions</th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Parent / Student
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden md:table-cell">
+                    Details
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden lg:table-cell">
+                    Tutor
+                  </th>
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider hidden lg:table-cell">
+                    Date
+                  </th>
+                  <th className="text-center px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="text-right px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-rule/50">
                 {bookings.map((booking) => (
-                  <tr key={booking.id} className="hover:bg-brand-cream-warm/30 transition-colors group">
+                  <tr
+                    key={booking.id}
+                    className="hover:bg-brand-cream-warm/30 transition-colors group"
+                  >
                     <td className="px-5 py-4">
-                      <div className="font-semibold text-brand-ink">{booking.parentName}</div>
-                      <div className="text-xs text-brand-muted mt-0.5">{booking.email}</div>
+                      <div className="font-semibold text-brand-ink">
+                        {booking.parentName}
+                      </div>
+                      <div className="text-xs text-brand-muted mt-0.5">
+                        {booking.email}
+                      </div>
                     </td>
                     <td className="px-5 py-4 hidden md:table-cell">
-                      <div className="font-medium text-brand-ink">{booking.subject}</div>
-                      <div className="text-xs text-brand-muted mt-0.5">{booking.grade} · {booking.format}</div>
+                      <div className="font-medium text-brand-ink">
+                        {booking.subject}
+                      </div>
+                      <div className="text-xs text-brand-muted mt-0.5">
+                        {booking.grade} · {booking.format}
+                      </div>
                     </td>
                     <td className="px-5 py-4 font-semibold text-brand-primary text-xs uppercase tracking-wider hidden lg:table-cell">
                       {getTutorName(booking.tutorId)}
                     </td>
                     <td className="px-5 py-4 text-brand-muted text-xs hidden lg:table-cell">
-                      {new Date(booking.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                      {new Date(booking.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
                     </td>
                     <td className="px-5 py-4 text-center">
                       <span
@@ -165,18 +223,23 @@ export default function BookingsSection() {
                           booking.status === "pending"
                             ? "bg-amber-50 text-amber-700 border border-amber-100"
                             : booking.status === "confirmed"
-                            ? "bg-blue-50 text-blue-700 border border-blue-100"
-                            : booking.status === "completed"
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                            : "bg-red-50 text-red-700 border border-red-100"
+                              ? "bg-blue-50 text-blue-700 border border-blue-100"
+                              : booking.status === "completed"
+                                ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                                : "bg-red-50 text-red-700 border border-red-100"
                         }`}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full ${
-                          booking.status === "pending" ? "bg-amber-500"
-                            : booking.status === "confirmed" ? "bg-blue-500"
-                            : booking.status === "completed" ? "bg-emerald-500"
-                            : "bg-red-500"
-                        }`}></span>
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            booking.status === "pending"
+                              ? "bg-amber-500"
+                              : booking.status === "confirmed"
+                                ? "bg-blue-500"
+                                : booking.status === "completed"
+                                  ? "bg-emerald-500"
+                                  : "bg-red-500"
+                          }`}
+                        ></span>
                         {booking.status}
                       </span>
                     </td>
@@ -199,32 +262,61 @@ export default function BookingsSection() {
       {/* Booking Detail Slide-Over */}
       <SlideOver
         open={detailOpen}
-        onClose={() => { setDetailOpen(false); setSelectedBooking(null); }}
-        title={selectedBooking ? `Booking #${selectedBooking.id}` : "Booking Details"}
+        onClose={() => {
+          setDetailOpen(false);
+          setSelectedBooking(null);
+        }}
+        title={
+          selectedBooking ? `Booking #${selectedBooking.id}` : "Booking Details"
+        }
       >
         {selectedBooking && (
           <div className="flex flex-col gap-6">
             {/* Header */}
             <div>
-              <h2 className="font-serif text-2xl font-bold text-brand-ink">{selectedBooking.parentName}</h2>
+              <h2 className="font-serif text-2xl font-bold text-brand-ink">
+                {selectedBooking.parentName}
+              </h2>
               <p className="text-brand-muted text-xs mt-1">
-                Submitted on {new Date(selectedBooking.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })}
+                Submitted on{" "}
+                {new Date(selectedBooking.createdAt).toLocaleDateString(
+                  "en-US",
+                  {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  },
+                )}
               </p>
             </div>
 
             {/* Contact Information */}
             <div className="bg-brand-cream-warm/20 border border-brand-rule rounded-xl p-5">
-              <h3 className="font-serif text-sm font-bold text-brand-ink mb-3 uppercase tracking-wider">Contact Information</h3>
+              <h3 className="font-serif text-sm font-bold text-brand-ink mb-3 uppercase tracking-wider">
+                Contact Information
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">Email</span>
-                  <a href={`mailto:${selectedBooking.email}`} className="text-sm font-semibold text-brand-primary hover:underline mt-0.5 block">
+                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">
+                    Email
+                  </span>
+                  <a
+                    href={`mailto:${selectedBooking.email}`}
+                    className="text-sm font-semibold text-brand-primary hover:underline mt-0.5 block"
+                  >
                     {selectedBooking.email}
                   </a>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">Phone</span>
-                  <a href={`tel:${selectedBooking.phone}`} className="text-sm font-semibold text-brand-ink hover:text-brand-primary mt-0.5 block">
+                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">
+                    Phone
+                  </span>
+                  <a
+                    href={`tel:${selectedBooking.phone}`}
+                    className="text-sm font-semibold text-brand-ink hover:text-brand-primary mt-0.5 block"
+                  >
                     {selectedBooking.phone}
                   </a>
                 </div>
@@ -233,22 +325,38 @@ export default function BookingsSection() {
 
             {/* Tutoring Requirements */}
             <div className="bg-brand-cream-warm/20 border border-brand-rule rounded-xl p-5">
-              <h3 className="font-serif text-sm font-bold text-brand-ink mb-3 uppercase tracking-wider">Tutoring Requirements</h3>
+              <h3 className="font-serif text-sm font-bold text-brand-ink mb-3 uppercase tracking-wider">
+                Tutoring Requirements
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">Subject</span>
-                  <span className="text-sm font-semibold text-brand-ink mt-0.5 block">{selectedBooking.subject}</span>
+                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">
+                    Subject
+                  </span>
+                  <span className="text-sm font-semibold text-brand-ink mt-0.5 block">
+                    {selectedBooking.subject}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">Grade</span>
-                  <span className="text-sm font-semibold text-brand-ink mt-0.5 block">{selectedBooking.grade}</span>
+                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">
+                    Grade
+                  </span>
+                  <span className="text-sm font-semibold text-brand-ink mt-0.5 block">
+                    {selectedBooking.grade}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">Format</span>
-                  <span className="text-sm font-semibold text-brand-ink mt-0.5 block">{selectedBooking.format}</span>
+                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">
+                    Format
+                  </span>
+                  <span className="text-sm font-semibold text-brand-ink mt-0.5 block">
+                    {selectedBooking.format}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">Assigned Tutor</span>
+                  <span className="text-[10px] uppercase font-bold text-brand-muted tracking-wider block">
+                    Assigned Tutor
+                  </span>
                   <span className="text-sm font-semibold text-brand-primary uppercase mt-0.5 block">
                     {getTutorName(selectedBooking.tutorId)}
                   </span>
@@ -259,7 +367,9 @@ export default function BookingsSection() {
             {/* Message */}
             {selectedBooking.message && (
               <div className="bg-brand-cream-warm/20 border border-brand-rule rounded-xl p-5">
-                <h3 className="font-serif text-sm font-bold text-brand-ink mb-2 uppercase tracking-wider">Goals & Special Requirements</h3>
+                <h3 className="font-serif text-sm font-bold text-brand-ink mb-2 uppercase tracking-wider">
+                  Goals & Special Requirements
+                </h3>
                 <p className="text-brand-muted text-sm leading-relaxed italic bg-white border border-brand-rule/60 rounded-lg p-3">
                   &quot;{selectedBooking.message}&quot;
                 </p>
@@ -268,7 +378,9 @@ export default function BookingsSection() {
 
             {/* Status Control */}
             <div className="border border-brand-rule rounded-xl p-5">
-              <h3 className="font-serif text-sm font-bold text-brand-ink mb-3">Update Status</h3>
+              <h3 className="font-serif text-sm font-bold text-brand-ink mb-3">
+                Update Status
+              </h3>
               <select
                 disabled={updating}
                 value={selectedBooking.status}
@@ -277,10 +389,10 @@ export default function BookingsSection() {
                   selectedBooking.status === "pending"
                     ? "bg-amber-50 text-amber-800 border-amber-200"
                     : selectedBooking.status === "confirmed"
-                    ? "bg-blue-50 text-blue-800 border-blue-200"
-                    : selectedBooking.status === "completed"
-                    ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-                    : "bg-red-50 text-red-800 border-red-200"
+                      ? "bg-blue-50 text-blue-800 border-blue-200"
+                      : selectedBooking.status === "completed"
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                        : "bg-red-50 text-red-800 border-red-200"
                 }`}
               >
                 <option value="pending">Pending</option>
@@ -292,9 +404,12 @@ export default function BookingsSection() {
 
             {/* Danger Zone */}
             <div className="bg-red-50/50 rounded-xl border border-red-200/60 p-5">
-              <h3 className="font-serif text-sm font-bold text-red-800 mb-2">Danger Zone</h3>
+              <h3 className="font-serif text-sm font-bold text-red-800 mb-2">
+                Danger Zone
+              </h3>
               <p className="text-[11px] text-red-700/80 leading-relaxed mb-3">
-                Deleting this booking permanently removes it from the database. This action is irreversible.
+                Deleting this booking permanently removes it from the database.
+                This action is irreversible.
               </p>
               <button
                 onClick={handleDelete}
