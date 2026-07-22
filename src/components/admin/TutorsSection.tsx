@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Add, GraduationCapIcon } from "@hugeicons/core-free-icons";
+import { Add, GraduationCapIcon, Key } from "@hugeicons/core-free-icons";
+import { tutorUploadAction } from "@/app/actions";
 
 const AVAILABLE_GRADES = [
   "All",
@@ -41,7 +42,7 @@ export default function TutorsSection() {
   // Form fields
   const [name, setName] = useState("");
   const [initials, setInitials] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [specialtyInput, setSpecialtyInput] = useState("");
   const [grades, setGrades] = useState<string[]>([]);
@@ -67,7 +68,7 @@ export default function TutorsSection() {
   const resetForm = () => {
     setName("");
     setInitials("");
-    setImage("");
+    setImage(null);
     setSpecialties([]);
     setSpecialtyInput("");
     setGrades([]);
@@ -145,7 +146,7 @@ export default function TutorsSection() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -160,14 +161,18 @@ export default function TutorsSection() {
 
     setSubmitting(true);
 
-    const payload = {
-      name,
-      initials: initials || undefined,
-      image: image || undefined,
-      specialties,
-      grades,
-      bio,
-    };
+    const formData = new FormData(e.currentTarget);
+    // const result = tutorUploadAction(formData);
+    // const payload = {
+    //   name,
+    //   initials: initials || undefined,
+    //   image: image || null,
+    //   specialties,
+    //   grades,
+    //   bio,
+    // };
+    formData.append("grades", JSON.stringify(grades));
+    formData.append("specialities", JSON.stringify(specialties));
 
     try {
       const url = editingId ? `/api/tutors/${editingId}` : "/api/tutors";
@@ -175,8 +180,8 @@ export default function TutorsSection() {
 
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        // headers: { "Content-Type": "application/json" },
+        body: formData,
       });
 
       const result = await res.json();
@@ -357,7 +362,6 @@ export default function TutorsSection() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            {/* Name */}
             <div>
               <label
                 htmlFor="tutor-name"
@@ -367,10 +371,11 @@ export default function TutorsSection() {
               </label>
               <input
                 type="text"
+                name="name"
                 id="tutor-name"
                 required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                // value={name}
+                // onChange={(e) => setName(e.target.value)}
                 className={inputClass}
                 placeholder="e.g. Hanna G."
               />
@@ -389,9 +394,10 @@ export default function TutorsSection() {
               </label>
               <input
                 type="text"
+                name="initials"
                 id="tutor-initials"
-                value={initials}
-                onChange={(e) => setInitials(e.target.value)}
+                // value={initials}
+                // onChange={(e) => setInitials(e.target.value)}
                 maxLength={3}
                 className={inputClass}
                 placeholder="e.g. HG"
@@ -412,6 +418,7 @@ export default function TutorsSection() {
               <div className="flex gap-4 items-center">
                 <input
                   type="file"
+                  name="image"
                   id="tutor-image"
                   accept="image/*"
                   onChange={(e) => {
@@ -421,16 +428,12 @@ export default function TutorsSection() {
                         alert("Image size should be less than 2MB");
                         return;
                       }
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setImage(reader.result as string);
-                      };
-                      reader.readAsDataURL(file);
+                      setImage(file);
                     }
                   }}
                   className="flex-1 px-4 py-2.5 rounded-xl border border-brand-rule bg-brand-cream-warm/30 text-brand-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-primary file:text-brand-paper file:cursor-pointer hover:file:bg-brand-primary-deep"
                 />
-                {image && (
+                {/* {image && (
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden border border-brand-rule flex-shrink-0 bg-brand-cream-warm flex items-center justify-center">
                       <img
@@ -447,11 +450,10 @@ export default function TutorsSection() {
                       Remove
                     </button>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
 
-            {/* Specialties (Tag Input) */}
             <div>
               <label
                 htmlFor="tutor-specialties"
@@ -541,6 +543,7 @@ export default function TutorsSection() {
               </label>
               <textarea
                 id="tutor-bio"
+                name="bio"
                 required
                 rows={4}
                 value={bio}

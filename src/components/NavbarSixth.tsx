@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Menu01Icon,
@@ -45,7 +45,6 @@ export default function NavbarSixth() {
               Home
             </Link>
 
-            {/* Programs Dropdown List */}
             <div className="relative group py-2">
               <Link
                 href="/programs"
@@ -97,7 +96,6 @@ export default function NavbarSixth() {
               </div>
             </div>
 
-            {/* Partnerships Dropdown List */}
             <div className="relative group py-2">
               <Link
                 href="/schools"

@@ -8,9 +8,6 @@ import {
   Award01Icon,
   GraduationCapIcon,
   ArrowRight02Icon,
-  Book,
-  BookA,
-  PencilEdit02Icon,
   Calendar,
 } from "@hugeicons/core-free-icons";
 import { db } from "@/db/db";

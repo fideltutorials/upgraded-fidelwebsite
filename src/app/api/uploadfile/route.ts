@@ -3,14 +3,21 @@ import { writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { getAdminSession } from "@/lib/auth";
 
-export async function POST(request: Request) {
+function cleanFileName(filename: string) {
+  return filename.replace(/[^a-zA-Z0-9.-]/g, "_");
+}
+
+export async function POST(
+  formData: FormData,
+  format: "image" | "file" = "image",
+  filename?: string,
+) {
   try {
     const admin = await getAdminSession();
     if (!admin) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const formData = await request.formData();
     const file = formData.get("file") as File | null;
 
     if (!file) {
@@ -20,21 +27,17 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure the uploads directory exists
-    const uploadsDir = join(process.cwd(), "public", "uploads");
+    const uploadsDir = join(process.cwd(), "public", "uploads", format + "s");
     await mkdir(uploadsDir, { recursive: true });
 
-    // Generate unique file name
     const timestamp = Date.now();
-    const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const uniqueFileName = `${timestamp}_${cleanFileName}`;
+    const cleanedFileName = cleanFileName(filename ?? file.name);
+    const uniqueFileName = `${cleanedFileName}_${timestamp}`;
     const filePath = join(uploadsDir, uniqueFileName);
 
-    // Write file
     await writeFile(filePath, buffer);
 
-    const publicUrl = `/uploads/${uniqueFileName}`;
-    return NextResponse.json({ url: publicUrl });
+    return NextResponse.json({ filename: uniqueFileName });
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json(
