@@ -8,6 +8,8 @@ import {
   FilterIcon,
   Cancel01Icon,
 } from "@hugeicons/core-free-icons";
+import { getUploadUrl } from "@/lib/utils";
+
 
 interface Tutor {
   id: number;
@@ -264,7 +266,7 @@ export default function Tutors() {
                   <div className="aspect-square bg-gradient-to-br from-brand-cream-warm to-brand-cream flex items-center justify-center relative overflow-hidden group">
                     {tutor.image ? (
                       <img
-                        src={tutor.image}
+                        src={getUploadUrl(tutor.image, "images")}
                         alt={tutor.name}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />

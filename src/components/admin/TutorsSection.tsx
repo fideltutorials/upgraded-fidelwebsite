@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Add, GraduationCapIcon, Key } from "@hugeicons/core-free-icons";
-import { tutorUploadAction } from "@/app/actions";
+import { Add, GraduationCapIcon } from "@hugeicons/core-free-icons";
+import Image from "next/image";
+import { getUploadUrl } from "@/lib/utils";
 
 const AVAILABLE_GRADES = [
   "All",
@@ -42,7 +43,9 @@ export default function TutorsSection() {
   // Form fields
   const [name, setName] = useState("");
   const [initials, setInitials] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFilename, setImageFilename] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [specialtyInput, setSpecialtyInput] = useState("");
   const [grades, setGrades] = useState<string[]>([]);
@@ -68,7 +71,9 @@ export default function TutorsSection() {
   const resetForm = () => {
     setName("");
     setInitials("");
-    setImage(null);
+    setImageFile(null);
+    setImageFilename(null);
+    setPreviewUrl(null);
     setSpecialties([]);
     setSpecialtyInput("");
     setGrades([]);
@@ -95,7 +100,8 @@ export default function TutorsSection() {
         const data = await res.json();
         setName(data.name);
         setInitials(data.initials);
-        setImage(data.image || "");
+        setImageFilename(data.image || null);
+        setPreviewUrl(data.image ? getUploadUrl(data.image, "images") : null);
         setSpecialties(data.specialties || []);
         setGrades(data.grades || []);
         setBio(data.bio);
@@ -146,6 +152,28 @@ export default function TutorsSection() {
     }
   };
 
+  const handleImageUpload = async (): Promise<string | null> => {
+    if (!imageFile) return imageFilename;
+    const formData = new FormData();
+    formData.append("file", imageFile);
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        return result.filename;
+      } else {
+        return null;
+      }
+    } catch {
+      return null;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -161,31 +189,26 @@ export default function TutorsSection() {
 
     setSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    // const result = tutorUploadAction(formData);
-    // const payload = {
-    //   name,
-    //   initials: initials || undefined,
-    //   image: image || null,
-    //   specialties,
-    //   grades,
-    //   bio,
-    // };
-    formData.append("grades", JSON.stringify(grades));
-    formData.append("specialities", JSON.stringify(specialties));
+    const finalFilename = imageFile ? await handleImageUpload() : imageFilename;
+
+    const payload = {
+      name,
+      initials: initials || undefined,
+      image: finalFilename || null,
+      specialties,
+      grades,
+      bio,
+    };
 
     try {
       const url = editingId ? `/api/tutors/${editingId}` : "/api/tutors";
       const method = editingId ? "PUT" : "POST";
-
       const res = await fetch(url, {
         method,
-        // headers: { "Content-Type": "application/json" },
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-
       const result = await res.json();
-
       if (res.ok) {
         setFormOpen(false);
         resetForm();
@@ -194,6 +217,7 @@ export default function TutorsSection() {
       } else {
         setError(result.error || "Failed to save tutor");
       }
+
     } catch {
       setError("Network error. Please try again.");
     } finally {
@@ -296,11 +320,13 @@ export default function TutorsSection() {
                   >
                     <td className="px-5 py-4">
                       {tutor.image ? (
-                        <img
-                          src={tutor.image}
-                          alt={tutor.name}
-                          className="w-10 h-10 rounded-full object-cover border border-brand-rule"
-                        />
+                        <div className="w-10 h-10 rounded-full overflow-hidden border border-brand-rule flex-shrink-0 bg-brand-cream-warm flex items-center justify-center relative">
+                          <img
+                            src={getUploadUrl(tutor.image, "images")}
+                            alt={tutor.name}
+                            className="w-full h-full object-cover rounded-full"
+                          />
+                        </div>
                       ) : (
                         <div className="w-10 h-10 rounded-full bg-brand-primary text-brand-secondary flex items-center justify-center font-serif text-sm font-semibold shadow-sm">
                           {tutor.initials}
@@ -374,8 +400,8 @@ export default function TutorsSection() {
                 name="name"
                 id="tutor-name"
                 required
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className={inputClass}
                 placeholder="e.g. Hanna G."
               />
@@ -396,8 +422,8 @@ export default function TutorsSection() {
                 type="text"
                 name="initials"
                 id="tutor-initials"
-                // value={initials}
-                // onChange={(e) => setInitials(e.target.value)}
+                value={initials}
+                onChange={(e) => setInitials(e.target.value)}
                 maxLength={3}
                 className={inputClass}
                 placeholder="e.g. HG"
@@ -424,35 +450,41 @@ export default function TutorsSection() {
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     if (file) {
-                      if (file.size > 2 * 1024 * 1024) {
-                        alert("Image size should be less than 2MB");
+                      if (file.size > 5 * 1024 * 1024) {
+                        alert("Image size should be less than 5MB");
                         return;
                       }
-                      setImage(file);
+                      setImageFile(file);
+                      setPreviewUrl(URL.createObjectURL(file));
                     }
                   }}
                   className="flex-1 px-4 py-2.5 rounded-xl border border-brand-rule bg-brand-cream-warm/30 text-brand-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-primary file:text-brand-paper file:cursor-pointer hover:file:bg-brand-primary-deep"
                 />
-                {/* {image && (
+                {previewUrl && (
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full overflow-hidden border border-brand-rule flex-shrink-0 bg-brand-cream-warm flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border border-brand-rule flex-shrink-0 bg-brand-cream-warm flex items-center justify-center relative">
                       <img
-                        src={image}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
+                        src={previewUrl}
+                        alt={name || "Preview"}
+                        className="w-full h-full rounded-full object-cover"
                       />
                     </div>
                     <button
                       type="button"
-                      onClick={() => setImage("")}
+                      onClick={() => {
+                        setImageFile(null);
+                        setImageFilename(null);
+                        setPreviewUrl(null);
+                      }}
                       className="text-xs text-red-600 hover:text-red-800 font-semibold cursor-pointer"
                     >
                       Remove
                     </button>
                   </div>
-                )} */}
+                )}
               </div>
             </div>
+
 
             <div>
               <label

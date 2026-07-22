@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
 import { desc, eq } from "drizzle-orm";
-import { join } from "node:path";
 import { db } from "@/db/db";
 import { tutors } from "@/db/schema";
 import { getAdminSession } from "@/lib/auth";
-import { generateImageName } from "@/lib/utils";
-import { mkdir } from "node:fs/promises";
 
 export async function GET() {
   try {
@@ -34,17 +31,9 @@ export async function POST(request: Request) {
     if (!admin) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const formData = await request.formData();
-    const name = formData.get("name") as string;
-    const initials = formData.get("initials") as string;
-    const image = formData.get("image") as File;
-    const specialties = JSON.parse(formData.get("specialities") as string);
-    const grades = JSON.parse(formData.get("grades") as string);
-    const bio = formData.get("bio") as string;
 
-    // const { name, initials, image, specialties, grades, bio } =
-    //   await request.json();
-    console.log(name, initials, image, specialties, grades, bio);
+    const { name, initials, image, specialties, grades, bio } =
+      await request.json();
 
     if (!name) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 });
@@ -79,43 +68,33 @@ export async function POST(request: Request) {
         .toUpperCase();
     }
 
-    const bytes = await image.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const now = new Date().toISOString();
+    const [insertResult] = await db.insert(tutors).values({
+      name,
+      initials: finalInitials,
+      image: image || null,
+      specialties: JSON.stringify(specialties),
+      grades: JSON.stringify(grades),
+      bio,
+      createdAt: now,
+      updatedAt: now,
+    });
 
-    const timestamp = Date.now();
-    const cleanImageName = image.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const finalImageName = `${cleanImageName}_${timestamp}`;
+    const insertId = insertResult.insertId;
+    const results = await db
+      .select()
+      .from(tutors)
+      .where(eq(tutors.id, insertId));
+    const createdTutor = results[0];
 
-    const uploadsDir = join(process.cwd(), "public", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
-
-    // const now = new Date().toISOString();
-    // const [insertResult] = await db.insert(tutors).values({
-    //   name,
-    //   initials: finalInitials,
-    //   image: image || null,
-    //   specialties: JSON.stringify(specialties),
-    //   grades: JSON.stringify(grades),
-    //   bio,
-    //   createdAt: now,
-    //   updatedAt: now,
-    // });
-
-    // const insertId = insertResult.insertId;
-    // const results = await db
-    //   .select()
-    //   .from(tutors)
-    //   .where(eq(tutors.id, insertId));
-    // const createdTutor = results[0];
-
-    // return NextResponse.json(
-    //   {
-    //     ...createdTutor,
-    //     specialties: JSON.parse(createdTutor.specialties || "[]"),
-    //     grades: JSON.parse(createdTutor.grades || "[]"),
-    //   },
-    //   { status: 201 },
-    // );
+    return NextResponse.json(
+      {
+        ...createdTutor,
+        specialties: JSON.parse(createdTutor.specialties || "[]"),
+        grades: JSON.parse(createdTutor.grades || "[]"),
+      },
+      { status: 201 },
+    );
   } catch (error) {
     console.error("Create tutor error:", error);
     return NextResponse.json(

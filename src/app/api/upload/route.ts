@@ -1,7 +1,21 @@
 import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "node:fs/promises";
-import { join } from "node:path";
+import path, { join } from "node:path";
 import { getAdminSession } from "@/lib/auth";
+
+const IMAGE_EXTENSIONS = new Set([
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".webp",
+  ".gif",
+  ".svg",
+  ".avif",
+]);
+
+function sanitizeName(str: string): string {
+  return str.replace(/[^a-zA-Z0-9.-]/g, "_");
+}
 
 export async function POST(request: Request) {
   try {
@@ -17,24 +31,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
+    const extension = path.extname(file.name).toLowerCase();
+    const baseName = file.name.slice(0, file.name.length - extension.length);
+    const sanitizedBase = sanitizeName(baseName);
+    const isImage = IMAGE_EXTENSIONS.has(extension);
+    const folder = isImage ? "images" : "files";
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure the uploads directory exists
-    const uploadsDir = join(process.cwd(), "public", "uploads");
+    const uploadsDir = join(process.cwd(), "public", "uploads", folder);
     await mkdir(uploadsDir, { recursive: true });
 
-    // Generate unique file name
     const timestamp = Date.now();
-    const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const uniqueFileName = `${timestamp}_${cleanFileName}`;
+    const uniqueFileName = `${sanitizedBase}_${timestamp}${extension}`;
     const filePath = join(uploadsDir, uniqueFileName);
 
-    // Write file
     await writeFile(filePath, buffer);
 
-    const publicUrl = `/uploads/${uniqueFileName}`;
-    return NextResponse.json({ url: publicUrl });
+    const publicUrl = `/uploads/${folder}/${uniqueFileName}`;
+
+    return NextResponse.json({
+      filename: uniqueFileName,
+      url: publicUrl,
+      originalName: file.name,
+      category: folder,
+    });
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json(
@@ -43,3 +65,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

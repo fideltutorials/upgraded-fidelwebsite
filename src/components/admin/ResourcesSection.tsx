@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import SlideOver from "./SlideOver";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Add } from "@hugeicons/core-free-icons";
+import { getUploadUrl } from "@/lib/utils";
+
 
 interface Resource {
   id: number;
@@ -90,7 +92,7 @@ export default function ResourcesSection() {
 
       if (res.ok) {
         const data = await res.json();
-        setFileUrl(data.url);
+        setFileUrl(data.filename || data.url);
       } else {
         alert("Upload failed. Make sure the file is valid.");
       }
@@ -250,7 +252,7 @@ export default function ResourcesSection() {
                 </h4>
                 {item.file && (
                   <a
-                    href={item.file}
+                    href={getUploadUrl(item.file, "files")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[10px] text-brand-primary font-semibold hover:underline block break-all mt-1"
