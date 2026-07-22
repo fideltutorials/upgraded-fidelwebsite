@@ -10,6 +10,8 @@ import {
   PencilEdit02Icon,
   RightAngleIcon,
 } from "@hugeicons/core-free-icons";
+import { getUploadUrl } from "@/lib/utils";
+
 
 interface BlogPost {
   id: number;
@@ -99,7 +101,7 @@ export default function Blog() {
                   {blog.coverImage ? (
                     <div className="aspect-[16/9] overflow-hidden">
                       <img
-                        src={blog.coverImage}
+                        src={getUploadUrl(blog.coverImage, "images")}
                         alt={blog.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

@@ -8,6 +8,8 @@ import {
   PencilEdit02Icon,
   PencilEditIcon,
 } from "@hugeicons/core-free-icons";
+import { getUploadUrl } from "@/lib/utils";
+
 
 interface BlogPost {
   id: number;
@@ -36,6 +38,8 @@ export default function BlogsSection() {
   const [manualSlug, setManualSlug] = useState(false);
   const [author, setAuthor] = useState("Fidel Tutorial");
   const [coverImage, setCoverImage] = useState("");
+  const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(null);
   const [excerpt, setExcerpt] = useState("");
   const [body, setBody] = useState("");
   const [published, setPublished] = useState(false);
@@ -73,6 +77,8 @@ export default function BlogsSection() {
     setManualSlug(false);
     setAuthor("Fidel Tutorial");
     setCoverImage("");
+    setCoverImageFile(null);
+    setCoverImagePreview(null);
     setExcerpt("");
     setBody("");
     setPublished(false);
@@ -101,6 +107,7 @@ export default function BlogsSection() {
         setManualSlug(true);
         setAuthor(data.author);
         setCoverImage(data.coverImage || "");
+        setCoverImagePreview(data.coverImage ? getUploadUrl(data.coverImage, "images") : null);
         setExcerpt(data.excerpt);
         setBody(data.body);
         setPublished(data.published);
@@ -130,11 +137,29 @@ export default function BlogsSection() {
     setError("");
     setSubmitting(true);
 
+    let finalCoverImage = coverImage || null;
+    if (coverImageFile) {
+      const formData = new FormData();
+      formData.append("file", coverImageFile);
+      try {
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+        if (uploadRes.ok) {
+          const uploadData = await uploadRes.json();
+          finalCoverImage = uploadData.filename || uploadData.url;
+        }
+      } catch (err) {
+        console.error("Cover image upload error:", err);
+      }
+    }
+
     const payload = {
       title,
       slug: slug || slugify(title),
       author,
-      coverImage: coverImage || null,
+      coverImage: finalCoverImage,
       excerpt,
       body,
       published,
@@ -253,6 +278,9 @@ export default function BlogsSection() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-brand-cream-warm/60 border-b border-brand-rule">
+                  <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider w-16">
+                    Cover
+                  </th>
                   <th className="text-left px-5 py-3 font-semibold text-brand-ink text-xs uppercase tracking-wider">
                     Title
                   </th>
@@ -276,6 +304,21 @@ export default function BlogsSection() {
                     key={blog.id}
                     className="hover:bg-brand-cream-warm/30 transition-colors group"
                   >
+                    <td className="px-5 py-4">
+                      {blog.coverImage ? (
+                        <div className="w-12 h-8 rounded-lg overflow-hidden border border-brand-rule flex-shrink-0 bg-brand-cream-warm">
+                          <img
+                            src={getUploadUrl(blog.coverImage, "images")}
+                            alt={blog.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-12 h-8 rounded-lg bg-brand-cream-warm border border-brand-rule flex items-center justify-center text-brand-muted text-[10px] font-semibold">
+                          No img
+                        </div>
+                      )}
+                    </td>
                     <td className="px-5 py-4">
                       <div className="font-medium text-brand-ink group-hover:text-brand-primary transition-colors">
                         {blog.title}
@@ -419,25 +462,71 @@ export default function BlogsSection() {
               />
             </div>
 
-            {/* Cover Image URL */}
+            {/* Cover Image */}
             <div>
               <label
                 htmlFor="blog-cover"
                 className="block text-xs font-semibold text-brand-ink mb-1.5 uppercase tracking-wider"
               >
-                Cover Image URL
+                Cover Image
                 <span className="text-brand-muted font-normal normal-case tracking-normal ml-1">
-                  (optional)
+                  (upload file or paste URL/filename)
                 </span>
               </label>
-              <input
-                type="url"
-                id="blog-cover"
-                value={coverImage}
-                onChange={(e) => setCoverImage(e.target.value)}
-                className={inputClass}
-                placeholder="https://example.com/image.jpg"
-              />
+              <div className="flex flex-col gap-3">
+                <input
+                  type="file"
+                  id="blog-cover-file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      if (file.size > 5 * 1024 * 1024) {
+                        alert("Image size should be less than 5MB");
+                        return;
+                      }
+                      setCoverImageFile(file);
+                      setCoverImagePreview(URL.createObjectURL(file));
+                    }
+                  }}
+                  className="w-full px-4 py-2.5 rounded-xl border border-brand-rule bg-brand-cream-warm/30 text-brand-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-primary file:text-brand-paper file:cursor-pointer hover:file:bg-brand-primary-deep"
+                />
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    id="blog-cover"
+                    value={coverImage}
+                    onChange={(e) => {
+                      setCoverImage(e.target.value);
+                      setCoverImagePreview(e.target.value ? getUploadUrl(e.target.value, "images") : null);
+                    }}
+                    className={inputClass}
+                    placeholder="Or enter filename/URL (e.g. cover.jpg or https://...)"
+                  />
+                </div>
+                {(coverImagePreview || coverImage) && (
+                  <div className="flex items-center gap-3 mt-1">
+                    <div className="w-20 h-12 rounded-lg overflow-hidden border border-brand-rule flex-shrink-0 bg-brand-cream-warm relative">
+                      <img
+                        src={coverImagePreview || getUploadUrl(coverImage, "images")}
+                        alt="Cover preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCoverImage("");
+                        setCoverImageFile(null);
+                        setCoverImagePreview(null);
+                      }}
+                      className="text-xs text-red-600 hover:text-red-800 font-semibold cursor-pointer"
+                    >
+                      Remove Cover
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Excerpt */}

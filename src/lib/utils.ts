@@ -8,12 +8,19 @@ export function cn(...inputs: ClassValue[]) {
   type: "images" | "files" = "images"
 ): string {
   if (!filenameOrUrl) return "";
+  const trimmed = filenameOrUrl.trim();
   if (
-    filenameOrUrl.startsWith("http://") ||
-    filenameOrUrl.startsWith("https://") ||
-    filenameOrUrl.startsWith("/")
+    trimmed.startsWith("http://") ||
+    trimmed.startsWith("https://") ||
+    trimmed.startsWith("/") ||
+    trimmed.startsWith("data:") ||
+    trimmed.startsWith("blob:")
   ) {
-    return filenameOrUrl;
+    return trimmed;
   }
-  return `/uploads/${type}/${filenameOrUrl}`;
+  if (trimmed.startsWith("images/") || trimmed.startsWith("files/")) {
+    return `/uploads/${trimmed}`;
+  }
+  return `/uploads/${type}/${trimmed}`;
 }
+

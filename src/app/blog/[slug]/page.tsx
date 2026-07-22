@@ -6,6 +6,8 @@ import Layout from "@/layouts/Layout";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowLeft02Icon, ArrowRight02Icon } from "@hugeicons/core-free-icons";
+import { getUploadUrl } from "@/lib/utils";
+
 
 interface BlogPostData {
   id: number;
@@ -139,7 +141,7 @@ export default function BlogPost() {
           {blog.coverImage && (
             <div className="rounded-2xl overflow-hidden border border-brand-rule mb-10 shadow-sm">
               <img
-                src={blog.coverImage}
+                src={getUploadUrl(blog.coverImage, "images")}
                 alt={blog.title}
                 className="w-full h-auto"
               />
